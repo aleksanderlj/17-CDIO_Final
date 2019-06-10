@@ -11,18 +11,58 @@ public class UserDAO implements IDAO<User> {
     ConnectionController connectionController = new ConnectionController();
 
     @Override
-    public int create(User objekt) throws DALException, SQLException {
+    public int create(User user) throws DALException, SQLException {
         Connection connection = connectionController.createConnection();
 
+        try{
+            connection.setAutoCommit(false);
 
+            PreparedStatement statement = connection.prepareStatement
+                    ("INSERT INTO bruger (brugerID, brugerNavn, ini, cpr, aktiv) VALUES (?,?,?,?,?);");
+            statement.setInt(1, user.getBrugerId());
+            statement.setString(2,user.getBrugerNavn());
+            statement.setString(3,user.getIni());
+            statement.setString(4,user.getCpr());
+            statement.setBoolean(5,user.isAktiv());
+            statement.executeUpdate();
 
+            connection.commit();
+        }catch (SQLException e){
+            connection.rollback();
+            e.printStackTrace();
+        }
+        connection.close();
         return 0;
     }
 
     @Override
     public User get(int id) throws DALException, SQLException {
-        //TODO - Lav metode
-        return null;
+        Connection connection = connectionController.createConnection();
+        User user = new User();
+        user.setBrugerId(id);
+
+        try{
+            connection.setAutoCommit(false);
+
+            PreparedStatement statement = connection.prepareStatement
+                    ("SELECT * FROM bruger WHERE brugerID = ?;");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()){
+                user.setBrugerNavn(resultSet.getString(2));
+                user.setIni(resultSet.getString(3));
+                user.setCpr(resultSet.getString(4));
+                user.setAktiv(resultSet.getBoolean(5));
+            }
+
+            connection.commit();
+        }catch (SQLException e){
+            connection.rollback();
+            e.printStackTrace();
+        }
+        connection.close();
+        return user;
     }
 
     @Override

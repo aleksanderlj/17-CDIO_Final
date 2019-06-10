@@ -1,15 +1,21 @@
 package DAL.DAO;
 
+import DAL.ConnectionController;
 import DAL.DTO.User;
 
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class UserDAO implements IDAO<User> {
 
+    ConnectionController connectionController = new ConnectionController();
+
     @Override
     public int create(User objekt) throws DALException, SQLException {
-        //TODO - Lav metode
+        Connection connection = connectionController.createConnection();
+
+
+
         return 0;
     }
 
@@ -20,15 +26,14 @@ public class UserDAO implements IDAO<User> {
     }
 
     @Override
-    public List<User> getList() throws DALException, SQLException {
+    public User[] getList() throws DALException, SQLException {
         //TODO - Lav metode
         return null;
     }
 
     @Override
-    public int update(User objekt) throws DALException, SQLException {
+    public void update(User objekt) throws DALException, SQLException {
         //TODO - Lav metode
-        return 0;
     }
 
     @Override

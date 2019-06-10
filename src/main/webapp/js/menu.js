@@ -3,9 +3,11 @@ $(function(){
         loadFP();
     });
 
+    /*
     $('#usermenu_btn').click(function(){
         loadBrugere();
     });
+    */
 
     $('#raavaremenu_btn').click(function(){
         loadRaavarer();

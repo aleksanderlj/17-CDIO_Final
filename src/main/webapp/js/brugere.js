@@ -4,6 +4,6 @@ $(function(){
     });
 
     function loadMenu(){
-        $('#maincontainer').load("menu.html");
+        $('#maincontainer').load("frontpage.html");
     }
 });

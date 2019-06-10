@@ -1,25 +1,25 @@
 package DAL.DTO;
 
 public class ProduktBatch{
-    private int produktBatchId, receptId, batchStatus;
+    private int id, receptId, batchStatus;
     private String opstartDato, slutDato;
 
     public ProduktBatch(){ }
 
     public ProduktBatch(int produktBatchId, int receptId, int batchStatus, String opstartDato, String slutDato) {
-        this.produktBatchId = produktBatchId;
+        this.id = produktBatchId;
         this.receptId = receptId;
         this.batchStatus = batchStatus;
         this.opstartDato = opstartDato;
         this.slutDato = slutDato;
     }
 
-    public int getProduktBatchId() {
-        return produktBatchId;
+    public int getId() {
+        return id;
     }
 
-    public void setProduktBatchId(int produktBatchId) {
-        this.produktBatchId = produktBatchId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getReceptId() {

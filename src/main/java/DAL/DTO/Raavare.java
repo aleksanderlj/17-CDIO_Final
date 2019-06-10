@@ -1,30 +1,30 @@
 package DAL.DTO;
 
 public class Raavare {
-    private int receptId = 0;
-    private String receptNavn = "";
+    private int id = 0;
+    private String navn = "";
 
     public Raavare(){ }
 
     public Raavare(int receptId, String receptNavn){
-        this.receptId = receptId;
-        this.receptNavn = receptNavn;
+        this.id = receptId;
+        this.navn = receptNavn;
     }
 
     // getters & setters
-    public int getReceptId() {
-        return receptId;
+    public int getId() {
+        return id;
     }
 
-    public void setReceptId(int receptId) {
-        this.receptId = receptId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getReceptNavn() {
-        return receptNavn;
+    public String getNavn() {
+        return navn;
     }
 
-    public void setReceptNavn(String receptNavn) {
-        this.receptNavn = receptNavn;
+    public void setNavn(String navn) {
+        this.navn = navn;
     }
 }

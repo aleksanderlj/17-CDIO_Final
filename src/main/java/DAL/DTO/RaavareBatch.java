@@ -1,25 +1,25 @@
 package DAL.DTO;
 
 public class RaavareBatch {
-    private int raavareBatchId, raavareId;
+    private int id, raavareId;
     private double maengde;
     private String leverandoer;
 
     public RaavareBatch(){ }
 
-    public RaavareBatch(int raavareBatchId, int raavareId, double maengde, String leverandoer){
-        this.raavareBatchId = raavareBatchId;
+    public RaavareBatch(int id, int raavareId, double maengde, String leverandoer){
+        this.id = id;
         this.raavareId = raavareId;
         this.maengde = maengde;
         this.leverandoer = leverandoer;
     }
 
-    public int getRaavareBatchId() {
-        return raavareBatchId;
+    public int getId() {
+        return id;
     }
 
-    public void setRaavareBatchId(int raavareBatchId) {
-        this.raavareBatchId = raavareBatchId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getRaavareId() {

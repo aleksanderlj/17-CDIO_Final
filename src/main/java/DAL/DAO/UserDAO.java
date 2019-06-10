@@ -78,6 +78,20 @@ public class UserDAO implements IDAO<User> {
 
     @Override
     public void delete(int id) throws DALException, SQLException {
-        //TODO - Lav metode
+        Connection connection = connectionController.createConnection();
+
+        try{
+            connection.setAutoCommit(false);
+
+            PreparedStatement statement = connection.prepareStatement
+                    ("DELETE FROM bruger WHERE brugerID = ?");
+            statement.setInt(1,id);
+            statement.executeUpdate();
+
+            connection.commit();
+        }catch(SQLException e){
+            e.printStackTrace();
+            connection.rollback();
+        }
     }
 }

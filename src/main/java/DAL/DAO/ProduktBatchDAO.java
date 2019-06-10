@@ -1,13 +1,13 @@
 package DAL.DAO;
 
-import DAL.DTO.IProduktBatch;
+//import DAL.DTO.IProduktBatch;
 import java.sql.SQLException;
-import DAL.DTO.ProduktBatch
+import DAL.DTO.ProduktBatch;
 
-public class ProduktBatchDAO implements IDAO<IProduktBatch> {
+public class ProduktBatchDAO implements IDAO<ProduktBatch> {
 
     @Override
-    public int create(IProduktBatch produktBatch) throws SQLException {
+    public int create(ProduktBatch produktBatch) throws SQLException {
         return 0;
     }
 }

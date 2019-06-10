@@ -1,4 +1,10 @@
 package DAL.DTO;
 
-public class ProduktBatch implements IProduktBatch {
+public class ProduktBatch{
+
+
+    public ProduktBatch() {
+
+    }
+
 }

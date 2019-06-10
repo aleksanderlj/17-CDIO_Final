@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="js/brugere.js"></script>
+</head>
+<body>
+<div>
+    Brugere
+    <br><br>
+
+    <form id="brugerFrom" method="post">
+    BrugerID:
+    <input type="text" id="user_id">
+    <br>
+    Navn:
+    <input type="text" id="user_name">
+    <br>
+    Ini:
+    <input type="text" id="user_ini">
+    <br>
+    CPR:
+    <input type="text" id="user_cpr">
+        <br>
+        <input type="submit" value="Opret bruger">
+    </form>
+</div>
+
+<div id="mydata">
+    <b><h2>Brugere i systemmet </h2></b>
+    <table id="myTableData"  border="1" cellpadding="2">
+        <tr>
+            <td> </td>
+            <td><b>ID</b></td>
+            <td><b>Username</b></td>
+            <td><b>Initials</b></td>
+            <td><b>Roles</b></td>
+            <td> </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

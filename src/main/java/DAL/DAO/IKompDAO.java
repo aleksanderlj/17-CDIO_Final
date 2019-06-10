@@ -6,9 +6,9 @@ import java.util.List;
 public interface IKompDAO<E> {
     int create(E objekt) throws DALException, SQLException;
     E get(int primaryId, int secondaryId) throws DALException, SQLException;
-    List<E> getList(int id) throws DALException, SQLException;
-    List<E> getList() throws DALException, SQLException;
-    int update(E objekt) throws DALException, SQLException;
+    E[] getList(int id) throws DALException, SQLException;
+    E[] getList() throws DALException, SQLException;
+    void update(E objekt) throws DALException, SQLException;
     void delete(int id) throws DALException, SQLException;
 
     public class DALException extends Exception {

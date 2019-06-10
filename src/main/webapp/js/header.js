@@ -1,6 +1,10 @@
 $(document).ready(function(){
     $('button[name=head_btn]').hide();
 
+    $('#logoff_btn').click(function(){
+        $('#maincontainer').load("frontpage.html")
+    });
+
     $('#raavarer_head').click(function(){
         $('#maincontainer').load("admin/raavarer.html")
     });

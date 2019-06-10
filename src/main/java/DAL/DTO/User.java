@@ -5,6 +5,8 @@ public class User {
     private String brugerNavn, ini, cpr;
     private boolean aktiv;
 
+    public User(){ }
+
     public User(int brugerId, String brugerNavn, String ini, String cpr, boolean aktiv){
         this.brugerId = brugerId;
         this.brugerNavn = brugerNavn;

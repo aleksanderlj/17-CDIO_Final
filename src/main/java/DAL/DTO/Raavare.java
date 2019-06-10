@@ -4,6 +4,8 @@ public class Raavare {
     private int receptId = 0;
     private String receptNavn = "";
 
+    public Raavare(){ }
+
     public Raavare(int receptId, String receptNavn){
         this.receptId = receptId;
         this.receptNavn = receptNavn;

@@ -20,15 +20,14 @@ public class UserDAO implements IDAO<User> {
     }
 
     @Override
-    public List<User> getList() throws DALException, SQLException {
+    public User[] getList() throws DALException, SQLException {
         //TODO - Lav metode
         return null;
     }
 
     @Override
-    public int update(User objekt) throws DALException, SQLException {
+    public void update(User objekt) throws DALException, SQLException {
         //TODO - Lav metode
-        return 0;
     }
 
     @Override

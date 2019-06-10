@@ -20,15 +20,14 @@ public class ReceptDAO implements IDAO<Recept> {
     }
 
     @Override
-    public List<Recept> getList() throws DALException, SQLException {
+    public Recept[] getList() throws DALException, SQLException {
         //TODO - Lav metode
         return null;
     }
 
     @Override
-    public int update(Recept objekt) throws DALException, SQLException {
+    public void update(Recept objekt) throws DALException, SQLException {
         //TODO - Lav metode
-        return 0;
     }
 
     @Override

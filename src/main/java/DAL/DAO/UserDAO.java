@@ -19,8 +19,8 @@ public class UserDAO implements IDAO<User> {
 
             PreparedStatement statement = connection.prepareStatement
                     ("INSERT INTO bruger (brugerID, brugerNavn, ini, cpr, aktiv) VALUES (?,?,?,?,?);");
-            statement.setInt(1, user.getBrugerId());
-            statement.setString(2,user.getBrugerNavn());
+            statement.setInt(1, user.getId());
+            statement.setString(2,user.getNavn());
             statement.setString(3,user.getIni());
             statement.setString(4,user.getCpr());
             statement.setBoolean(5,user.isAktiv());
@@ -39,7 +39,7 @@ public class UserDAO implements IDAO<User> {
     public User get(int id) throws DALException, SQLException {
         Connection connection = connectionController.createConnection();
         User user = new User();
-        user.setBrugerId(id);
+        user.setId(id);
 
         try{
             connection.setAutoCommit(false);
@@ -50,7 +50,7 @@ public class UserDAO implements IDAO<User> {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()){
-                user.setBrugerNavn(resultSet.getString(2));
+                user.setNavn(resultSet.getString(2));
                 user.setIni(resultSet.getString(3));
                 user.setCpr(resultSet.getString(4));
                 user.setAktiv(resultSet.getBoolean(5));

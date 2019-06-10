@@ -1,27 +1,24 @@
 package DAL.DTO;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class Recept {
-    private int receptID;
+    private int id;
     private String navn;
     //private ArrayList<ReceptKomp> indholdsListe;
     private ReceptKomp[] indholdsListe;
 
     public Recept(){}
 /*
-    public Recept(int receptID, String navn, int[] raavareID, double[] nonNetto, double[] tolerance){
+    public Recept(int id, String navn, int[] raavareID, double[] nonNetto, double[] tolerance){
         for (int i = 0; i < raavareID.length; i++){
             indholdsListe.add(new ReceptKomp(raavareID[i], nonNetto[i], tolerance[i]));
         }
-        this.receptID = receptID;
+        this.id = id;
         this.navn = navn;
     }
 */
 
-public Recept(int receptID, String navn, ReceptKomp[] indholdsListe){
-    this.receptID = receptID;
+public Recept(int id, String navn, ReceptKomp[] indholdsListe){
+    this.id = id;
     this.navn = navn;
     this.indholdsListe = indholdsListe;
 }
@@ -30,12 +27,12 @@ public Recept(int receptID, String navn, ReceptKomp[] indholdsListe){
         this.navn = navn;
     }
 
-    public int getReceptID() {
-        return receptID;
+    public int getId() {
+        return id;
     }
 
-    public void setReceptID(int receptID) {
-        this.receptID = receptID;
+    public void setId(int id) {
+        this.id = id;
     }
 /*
     public ArrayList<ReceptKomp> getIndholdsListe() {

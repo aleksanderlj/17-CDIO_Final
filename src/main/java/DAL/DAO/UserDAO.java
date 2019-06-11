@@ -135,16 +135,12 @@ public class UserDAO implements IDAO<User> {
                     ("SELECT aktiv FROM bruger WHERE brugerID = ?;");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()){
+            if (resultSet.next())
                 aktiv = resultSet.getBoolean("aktiv");
-            }
-
             statement = connection.prepareStatement
                     ("UPDATE bruger SET aktiv = ? WHERE brugerID = ?;");
             statement.setBoolean(1, !aktiv);
             statement.setInt(2, id);
-
-
 
             connection.commit();
         }catch(SQLException e){

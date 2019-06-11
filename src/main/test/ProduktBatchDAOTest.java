@@ -1,7 +1,3 @@
-
-
-
-
 import DAL.DAO.IDAO;
 
 import java.sql.SQLException;
@@ -36,7 +32,7 @@ public class ProduktBatchDAOTest {
         produktBatchDAO.create(produktBatch);
 
 
-        resivedProduktBatch = produktBatchDAO.get(1234);
+        resivedProduktBatch = produktBatchDAO.get(1);
         assertEquals(produktBatch.getId(), resivedProduktBatch.getId());
         assertEquals(produktBatch.getReceptId(), resivedProduktBatch.getReceptId());
         assertEquals(produktBatch.getBatchStatus(), resivedProduktBatch.getBatchStatus());
@@ -51,7 +47,7 @@ public class ProduktBatchDAOTest {
         produktBatch.setSlutDato("123456");
         produktBatchDAO.update(produktBatch);
 
-        resivedProduktBatch = produktBatchDAO.get(1234);
+        resivedProduktBatch = produktBatchDAO.get(1);
         assertEquals(produktBatch.getId(), resivedProduktBatch.getId());
         assertEquals(produktBatch.getReceptId(), resivedProduktBatch.getReceptId());
         assertEquals(produktBatch.getBatchStatus(), resivedProduktBatch.getBatchStatus());
@@ -62,7 +58,7 @@ public class ProduktBatchDAOTest {
 
 
 
-        produktBatch.setId(3);
+        produktBatch.setId(2);
         produktBatch.setReceptId(1);
         produktBatch.setBatchStatus(0);
         produktBatch.setOpstartDato("061199");

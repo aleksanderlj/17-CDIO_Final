@@ -95,14 +95,16 @@ $(function(){
         }
 
         row.insertCell(0).innerHTML = data.id;
-        //row.insertCell(1).innerHTML = data.navn;
-        row.insertCell(1).appendChild(makeNametagButton(data.id, data.navn));
+        row.insertCell(1).innerHTML = data.navn;
+        //row.insertCell(1).appendChild(makeNametagButton(data.id, data.navn));
         row.insertCell(2).innerHTML = data.ini;
         row.insertCell(3).innerHTML = data.cpr;
         row.insertCell(4).innerHTML = aktiv;
         //row.insertCell(4).appendChild(makeDeleteButton(data.id));
         //row.insertCell(5).appendChild(makeUpdateButton(data.id));
 
+        row.cells[1].onclick = (function() {editMode(this)});
+        row.cells[1].className = "namebtn";
         sortTable();
 
     }
@@ -130,8 +132,13 @@ $(function(){
     }
 
     function editMode(e){
-        var row = $(e).closest('tr');
-        alert(row.id);
+        var row = e.closest('tr');
+        alert(row.rowIndex);
+        for(var n=1 ; n < 4 ; n++){
+            row.cells[n].contentEditable = "true";
+        }
+        alert(row.cells[0].innerHTML);
+        row.cells[1].onclick = (function() {editMode(this)});
     }
 
     // Creates a button for updating a row on the webpage

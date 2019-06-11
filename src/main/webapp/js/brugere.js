@@ -9,7 +9,6 @@ $(function(){
 
     function ajaxCreate() {
         var jsondata = makeJSON();
-        //jsonParsed = JSON.parse(jsondata);
         //alert("id: " + jsondata.id + "\nnavn: " + jsondata.navn + "\nini: " + jsondata.ini + "\ncpr: " + jsondata.cpr + "\naktiv: " + jsondata.aktiv);
         /*alert("jsondata.navn: " + jsondata.navn +
             "\njsonParsed.navn: " + jsonParsed.navn +
@@ -23,7 +22,8 @@ $(function(){
             data : jsondata,
             contentType : 'application/json',
             success : function(data){
-                //addRow(datajsonParsed)
+                var jsonParsed = JSON.parse(jsondata);
+                addRow(jsonParsed)
                 //alert(jsonParsed.navn);
             },
             error : function(data){
@@ -48,12 +48,12 @@ $(function(){
         return false;
     }
 
-    function ajaxDelete(id) {
+    function ajaxDelete(row, id) {
         $.ajax({
             url : 'rest/user/delete/' + id,
             type : 'POST',
             success : function(data){
-
+                deleteRow(row, id);
             },
             error : function(data){
                 alert("An unexpected error has occured: DELETE_ERROR");
@@ -75,4 +75,103 @@ $(function(){
 
         return jsonstring;
     }
+
+    //---------------------
+    //-      VISUAL       -
+    //---------------------
+    // Adds a row to the webpage and sorts the table
+    function addRow(data) {
+        var table = document.getElementById("myTableData");
+
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+        row.id = "row" + data.id;
+
+        var aktiv;
+        if(data.aktiv){
+            aktiv = "Aktiv"
+        } else{
+            aktiv = "Inaktiv"
+        }
+
+        row.insertCell(0).innerHTML = data.id;
+        //row.insertCell(1).innerHTML = data.navn;
+        row.insertCell(1).appendChild(makeNametagButton(data.id, data.navn));
+        row.insertCell(2).innerHTML = data.ini;
+        row.insertCell(3).innerHTML = data.cpr;
+        row.insertCell(4).innerHTML = aktiv;
+        //row.insertCell(4).appendChild(makeDeleteButton(data.id));
+        //row.insertCell(5).appendChild(makeUpdateButton(data.id));
+
+        sortTable();
+
+    }
+
+    // Creates a button for deleting a row on the webpage
+    function makeDeleteButton(id){
+        var btn = document.createElement('input');
+        btn.type = "button";
+        btn.name = "deletebutton";
+        btn.value = "Gør inaktiv";
+
+        btn.onclick = (function() {ajaxDelete(this, id)});
+
+        return btn;
+    }
+
+    function makeNametagButton(id, name){
+        var btn = document.createElement('input');
+        btn.type = "button";
+        btn.name = "namebutton";
+        btn.value = name;
+        btn.className = "namebtn";
+        btn.onclick = (function() {editMode(this)});
+        return btn;
+    }
+
+    function editMode(e){
+        var row = $(e).closest('tr');
+        alert(row.id);
+    }
+
+    // Creates a button for updating a row on the webpage
+    function makeUpdateButton(id){
+        var btn = document.createElement('input');
+        btn.type = "button";
+        btn.name = "updatebutton";
+        btn.value = "Update";
+        btn.onclick = (function() {});
+        return btn;
+    }
+
+    // Deletes a row from the webpage
+    function deleteRow(obj, id) {
+        var index = obj.parentNode.parentNode.rowIndex;
+        var table = document.getElementById("myTableData");
+        table.deleteRow(index);
+    }
+
+    // Sorts the table (update this to be a merge-sort for epic speed)
+    function sortTable() {
+        var table, rows, hasSwitched, x, y;
+        table = document.getElementById("myTableData");
+        hasSwitched = true;
+
+        while (hasSwitched) {
+            hasSwitched = false;
+            rows = table.rows;
+
+            for (var i = 1; i < (rows.length - 1); i++) {
+                x = rows[i].getElementsByTagName("TD")[1];
+                y = rows[i + 1].getElementsByTagName("TD")[1];
+
+                if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    hasSwitched = true;
+                    break;
+                }
+            }
+        }
+    }
+
 });

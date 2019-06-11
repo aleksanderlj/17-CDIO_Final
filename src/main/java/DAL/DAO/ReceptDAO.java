@@ -97,9 +97,9 @@ public class ReceptDAO implements IDAO<Recept> {
 
             PreparedStatement statement = connection.prepareStatement
                     ("UPDATE recept SET receptNavn = ? WHERE receptID = ?;");
-            statement.executeUpdate();
             statement.setString(1, recept.getNavn());
             statement.setInt(2,recept.getId());
+            statement.executeUpdate();
 
             connection.commit();
         }catch (SQLException e){

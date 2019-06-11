@@ -107,12 +107,12 @@ public class UserDAO implements IDAO<User> {
 
             PreparedStatement statement = connection.prepareStatement
                     ("UPDATE bruger SET brugerNavn = ?, ini = ?, cpr = ?, aktiv = ? WHERE brugerID = ?;");
-            statement.executeUpdate();
             statement.setString(1, user.getNavn());
             statement.setString(2, user.getIni());
             statement.setString(3, user.getCpr());
             statement.setBoolean(4, user.isAktiv());
             statement.setInt(5, user.getId());
+            statement.executeUpdate();
 
             connection.commit();
 

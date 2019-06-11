@@ -23,11 +23,11 @@ public class RaavareBatchDAO implements IDAO<RaavareBatch>{
             connection.setAutoCommit(false);
 
             PreparedStatement statement = connection.prepareStatement
-                    ("INSERT INTO bruger (raavareBatchID, raavareID, maengde, leverandoer) VALUES (?,?,?,?);");
+                    ("INSERT INTO raavareBatch (raavareBatchID, raavareID, maengde, leverandoer) VALUES (?,?,?,?);");
             statement.setInt(1, raavareBatch.getId());
-            statement.setInt(1, raavareBatch.getRaavareId());
-            statement.setDouble(1, raavareBatch.getMaengde());
-            statement.setString(1, raavareBatch.getLeverandoer());
+            statement.setInt(2, raavareBatch.getRaavareId());
+            statement.setDouble(3, raavareBatch.getMaengde());
+            statement.setString(4, raavareBatch.getLeverandoer());
             statement.executeUpdate();
 
             connection.commit();
@@ -49,7 +49,7 @@ public class RaavareBatchDAO implements IDAO<RaavareBatch>{
             connection.setAutoCommit(false);
 
             PreparedStatement statement = connection.prepareStatement
-                    ("SELECT * FROM bruger WHERE brugerID = ?;");
+                    ("SELECT * FROM raavareBatch WHERE raavareBatchID = ?;");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
 
@@ -103,12 +103,13 @@ public class RaavareBatchDAO implements IDAO<RaavareBatch>{
             connection.setAutoCommit(false);//transaction
 
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE raavareBatch SET raavareBatchId = ?, raavareId = ?, maengde = ?, leverandoer = ? WHERE raavareBacthID = ?;");
+                    "UPDATE raavareBatch SET raavareBatchId = ?, raavareId = ?, maengde = ?, leverandoer = ? WHERE raavareBatchID = ?;");
 
             statement.setInt(1, raavareBatch.getId());
             statement.setInt(2, raavareBatch.getRaavareId());
             statement.setDouble(3, raavareBatch.getMaengde());
             statement.setString(4, raavareBatch.getLeverandoer());
+            statement.setInt(5, raavareBatch.getId());
             statement.executeUpdate();
 
             connection.commit();//transaction

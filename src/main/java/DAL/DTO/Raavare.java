@@ -6,9 +6,9 @@ public class Raavare {
 
     public Raavare(){ }
 
-    public Raavare(int receptId, String receptNavn){
-        this.id = receptId;
-        this.navn = receptNavn;
+    public Raavare(int raavareID, String raavareNavn){
+        this.id = raavareID;
+        this.navn = raavareNavn;
     }
 
     // getters & setters

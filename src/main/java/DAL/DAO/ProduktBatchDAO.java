@@ -71,7 +71,7 @@ public class ProduktBatchDAO implements IDAO<ProduktBatch> {
             e.printStackTrace();
         }
         connection.close();
-        return null;
+        return produktBatch;
     }
 
     //todo
@@ -120,10 +120,11 @@ public class ProduktBatchDAO implements IDAO<ProduktBatch> {
             connection.setAutoCommit(false);
 
             PreparedStatement statement = connection.prepareStatement
-                    ("UPDATE produktBatch SET batchStatus = ?, slutDato = ? WHERE produktID = ?;");
-            statement.executeUpdate();
+                    ("UPDATE produktBatch SET batchStatus = ?, slutDato = ? WHERE produktBatchID = ?;");
             statement.setInt(1, produktBatch.getBatchStatus());
             statement.setString(2, produktBatch.getSlutDato());
+            statement.setInt(3, produktBatch.getId());
+            statement.executeUpdate();
 
 
             connection.commit();
@@ -144,7 +145,7 @@ public class ProduktBatchDAO implements IDAO<ProduktBatch> {
             connection.setAutoCommit(false);
 
             PreparedStatement statement = connection.prepareStatement
-                    ("DELETE FROM produktbatch WHERE brugerID = ?;");
+                    ("DELETE FROM produktBatch WHERE produktBatchID = ?;");
             statement.setInt(1,id);
             statement.executeUpdate();
 

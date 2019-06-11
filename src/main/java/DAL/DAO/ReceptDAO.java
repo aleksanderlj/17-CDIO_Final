@@ -18,7 +18,7 @@ public class ReceptDAO implements IDAO<Recept> {
             connection.setAutoCommit(false);
 
             PreparedStatement statement = connection.prepareStatement
-                    ("INSERT INTO recpet (receptID, receptNavn) VALUES (?,?);");
+                    ("INSERT INTO recept (receptID, receptNavn) VALUES (?,?);");
             statement.setInt(1, recept.getId());
             statement.setString(2,recept.getNavn());
             statement.executeUpdate();

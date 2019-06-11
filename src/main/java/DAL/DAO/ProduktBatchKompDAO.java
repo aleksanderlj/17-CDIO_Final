@@ -163,7 +163,7 @@ public class ProduktBatchKompDAO implements IKompDAO<ProduktBatchKomp> {
             connection.setAutoCommit(false);//transaction
 
             PreparedStatement statement = connection.prepareStatement(
-                    "DELETE FROM produktBatchKomp WHERE  (produktBatchKompID = ? AND raavareBatchID = ?);");
+                    "DELETE FROM produktBatchKomp WHERE  (produktBatchID = ? AND raavareBatchID = ?);");
 
             statement.setInt(1, produktBatchKompID);
             statement.setInt(2, raavareBatchID);

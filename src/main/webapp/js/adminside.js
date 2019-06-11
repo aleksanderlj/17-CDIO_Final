@@ -1,37 +1,4 @@
 $(function() {
-    ajaxGetUserlist();
-
-    // Add user button
-    $('#brugerFrom').submit(function(e) {
-        e.preventDefault();
-        ajaxCreate()});
-
-    // Gets the ID's for all users currently in the database
-    function ajaxGetUserlist() {
-        $.ajax({
-            url : 'rest/useradmin/userlist',
-            type : 'GET',
-            success : function(data){
-                if (data != null) {
-                    addUserlist(data);
-                }
-            },
-            error : function(data){
-                alert("An unexpected error has occured: USERLIST_ERROR");
-            }
-        });
-        return false;
-    }
-
-    // Adds all the DB users into a table on the webpage
-    function addUserlist(data) {
-        var idArray = data.split(",");
-
-        var i;
-        for (i = 0 ; i < idArray.length ; i++){
-            ajaxGet(idArray[i]);
-        }
-    }
 
     // Creates a button for deleting a row on the webpage
     function makeDeleteButton(id){
@@ -102,15 +69,6 @@ $(function() {
                     break;
                 }
             }
-        }
-    }
-
-    // Old method for deleting all users
-    function deleteAllUsers() {
-        var buttons = document.getElementsByName("deletebutton");
-
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].click();
         }
     }
 });

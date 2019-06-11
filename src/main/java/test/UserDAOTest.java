@@ -1,11 +1,8 @@
 import DAL.DAO.IDAO;
-
 import java.sql.SQLException;
-
 import DAL.DAO.UserDAO;
 import DAL.DTO.User;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -57,7 +54,7 @@ public class UserDAOTest {
         assertEquals(userList[2].getNavn(), "Peter");
 
 
-        // Sletter obejktet fra database
+        // Sletter objektet fra database
         userDAO.delete(7545);
     }
 }

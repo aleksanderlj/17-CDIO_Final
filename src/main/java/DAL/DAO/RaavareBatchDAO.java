@@ -129,7 +129,7 @@ public class RaavareBatchDAO implements IDAO<RaavareBatch>{
             connection.setAutoCommit(false);//transaction
 
             PreparedStatement statement = connection.prepareStatement(
-                    "DELETE FROM raavareBatch WHERE raavareBacthID = ?;");
+                    "DELETE FROM raavareBatch WHERE raavareBatchID = ?;");
 
             statement.setInt(1, id);
             statement.executeUpdate();

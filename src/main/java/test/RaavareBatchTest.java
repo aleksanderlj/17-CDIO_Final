@@ -18,11 +18,8 @@ public class RaavareBatchTest {
     IDAO<Raavare> raavareDAO = new RaavareDAO();
     @Test
     public void raavareBatchTest() throws SQLException, IDAO.DALException {
-        //opretter raavare
-        Raavare salt = new Raavare(2,"salt");
-        raavareDAO.create(salt);
         //opretter råvarebatch
-        RaavareBatch raavareBatch = new RaavareBatch(1,1,10.0,"Salt A/S");
+        RaavareBatch raavareBatch = new RaavareBatch(1,2,10.0,"Salt A/S");
         //indsætter råvarebatchet i databasen
         raavareBatchDAO.create(raavareBatch);
         RaavareBatch received = raavareBatchDAO.get(1);
@@ -31,20 +28,17 @@ public class RaavareBatchTest {
         assertEquals(raavareBatch.getRaavareId(),received.getRaavareId());
         assertEquals(raavareBatch.getMaengde(),received.getMaengde(),1e-15);
         assertEquals(raavareBatch.getLeverandoer(),received.getLeverandoer());
-        //Prøver at lave ændringer i opskriften
-        raavareBatch.setRaavareId(2);
+        //Prøver at lave ændringer i råvarebatchet
         raavareBatch.setMaengde(20.0);
         raavareBatch.setLeverandoer("Salt ApS");
         raavareBatchDAO.update(raavareBatch);
         //Henter ned igen
         RaavareBatch received2 = raavareBatchDAO.get(1);
         assertEquals(received2.getId(),1);
-        assertEquals(received2.getRaavareId(),2);
         assertEquals(received2.getMaengde(),20.0,1e-15);
         assertEquals(received2.getLeverandoer(),"Salt ApS");
         //sletter oprettet data
         raavareBatchDAO.delete(1);
-        raavareDAO.delete(1);
         //tester om det er blevet slettet
         RaavareBatch [] alleRaavareBatches = raavareBatchDAO.getList();
         for (RaavareBatch raavareBatch1 : alleRaavareBatches) {
@@ -52,13 +46,5 @@ public class RaavareBatchTest {
                 fail();
             }
         }
-        /*
-        Raavare [] alleRaavarer = raavareDAO.getList();
-        for (Raavare raavare : alleRaavarer) {
-            if ((salt.getId() == raavare.getId())) {
-                fail();
-            }
-        }
-        */
     }
 }

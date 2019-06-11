@@ -49,7 +49,7 @@ public class UserDAOTest {
         assertEquals(userArray[1].getNavn(), "Silas");
         assertEquals(userArray[2].getNavn(), "Peter");
 
-        // Sletter obejktet fra database
+        // Sletter objektet fra database
         userDAO.delete(7545);
     }
 }

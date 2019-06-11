@@ -140,11 +140,9 @@ $(function(){
         for(var n=1 ; n < 4 ; n++){
             row.cells[n].contentEditable = "true";
         }
-        //TODO Aktiv ikke aktiv
+        //TODO Aktiv ikke aktiv (i stedet for delete)
 
         //TODO Save button, kig i makeUpdateButton og lav en onclick.
-
-        //TODO lav delete knap
         row.insertCell(5).appendChild(makeUpdateButton(data.id));
 
         //alert(row.rowIndex);

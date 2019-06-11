@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RaavareDAO implements IDAO<Raavare>{
 
-    ConnectionController connectionController = new ConnectionController();
+    private ConnectionController connectionController = new ConnectionController();
 
     @Override
     public int create(Raavare raavare) throws SQLException {

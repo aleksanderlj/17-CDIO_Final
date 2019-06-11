@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ReceptDAO implements IDAO<Recept> {
 
-    ConnectionController connectionController = new ConnectionController();
+    private ConnectionController connectionController = new ConnectionController();
 
     @Override
     public int create(Recept recept) throws DALException, SQLException {

@@ -119,7 +119,6 @@ public class RaavareBatchDAO implements IDAO<RaavareBatch>{
         connection.close();
     }
 
-    //todo
     @Override
     public void delete(int id) throws SQLException {
 

@@ -39,7 +39,6 @@ public class ProduktBatchKompDAO implements IKompDAO<ProduktBatchKomp> {
         return 0;
     }
 
-    //todo
     @Override
     public ProduktBatchKomp get(int produktBatchID, int raavareBatchID) throws SQLException {
         Connection connection = connectionController.createConnection();
@@ -73,7 +72,6 @@ public class ProduktBatchKompDAO implements IKompDAO<ProduktBatchKomp> {
         return produktBatchKomp;
     }
 
-    //todo
     @Override
     public ProduktBatchKomp[] getList() throws SQLException {
         List<ProduktBatchKomp> produktBatchKompArrayList = new ArrayList<>();
@@ -102,7 +100,6 @@ public class ProduktBatchKompDAO implements IKompDAO<ProduktBatchKomp> {
         return produktBatchKompList;
     }
 
-    //todo
     @Override
     public ProduktBatchKomp[] getList(int id) throws SQLException {
         List<ProduktBatchKomp> produktBatchKompArrayList = new ArrayList<>();
@@ -132,7 +129,6 @@ public class ProduktBatchKompDAO implements IKompDAO<ProduktBatchKomp> {
         return produktBatchKompList;
     }
 
-    //todo
     @Override
     public void update(ProduktBatchKomp produktBatchKomp) throws SQLException {
         Connection connection = connectionController.createConnection();
@@ -159,7 +155,6 @@ public class ProduktBatchKompDAO implements IKompDAO<ProduktBatchKomp> {
         connection.close();
     }
 
-    //todo
     @Override
     public void delete(int produktBatchKompID, int raavareBatchID) throws SQLException {
         Connection connection = connectionController.createConnection();

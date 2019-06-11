@@ -2,6 +2,8 @@ package DAL.DAO;
 
 import DAL.ConnectionController;
 import DAL.DTO.Recept;
+import DAL.DTO.ReceptKomp;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +22,18 @@ public class ReceptDAO implements IDAO<Recept> {
             PreparedStatement statement = connection.prepareStatement
                     ("INSERT INTO recept (receptID, receptNavn) VALUES (?,?);");
             statement.setInt(1, recept.getId());
-            statement.setString(2,recept.getNavn());
+            statement.setString(2, recept.getNavn());
             statement.executeUpdate();
+
+            statement = connection.prepareStatement
+                    ("INSERT INTO receptKomp (receptID, raavareID, nonNetto, tolerance) VALUES (?,?,?,?)");
+            for(int i = 0 ; i < recept.getIndholdsListe().length ; i++){
+                statement.setInt(1, recept.getId());
+                statement.setInt(2, recept.getIndholdsListe()[i].getRaavareId());
+                statement.setDouble(3, recept.getIndholdsListe()[i].getNonNetto());
+                statement.setDouble(4, recept.getIndholdsListe()[i].getTolerance());
+                statement.executeUpdate();
+            }
 
             connection.commit();
         }catch (SQLException e){
@@ -37,6 +49,7 @@ public class ReceptDAO implements IDAO<Recept> {
         Connection connection = connectionController.createConnection();
         Recept recept = new Recept();
         recept.setId(id);
+        List<ReceptKomp> indholdsListe = new ArrayList<>();
 
         try{
             connection.setAutoCommit(false);
@@ -47,6 +60,16 @@ public class ReceptDAO implements IDAO<Recept> {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()){
                 recept.setNavn(resultSet.getString(2));
+            }
+
+            statement = connection.prepareStatement
+                    ("SELECT * FROM receptKomp WHERE receptID = ?");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                indholdsListe.add(new ReceptKomp());
+                indholdsListe.get(indholdsListe.size()-1).setRaavareId(resultSet.getInt(2));
+                indholdsListe.get(indholdsListe.size()-1).setNonNetto(resultSet.getDouble(3));
+                indholdsListe.get(indholdsListe.size()-1).setTolerance(resultSet.getDouble(4));
             }
 
             connection.commit();

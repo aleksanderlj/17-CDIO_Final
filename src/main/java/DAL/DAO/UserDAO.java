@@ -2,8 +2,8 @@ package DAL.DAO;
 
 import DAL.ConnectionController;
 import DAL.DTO.User;
-
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO implements IDAO<User> {
@@ -67,17 +67,79 @@ public class UserDAO implements IDAO<User> {
 
     @Override
     public User[] getList() throws DALException, SQLException {
-        //TODO - Lav metode
-        return null;
+        List<User> userList = new ArrayList<>();
+        Connection connection = connectionController.createConnection();
+        User[] userArray;
+        int lastElement;
+
+        try{
+            connection.setAutoCommit(false);
+
+            PreparedStatement statement = connection.prepareStatement
+                    ("SELECT * FROM bruger;");
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                userList.add(new User());
+                lastElement = userList.size() - 1;
+                userList.get(lastElement).setId(resultSet.getInt(1));
+                userList.get(lastElement).setNavn(resultSet.getString(2));
+                userList.get(lastElement).setIni(resultSet.getString(3));
+                userList.get(lastElement).setCpr(resultSet.getString(4));
+                userList.get(lastElement).setAktiv(resultSet.getBoolean(5));
+            }
+            connection.commit();
+        }catch (SQLException e){
+            connection.rollback();
+            e.printStackTrace();
+        }
+        connection.close();
+        userArray = userList.toArray(new User[userList.size()]);
+
+        return userArray;
     }
 
     @Override
-    public void update(User objekt) throws DALException, SQLException {
-        //TODO - Lav metode
+    public void update(User user) throws DALException, SQLException {
+        Connection connection = connectionController.createConnection();
+
+        try{
+            connection.setAutoCommit(false);
+
+            PreparedStatement statement = connection.prepareStatement
+                    ("UPDATE bruger SET brugerNavn = ?, ini = ?, cpr = ?, aktiv = ? WHERE brugerID = ?;");
+            statement.executeUpdate();
+            statement.setString(1, user.getNavn());
+            statement.setString(2, user.getIni());
+            statement.setString(3, user.getCpr());
+            statement.setBoolean(4, user.isAktiv());
+            statement.setInt(5, user.getId());
+
+            connection.commit();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            connection.rollback();
+        }
+        connection.close();
     }
 
     @Override
     public void delete(int id) throws DALException, SQLException {
-        //TODO - Lav metode
+        Connection connection = connectionController.createConnection();
+
+        try{
+            connection.setAutoCommit(false);
+
+            PreparedStatement statement = connection.prepareStatement
+                    ("DELETE FROM bruger WHERE brugerID = ?;");
+            statement.setInt(1,id);
+            statement.executeUpdate();
+
+            connection.commit();
+        }catch(SQLException e){
+            e.printStackTrace();
+            connection.rollback();
+        }
+        connection.close();
     }
 }

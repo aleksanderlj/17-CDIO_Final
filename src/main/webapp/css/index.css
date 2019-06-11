@@ -56,3 +56,15 @@ input[type=text], input[type=password] {
     /*font-weight:bold;*/
     text-decoration: underline;
 }
+
+/* Sørens underligheder*/
+.navn {
+    float: left;
+    width: 40%;
+    margin-top: 6px;
+}
+.inputs {
+    float: left;
+    width: 65%;
+    margin-top: 6px;
+}

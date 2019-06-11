@@ -143,6 +143,8 @@ $(function(){
         //TODO Aktiv ikke aktiv
 
         //TODO Save button, kig i makeUpdateButton og lav en onclick.
+
+        //TODO lav delete knap
         row.insertCell(5).appendChild(makeUpdateButton(data.id));
 
         //alert(row.rowIndex);

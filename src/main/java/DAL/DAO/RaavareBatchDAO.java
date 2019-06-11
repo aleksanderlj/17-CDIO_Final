@@ -23,7 +23,7 @@ public class RaavareBatchDAO implements IDAO<RaavareBatch>{
             connection.setAutoCommit(false);
 
             PreparedStatement statement = connection.prepareStatement
-                    ("INSERT INTO bruger (raavareBatchId, raavareId, maengde, leverandoer) VALUES (?,?,?,?);");
+                    ("INSERT INTO bruger (raavareBatchID, raavareID, maengde, leverandoer) VALUES (?,?,?,?);");
             statement.setInt(1, raavareBatch.getId());
             statement.setInt(1, raavareBatch.getRaavareId());
             statement.setDouble(1, raavareBatch.getMaengde());
@@ -36,7 +36,8 @@ public class RaavareBatchDAO implements IDAO<RaavareBatch>{
             e.printStackTrace();
         }
         connection.close();
-        return 0;    }
+        return 0;
+    }
 
     @Override
     public RaavareBatch get(int id) throws SQLException {

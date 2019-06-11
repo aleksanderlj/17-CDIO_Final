@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UserDAO implements IDAO<User> {
 
-    ConnectionController connectionController = new ConnectionController();
+    private ConnectionController connectionController = new ConnectionController();
 
     @Override
     public int create(User user) throws DALException, SQLException {
@@ -23,7 +23,7 @@ public class UserDAO implements IDAO<User> {
             statement.setString(2,user.getNavn());
             statement.setString(3,user.getIni());
             statement.setString(4,user.getCpr());
-            statement.setBoolean(5,user.isAktiv());
+            statement.setBoolean(5,true);
             statement.executeUpdate();
 
             connection.commit();

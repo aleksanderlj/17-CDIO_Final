@@ -50,7 +50,7 @@ public class ProduktBatchKompDAO implements IKompDAO<ProduktBatchKomp> {
             connection.setAutoCommit(false);
 
             PreparedStatement statement = connection.prepareStatement
-                    ("SELECT * FROM produktBatchKomp WHERE (produktBatchID = ? AND raavareBatchId = ?);");
+                    ("SELECT * FROM produktBatchKomp WHERE (produktBatchID = ? AND raavareBatchID = ?);");
             statement.setInt(1, produktBatchID);
             statement.setInt(2, raavareBatchID);
             ResultSet resultSet = statement.executeQuery();

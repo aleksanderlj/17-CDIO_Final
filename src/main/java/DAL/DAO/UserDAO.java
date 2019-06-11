@@ -141,6 +141,7 @@ public class UserDAO implements IDAO<User> {
                     ("UPDATE bruger SET aktiv = ? WHERE brugerID = ?;");
             statement.setBoolean(1, !aktiv);
             statement.setInt(2, id);
+            statement.executeUpdate();
 
             connection.commit();
         }catch(SQLException e){

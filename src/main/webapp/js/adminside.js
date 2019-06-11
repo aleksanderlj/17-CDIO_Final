@@ -57,7 +57,7 @@ $(function() {
 
     // Adds a row to the webpage and sorts the table
     function addRow(data) {
-        var table = document.getElementById("brugerFrom");
+        var table = document.getElementById("myTableData");
 
         var rowCount = table.rows.length;
         var row = table.insertRow(rowCount);
@@ -77,7 +77,7 @@ $(function() {
     // Deletes a row from the webpage
     function deleteRow(obj, id) {
         var index = obj.parentNode.parentNode.rowIndex;
-        var table = document.getElementById("brugerFrom");
+        var table = document.getElementById("myTableData");
         table.deleteRow(index);
         ajaxDelete(id);
     }
@@ -85,7 +85,7 @@ $(function() {
     // Sorts the table (update this to be a merge-sort for epic speed)
     function sortTable() {
         var table, rows, hasSwitched, x, y;
-        table = document.getElementById("brugerFrom");
+        table = document.getElementById("myTableData");
         hasSwitched = true;
 
         while (hasSwitched) {

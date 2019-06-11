@@ -133,12 +133,21 @@ $(function(){
 
     function editMode(e){
         var row = e.closest('tr');
-        alert(row.rowIndex);
+
+        row.cells[1].onclick = null;
+        row.cells[1].className = null;
+
         for(var n=1 ; n < 4 ; n++){
             row.cells[n].contentEditable = "true";
         }
-        alert(row.cells[0].innerHTML);
-        row.cells[1].onclick = (function() {editMode(this)});
+        //TODO Aktiv ikke aktiv
+
+        //TODO Save button, kig i makeUpdateButton og lav en onclick.
+        row.insertCell(5).appendChild(makeUpdateButton(data.id));
+
+        //alert(row.rowIndex);
+        //alert(row.cells[0].innerHTML);
+
     }
 
     // Creates a button for updating a row on the webpage
@@ -146,7 +155,7 @@ $(function(){
         var btn = document.createElement('input');
         btn.type = "button";
         btn.name = "updatebutton";
-        btn.value = "Update";
+        btn.value = "Save";
         btn.onclick = (function() {});
         return btn;
     }

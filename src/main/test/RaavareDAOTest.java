@@ -12,30 +12,30 @@ public class RaavareDAOTest {
 
     @Test
     public void createTest() throws SQLException {
+        // Sletter bruger 7545, og opretter den igen.
         raavareDAO.delete(7545);
         raavareDAO.create(raavare);
         recievedRaavare = raavareDAO.get(7545);
-
         assertEquals(raavare.getId(), recievedRaavare.getId());
         assertEquals(raavare.getNavn(), recievedRaavare.getNavn());
-
         raavareDAO.delete(7545);
     }
 
     @Test
     public void updateTest() throws SQLException {
+        // Sletter, genopretter og opdatere brugeren, og sammenligner til sidst.
         raavareDAO.delete(7545);
         raavareDAO.create(raavare);
         raavare.setNavn("Vand");
         raavareDAO.update(raavare);
         recievedRaavare = raavareDAO.get(7545);
-
         assertEquals(raavare.getNavn(), recievedRaavare.getNavn());
         raavareDAO.delete(7545);
     }
 
     @Test
     public void getListTest() throws SQLException {
+        // Henter listen og tester om vi har fået fat i de rigtige elementer.
         Raavare[] raavareArray = raavareDAO.getList();
         assertEquals("Zinc", raavareArray[0].getNavn());
         assertEquals("salt", raavareArray[1].getNavn());

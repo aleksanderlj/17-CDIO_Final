@@ -54,7 +54,7 @@ public class ReceptDAOTest {
         Recept[] receptArray = receptDAO.getList();
         assertEquals(receptArray[0].getId(), 1);
         assertEquals(receptArray[1].getId(), 2);
-        assertEquals(receptArray[0].getNavn(), "Test");
-        assertEquals(receptArray[1].getNavn(), "Bitch");
+        assertEquals(receptArray[0].getNavn(), "Appelsin");
+        assertEquals(receptArray[1].getNavn(), "Test");
     }
 }

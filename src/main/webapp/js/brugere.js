@@ -143,6 +143,12 @@ $(function(){
         row.insertCell(3).innerHTML = data.cpr;
         row.insertCell(4).innerHTML = aktiv;
 
+        if(data.aktiv){
+            row.cells[4].className = "active";
+        } else{
+            row.cells[4].className = "inactive";
+        }
+
         row.cells[1].onclick = (function() {editMode(this, data.id)});
         row.cells[1].className = "namebtn";
     }
@@ -163,6 +169,7 @@ $(function(){
 
         row.cells[4].innerHTML = null;
         row.cells[4].appendChild(makeCheckbox(status));
+        row.cells[4].className = null;
         //row.cells[4].appendChild(makeRadioBtn("aktiv", status));
         //row.cells[4].appendChild(makeRadioBtn("inaktiv", !status));
 
@@ -215,8 +222,10 @@ $(function(){
 
         if(row.cells[4].children[0].checked){
             row.cells[4].innerHTML = "Aktiv";
+            row.cells[4].className = "active";
         }else{
             row.cells[4].innerHTML = "Inaktiv";
+            row.cells[4].className = "inactive";
         }
 
         row.deleteCell(5);

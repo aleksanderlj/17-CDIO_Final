@@ -54,3 +54,11 @@ input[type=text], input[type=password] {
     border-color: transparent;
     text-align: left;
 }
+
+.active{
+    background-color: lawngreen;
+}
+
+.inactive{
+    background-color: tomato;
+}

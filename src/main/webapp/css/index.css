@@ -38,6 +38,7 @@ input[type=text], input[type=password] {
     cursor:pointer;
     margin: 0;
     */
+
 }
 
 .header_btn{
@@ -45,40 +46,11 @@ input[type=text], input[type=password] {
 }
 
 .namebtn{
-    background:none;
-    border:none;
     cursor:pointer;
-    font-size:15px;
-    /*font-weight:bold;*/
     text-decoration: underline;
 }
 
-/* Sørens underligheder*/
-.opretTabel td, .opretTabel th, .opretTabel table{
+.opretTabel td, .opretTabel th, .opretTabel table {
     border-color: transparent;
     text-align: left;
-
 }
-/*Sørens failes don't look pls*/
-
-/*
-.navn {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-}
-.inputs {
-    float: left;
-    width: 75%;
-    margin-top: 6px;
-}
-
-
-.brugerFrom{
-    text-align: center;
-    width: 400px;
-    position: absolute;
-    left: 50%;
-    height: 400px;
-}
-*/

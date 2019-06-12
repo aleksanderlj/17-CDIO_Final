@@ -27,12 +27,13 @@
                 <th>Råvare ID</th>
                 <th>Mængde</th>
                 <th>Tolerance</th>
-                <th></th>
+
             </tr>
             <tr>
                 <th><input type="text" id="comp_raavare"></th>
                 <th><input type="text" id="comp_amount"></th>
                 <th><input type="text" id="comp_tolerance"></th>
+                <th><input type="button" onclick="addrow();" value="Tilføj"></th>
             </tr>
             <tr>
                 <th></th>
@@ -44,9 +45,9 @@
 </div>
 
 <!-- FIX ID NAMES-->
-<div id="mydata">
+<div id="recept_mydata">
     <b><h2>Brugere i systemmet </h2></b>
-    <table id="myTableData" border="1" cellpadding="2">
+    <table id="recept_table" border="1" cellpadding="2">
         <tr>
             <td><b>ID</b></td>
             <td><b>Username</b></td>

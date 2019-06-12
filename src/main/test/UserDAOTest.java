@@ -47,9 +47,9 @@ public class UserDAOTest {
     public void getListTest() throws SQLException, IDAO.DALException {
         // Henter listen af brugere, og tjekker om de rigtige test bruger er blevet hentet.
         User[] userList = userDAO.getList();
-        assertEquals(userList[0].getNavn(), "Simon");
-        assertEquals(userList[1].getNavn(), "Silas");
-        assertEquals(userList[2].getNavn(), "Peter");
+        assertEquals(userList[1].getNavn(), "Simon");
+        assertEquals(userList[2].getNavn(), "Silas");
+        assertEquals(userList[3].getNavn(), "Peter");
     }
 
     @Test

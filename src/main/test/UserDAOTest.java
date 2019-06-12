@@ -4,7 +4,6 @@ import DAL.DAO.UserDAO;
 import DAL.DTO.User;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class UserDAOTest {
     // Definere test objekter

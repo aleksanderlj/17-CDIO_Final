@@ -1,13 +1,8 @@
-import DAL.DAO.IDAO;
-
 import java.sql.SQLException;
-
 import DAL.DAO.ProduktBatchDAO;
 import DAL.DTO.ProduktBatch;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class ProduktBatchDAOTest {
     private ProduktBatchDAO produktBatchDAO = new ProduktBatchDAO();
@@ -16,7 +11,8 @@ public class ProduktBatchDAOTest {
     private ProduktBatch receivedProduktBatch = new ProduktBatch();
 
     @Test
-    public void createTest()throws IDAO.DALException, SQLException {
+    public void createTest()throws SQLException {
+        // Laver og henter objekter, og sammenligner med svaret fra databasen.
         produktBatchDAO.delete(7545);
         produktBatchDAO.create(produktBatch);
         receivedProduktBatch = produktBatchDAO.get(7545);
@@ -30,6 +26,7 @@ public class ProduktBatchDAOTest {
 
     @Test
     public void updateTest() throws SQLException {
+        // Updater i databasen, og sammenligner.
         produktBatchDAO.delete(7545);
         produktBatchDAO.create(produktBatch);
         produktBatch.setBatchStatus(1);
@@ -46,6 +43,7 @@ public class ProduktBatchDAOTest {
 
     @Test
     public void getListTest() throws SQLException {
+        // Henter listen og tjekker id med de tre første elementer.
         ProduktBatch[] produktBatches = produktBatchDAO.getList();
         assertEquals(produktBatches[0].getId(), 1);
         assertEquals(produktBatches[1].getId(), 2);

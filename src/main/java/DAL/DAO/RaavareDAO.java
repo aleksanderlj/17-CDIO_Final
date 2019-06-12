@@ -99,9 +99,9 @@ public class RaavareDAO implements IDAO<Raavare>{
 
             PreparedStatement statement = connection.prepareStatement
                     ("UPDATE raavare SET raavareNavn = ? WHERE raavareID = ?;");
-            statement.executeUpdate();
             statement.setString(1, raavare.getNavn());
             statement.setInt(2,raavare.getId());
+            statement.executeUpdate();
 
             connection.commit();
         }catch (SQLException e){

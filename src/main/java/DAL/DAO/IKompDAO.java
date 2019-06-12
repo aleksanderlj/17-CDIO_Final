@@ -9,7 +9,7 @@ public interface IKompDAO<E> {
     E[] getList(int id) throws DALException, SQLException;
     E[] getList() throws DALException, SQLException;
     void update(E objekt) throws DALException, SQLException;
-    void delete(int id) throws DALException, SQLException;
+    void delete(int primaryId, int secondaryId) throws DALException, SQLException;
 
     public class DALException extends Exception {
         //Til Java serialisering...

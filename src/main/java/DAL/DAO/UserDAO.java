@@ -107,12 +107,12 @@ public class UserDAO implements IDAO<User> {
 
             PreparedStatement statement = connection.prepareStatement
                     ("UPDATE bruger SET brugerNavn = ?, ini = ?, cpr = ?, aktiv = ? WHERE brugerID = ?;");
-            statement.executeUpdate();
             statement.setString(1, user.getNavn());
             statement.setString(2, user.getIni());
             statement.setString(3, user.getCpr());
             statement.setBoolean(4, user.isAktiv());
             statement.setInt(5, user.getId());
+            statement.executeUpdate();
 
             connection.commit();
 
@@ -126,13 +126,21 @@ public class UserDAO implements IDAO<User> {
     @Override
     public void delete(int id) throws DALException, SQLException {
         Connection connection = connectionController.createConnection();
+        boolean aktiv = false;
 
         try{
             connection.setAutoCommit(false);
 
             PreparedStatement statement = connection.prepareStatement
-                    ("DELETE FROM bruger WHERE brugerID = ?;");
-            statement.setInt(1,id);
+                    ("SELECT aktiv FROM bruger WHERE brugerID = ?;");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+                aktiv = resultSet.getBoolean("aktiv");
+            statement = connection.prepareStatement
+                    ("UPDATE bruger SET aktiv = ? WHERE brugerID = ?;");
+            statement.setBoolean(1, !aktiv);
+            statement.setInt(2, id);
             statement.executeUpdate();
 
             connection.commit();

@@ -1,5 +1,3 @@
-package test;
-
 import DAL.DAO.IDAO;
 import DAL.DAO.RaavareBatchDAO;
 import DAL.DAO.RaavareDAO;

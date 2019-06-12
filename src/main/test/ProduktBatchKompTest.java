@@ -1,5 +1,3 @@
-package test;
-
 import DAL.DAO.*;
 import DAL.DTO.ProduktBatchKomp;
 import DAL.DTO.Raavare;

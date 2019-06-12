@@ -6,6 +6,8 @@ import DAL.DTO.User;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.SQLException;
 
 @Path("user")
@@ -16,7 +18,18 @@ public class UserREST {
     @Path("create")
     @Consumes(MediaType.APPLICATION_JSON)
     public String createUser(User user) throws SQLException, IDAO.DALException {
-        return Integer.toString(db.create(user));
+        String eString = "";
+
+        try {
+            db.create(user);
+        } catch (Exception e){
+            /*
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            eString = sw.toString();
+            */
+        }
+        return eString;
     }
 
     @GET

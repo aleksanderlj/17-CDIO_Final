@@ -1,5 +1,4 @@
 //TODO Only one can be edited at a time? (Problem with radio buttons "name" making them all "one group")
-//TODO Checkbox i stedet for radio buttons
 //TODO RegEx på al data
 
 $(function(){
@@ -125,7 +124,7 @@ $(function(){
     //---------------------
     // Adds a row to the webpage and sorts the table
     function addRow(data) {
-        var table = document.getElementById("myTableData");
+        var table = document.getElementById("user_table");
 
         var rowCount = table.rows.length;
         var row = table.insertRow(rowCount);
@@ -163,10 +162,18 @@ $(function(){
         }
 
         row.cells[4].innerHTML = null;
-        row.cells[4].appendChild(makeRadioBtn("aktiv", status));
-        row.cells[4].appendChild(makeRadioBtn("inaktiv", !status));
+        row.cells[4].appendChild(makeCheckbox(status));
+        //row.cells[4].appendChild(makeRadioBtn("aktiv", status));
+        //row.cells[4].appendChild(makeRadioBtn("inaktiv", !status));
 
         row.insertCell(5).appendChild(makeUpdateButton(id));
+    }
+
+    function makeCheckbox(checked){
+        var btn = document.createElement('input');
+        btn.type = "checkbox";
+        btn.checked = checked;
+        return btn;
     }
 
     function makeRadioBtn(value, checked) {
@@ -221,14 +228,14 @@ $(function(){
     // Deletes a row from the webpage
     function deleteRow(obj, id) {
         var index = obj.parentNode.parentNode.rowIndex;
-        var table = document.getElementById("myTableData");
+        var table = document.getElementById("user_table");
         table.deleteRow(index);
     }
 
     // Sorts the table (update this to be a merge-sort for epic speed)
     function sortTable() {
         var table, rows, hasSwitched, x, y;
-        table = document.getElementById("myTableData");
+        table = document.getElementById("user_table");
         hasSwitched = true;
 
         while (hasSwitched) {

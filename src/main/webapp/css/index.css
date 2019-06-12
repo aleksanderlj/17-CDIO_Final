@@ -18,10 +18,6 @@ table, th, td {
     margin: 0px auto;
 }
 
-form {
-
-}
-
 input[type=text], input[type=password] {
     border: 1px solid black;
     border-radius: 4px;
@@ -58,13 +54,31 @@ input[type=text], input[type=password] {
 }
 
 /* Sørens underligheder*/
+#opretBruger td, #opretBruger th, #opretBruger table{
+    border-color: transparent;
+    text-align: left;
+
+}
+/*Sørens failes don't look pls*/
+
+/*
 .navn {
     float: left;
-    width: 40%;
+    width: 25%;
     margin-top: 6px;
 }
 .inputs {
     float: left;
-    width: 65%;
+    width: 75%;
     margin-top: 6px;
 }
+
+
+.brugerFrom{
+    text-align: center;
+    width: 400px;
+    position: absolute;
+    left: 50%;
+    height: 400px;
+}
+*/

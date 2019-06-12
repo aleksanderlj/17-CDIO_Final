@@ -7,28 +7,33 @@
     <script src="js/brugere.js"></script>
 </head>
 <body>
-<div>
-    Brugere
-    <br><br>
+<div class="brugerFrom">
+    <h2>Brugere</h2>
+    <br>
 
     <form id="user_form" method="post">
-        <div class="row">
-            <div class="navn">BrugerID:</div>
-            <div class="inputs"><input type="text" id="user_id"></div>
-        </div>
-        <div class="row">
-            <div class="navn">Navn:</div>
-            <div class="inputs"><input type="text" id="user_name"></div>
-        </div>
-        <div class="row">
-            <div class="navn">Ini:</div>
-            <div class="inputs"><input type="text" id="user_ini"></div>
-        </div>
-        <div class="row">
-            <div class="navn">CPR:</div>
-            <div class="inputs"><input type="text" id="user_cpr"></div>
-        </div>
-        <div><input type="submit" value="Opret bruger"></div>
+        <table id="opretBruger">
+            <tr>
+                <th>BrugerID:</th>
+                <th><input type="text" id="user_id"></th>
+            </tr>
+            <tr>
+                <th>Navn:</th>
+                <th><input type="text" id="user_name"></th>
+            </tr>
+            <tr>
+                <th>Ini:</th>
+                <th><input type="text" id="user_ini"></th>
+            </tr>
+            <tr>
+                <th>CPR:</th>
+                <th><input type="text" id="user_cpr"></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th><input type="submit" value="Opret bruger"></th>
+            </tr>
+        </table>
     </form>
 </div>
 

@@ -8,14 +8,17 @@ $(function(){
     });
 
     function ajaxCreate() {
-        var jsondata = makeJSON();
-        //alert("id: " + jsondata.id + "\nnavn: " + jsondata.navn + "\nini: " + jsondata.ini + "\ncpr: " + jsondata.cpr + "\naktiv: " + jsondata.aktiv);
+        var jsondata = makeJSON(
+            $('#user_id').val(),
+            $('#user_name').val(),
+            $('#user_ini').val(),
+            $('#user_cpr').val(),
+            true);
         /*alert("jsondata.navn: " + jsondata.navn +
             "\njsonParsed.navn: " + jsonParsed.navn +
             "\njsondata[navn]: " + jsondata["navn"] +
             "\njsonParsed[navn]: " + jsonParsed["navn"]);
             */
-        //alert(jsondata);
         $.ajax({
             url : 'rest/user/create',
             type : 'POST',
@@ -48,6 +51,22 @@ $(function(){
         return false;
     }
 
+    function ajaxUpdate(jsondata) {
+        $.ajax({
+            url : 'rest/user/update',
+            type : 'POST',
+            data : jsondata,
+            contentType : 'application/json',
+            success : function(data){
+
+            },
+            error : function(data){
+                alert("Update cancelled:\nPlease make sure that all necessary information was entered");
+            }
+        });
+        return false;
+    }
+
     function ajaxDelete(row, id) {
         $.ajax({
             url : 'rest/user/delete/' + id,
@@ -62,13 +81,13 @@ $(function(){
         return false;
     }
 
-    function makeJSON(){
+    function makeJSON(id, navn, ini, cpr, aktiv){
         var json = {
-            "id" : $('#user_id').val(),
-            "navn" : $('#user_name').val(),
-            "ini" : $('#user_ini').val(),
-            "cpr" : $('#user_cpr').val(),
-            "aktiv" : true
+            "id" : id,
+            "navn" : navn,
+            "ini" : ini,
+            "cpr" : cpr,
+            "aktiv" : aktiv
         };
 
         var jsonstring = JSON.stringify(json);
@@ -103,36 +122,18 @@ $(function(){
         //row.insertCell(4).appendChild(makeDeleteButton(data.id));
         //row.insertCell(5).appendChild(makeUpdateButton(data.id));
 
-        row.cells[1].onclick = (function() {editMode(this)});
+        row.cells[1].onclick = (function() {editMode(this, data.id)});
         row.cells[1].className = "namebtn";
         sortTable();
 
     }
 
-    // Creates a button for deleting a row on the webpage
-    function makeDeleteButton(id){
-        var btn = document.createElement('input');
-        btn.type = "button";
-        btn.name = "deletebutton";
-        btn.value = "Gør inaktiv";
-
-        btn.onclick = (function() {ajaxDelete(this, id)});
-
-        return btn;
-    }
-
-    function makeNametagButton(id, name){
-        var btn = document.createElement('input');
-        btn.type = "button";
-        btn.name = "namebutton";
-        btn.value = name;
-        btn.className = "namebtn";
-        btn.onclick = (function() {editMode(this)});
-        return btn;
-    }
-
-    function editMode(e){
+    function editMode(e, id){
         var row = e.closest('tr');
+        var status = false;
+        if (row.cells[4].innerHTML.localeCompare("Aktiv") === 0){
+            status = true
+        }
 
         row.cells[1].onclick = null;
         row.cells[1].className = null;
@@ -140,14 +141,27 @@ $(function(){
         for(var n=1 ; n < 4 ; n++){
             row.cells[n].contentEditable = "true";
         }
+
+        row.cells[4].innerHTML = null;
+        row.cells[4].appendChild(makeRadioBtn("aktiv", status));
+        row.cells[4].appendChild(makeRadioBtn("inaktiv", !status));
+
+        //TODO Only one can be edited at a time? (Problem with radio buttons "name" making them all "one group")
+
         //TODO Aktiv ikke aktiv (i stedet for delete)
 
         //TODO Save button, kig i makeUpdateButton og lav en onclick.
-        row.insertCell(5).appendChild(makeUpdateButton(data.id));
+        row.insertCell(5).appendChild(makeUpdateButton(id));
+    }
 
-        //alert(row.rowIndex);
-        //alert(row.cells[0].innerHTML);
-
+    function makeRadioBtn(value, checked) {
+        var btn = document.createElement('input');
+        btn.type = "radio";
+        btn.name = "status_radio";
+        btn.value = value;
+        btn.className = "radiobtn" + value;
+        btn.checked = checked;
+        return btn;
     }
 
     // Creates a button for updating a row on the webpage
@@ -156,8 +170,37 @@ $(function(){
         btn.type = "button";
         btn.name = "updatebutton";
         btn.value = "Save";
-        btn.onclick = (function() {});
+        btn.onclick = (function() {saveRow(this, id)});
         return btn;
+    }
+
+    function saveRow(e, id){
+        var row = e.closest('tr');
+
+        var json = makeJSON(
+            id,
+            row.cells[1].innerHTML,
+            row.cells[2].innerHTML,
+            row.cells[3].innerHTML,
+            row.cells[4].children[0].checked);
+
+        row.cells[1].onclick = (function() {editMode(this, id)});
+        row.cells[1].className = "namebtn";
+
+        for(var n=1 ; n < 4 ; n++){
+            row.cells[n].contentEditable = "false";
+        }
+
+        if(row.cells[4].children[0].checked){
+            row.cells[4].innerHTML = "Aktiv";
+        }else{
+            row.cells[4].innerHTML = "Inaktiv";
+        }
+
+        row.deleteCell(5);
+
+        ajaxUpdate(json);
+
     }
 
     // Deletes a row from the webpage

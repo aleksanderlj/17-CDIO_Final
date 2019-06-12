@@ -31,4 +31,11 @@ public class UserREST {
     public void deleteUser(@PathParam("id") String id) throws SQLException, IDAO.DALException {
         db.delete(Integer.parseInt(id));
     }
+
+    @POST
+    @Path("update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updateUser(User user) throws SQLException, IDAO.DALException {
+        db.update(user);
+    }
 }

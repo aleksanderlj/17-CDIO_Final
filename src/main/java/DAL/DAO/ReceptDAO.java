@@ -49,6 +49,7 @@ public class ReceptDAO implements IDAO<Recept> {
         Connection connection = connectionController.createConnection();
         Recept recept = new Recept();
         List<ReceptKomp> indholdsListe = new ArrayList<>();
+        ReceptKomp[] indholdsArray;
 
         try{
             connection.setAutoCommit(false);
@@ -64,6 +65,7 @@ public class ReceptDAO implements IDAO<Recept> {
 
             statement = connection.prepareStatement
                     ("SELECT * FROM receptKomp WHERE receptID = ?;");
+            statement.setInt(1, id);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
                 indholdsListe.add(new ReceptKomp());
@@ -71,7 +73,8 @@ public class ReceptDAO implements IDAO<Recept> {
                 indholdsListe.get(indholdsListe.size()-1).setNonNetto(resultSet.getDouble(3));
                 indholdsListe.get(indholdsListe.size()-1).setTolerance(resultSet.getDouble(4));
             }
-
+            indholdsArray = indholdsListe.toArray(new ReceptKomp[indholdsListe.size()]);
+            recept.setIndholdsListe(indholdsArray);
             connection.commit();
         }catch (SQLException e){
             connection.rollback();
@@ -167,12 +170,13 @@ public class ReceptDAO implements IDAO<Recept> {
         try{
             connection.setAutoCommit(false);
 
+
             PreparedStatement statement = connection.prepareStatement
-                    ("DELETE FROM recept WHERE receptID = ?;");
+                    ("DELETE FROM receptKomp WHERE receptID = ?;");
             statement.setInt(1,id);
             statement.executeUpdate();
 
-            statement = connection.prepareStatement("DELETE FROM receptKomp WHERE receptID = ?;");
+            statement = connection.prepareStatement("DELETE FROM recept WHERE receptID = ?;");
             statement.setInt(1, id);
             statement.executeUpdate();
 

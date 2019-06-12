@@ -54,7 +54,7 @@ input[type=text], input[type=password] {
 }
 
 /* Sørens underligheder*/
-#opretBruger td, #opretBruger th, #opretBruger table{
+.opretTabel td, .opretTabel th, .opretTabel table{
     border-color: transparent;
     text-align: left;
 

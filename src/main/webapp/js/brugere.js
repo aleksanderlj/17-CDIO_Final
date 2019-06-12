@@ -1,4 +1,10 @@
+//TODO Only one can be edited at a time? (Problem with radio buttons "name" making them all "one group")
+//TODO Checkbox i stedet for radio buttons
+//TODO RegEx på al data
+
 $(function(){
+
+    ajaxGetList();
 
     $('#user_form').submit(function(e) {
         e.preventDefault();
@@ -26,7 +32,8 @@ $(function(){
             contentType : 'application/json',
             success : function(data){
                 var jsonParsed = JSON.parse(jsondata);
-                addRow(jsonParsed)
+                addRow(jsonParsed);
+                sortTable();
                 //alert(jsonParsed.navn);
             },
             error : function(data){
@@ -62,6 +69,24 @@ $(function(){
             },
             error : function(data){
                 alert("Update cancelled:\nPlease make sure that all necessary information was entered");
+            }
+        });
+        return false;
+    }
+
+    function ajaxGetList(){
+        $.ajax({
+            url : 'rest/user/list',
+            type : 'GET',
+            dataType : 'json',
+            success : function(data){
+                for(var n=0 ; n<data.length ; n++){
+                    addRow(data[n]);
+                }
+                sortTable();
+            },
+            error : function(data){
+                alert("An unexpected error has occured: USERLIST_ERROR");
             }
         });
         return false;
@@ -115,17 +140,12 @@ $(function(){
 
         row.insertCell(0).innerHTML = data.id;
         row.insertCell(1).innerHTML = data.navn;
-        //row.insertCell(1).appendChild(makeNametagButton(data.id, data.navn));
         row.insertCell(2).innerHTML = data.ini;
         row.insertCell(3).innerHTML = data.cpr;
         row.insertCell(4).innerHTML = aktiv;
-        //row.insertCell(4).appendChild(makeDeleteButton(data.id));
-        //row.insertCell(5).appendChild(makeUpdateButton(data.id));
 
         row.cells[1].onclick = (function() {editMode(this, data.id)});
         row.cells[1].className = "namebtn";
-        sortTable();
-
     }
 
     function editMode(e, id){
@@ -146,11 +166,6 @@ $(function(){
         row.cells[4].appendChild(makeRadioBtn("aktiv", status));
         row.cells[4].appendChild(makeRadioBtn("inaktiv", !status));
 
-        //TODO Only one can be edited at a time? (Problem with radio buttons "name" making them all "one group")
-
-        //TODO Aktiv ikke aktiv (i stedet for delete)
-
-        //TODO Save button, kig i makeUpdateButton og lav en onclick.
         row.insertCell(5).appendChild(makeUpdateButton(id));
     }
 
@@ -221,8 +236,8 @@ $(function(){
             rows = table.rows;
 
             for (var i = 1; i < (rows.length - 1); i++) {
-                x = rows[i].getElementsByTagName("TD")[1];
-                y = rows[i + 1].getElementsByTagName("TD")[1];
+                x = rows[i].getElementsByTagName("TD")[0];
+                y = rows[i + 1].getElementsByTagName("TD")[0];
 
                 if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
                     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);

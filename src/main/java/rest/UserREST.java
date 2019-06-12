@@ -38,4 +38,10 @@ public class UserREST {
     public void updateUser(User user) throws SQLException, IDAO.DALException {
         db.update(user);
     }
+
+    @GET
+    @Path("list")
+    public User[] getUserlist() throws SQLException, IDAO.DALException {
+        return db.getList();
+    }
 }

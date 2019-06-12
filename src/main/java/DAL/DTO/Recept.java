@@ -6,7 +6,8 @@ public class Recept {
     //private ArrayList<ReceptKomp> indholdsListe;
     private ReceptKomp[] indholdsListe;
 
-    public Recept(){}
+    public Recept() {
+    }
 /*
     public Recept(int id, String navn, int[] raavareID, double[] nonNetto, double[] tolerance){
         for (int i = 0; i < raavareID.length; i++){
@@ -17,11 +18,11 @@ public class Recept {
     }
 */
 
-public Recept(int id, String navn, ReceptKomp[] indholdsListe){
-    this.id = id;
-    this.navn = navn;
-    this.indholdsListe = indholdsListe;
-}
+    public Recept(int id, String navn, ReceptKomp[] indholdsListe) {
+        this.id = id;
+        this.navn = navn;
+        this.indholdsListe = indholdsListe;
+    }
 
     public void setNavn(String navn) {
         this.navn = navn;

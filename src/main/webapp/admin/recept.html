@@ -7,16 +7,54 @@
     <script src="js/recept.js"></script>
 </head>
 <body>
-<div>
-    Recept
+<div class="receptFrom">
+    <h2>Recept</h2>
+    <br>
 
-    <input type="text" id="recept_nr">
-    <input type="text" id="recept_name">
-
-    <input type="text" id="comp_raavare">
-    <input type="text" id="comp_amount">
-    <input type="text" id="comp_tolerance">
+    <form id="user_form" method="post">
+        <table id="opretRecept1" class="opretTabel">
+            <tr>
+                <th>Recept ID:</th>
+                <th><input type="text" id="recept_nr"></th>
+            </tr>
+            <tr>
+                <th>Navn:</th>
+                <th><input type="text" id="recept_name"></th>
+            </tr>
+        </table>
+        <table id="opretRecept2">
+            <tr>
+                <th>Råvare ID</th>
+                <th>Mængde</th>
+                <th>Tolerance</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th><input type="text" id="comp_raavare"></th>
+                <th><input type="text" id="comp_amount"></th>
+                <th><input type="text" id="comp_tolerance"></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th><input type="submit" value="Opret bruger"></th>
+                <th></th>
+            </tr>
+        </table>
+    </form>
 </div>
 
+<!-- FIX ID NAMES-->
+<div id="mydata">
+    <b><h2>Brugere i systemmet </h2></b>
+    <table id="myTableData" border="1" cellpadding="2">
+        <tr>
+            <td><b>ID</b></td>
+            <td><b>Username</b></td>
+            <td><b>Initials</b></td>
+            <td><b>CPR</b></td>
+            <td><b>Status</b></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

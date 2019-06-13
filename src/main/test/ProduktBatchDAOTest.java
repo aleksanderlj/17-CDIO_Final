@@ -7,21 +7,21 @@ import static org.junit.Assert.assertEquals;
 public class ProduktBatchDAOTest {
     private ProduktBatchDAO produktBatchDAO = new ProduktBatchDAO();
     private ProduktBatch produktBatch = new ProduktBatch
-            (7545, 1, 0, "061199", "071199");
+            (1, 0, "061199", "071199");
     private ProduktBatch receivedProduktBatch = new ProduktBatch();
 
     @Test
     public void createTest()throws SQLException {
         // Laver og henter objekter, og sammenligner med svaret fra databasen.
-        produktBatchDAO.delete(7545);
-        produktBatchDAO.create(produktBatch);
-        receivedProduktBatch = produktBatchDAO.get(7545);
+        int id = produktBatchDAO.create(produktBatch);
+        produktBatch.setId(id);
+        receivedProduktBatch = produktBatchDAO.get(id);
         assertEquals(produktBatch.getId(), receivedProduktBatch.getId());
         assertEquals(produktBatch.getReceptId(), receivedProduktBatch.getReceptId());
         assertEquals(produktBatch.getBatchStatus(), receivedProduktBatch.getBatchStatus());
         assertEquals(produktBatch.getOpstartDato(), receivedProduktBatch.getOpstartDato());
         assertEquals(produktBatch.getSlutDato(), receivedProduktBatch.getSlutDato());
-        produktBatchDAO.delete(7545);
+        //produktBatchDAO.delete(id);
     }
 
     @Test

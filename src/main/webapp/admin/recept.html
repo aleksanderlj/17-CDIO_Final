@@ -8,10 +8,11 @@
 </head>
 <body>
 <div class="receptFrom">
+
     <h2>Recept</h2>
     <br>
 
-    <form id="user_form" method="post">
+    <form id="recept_form" method="post">
         <table id="opretRecept1" class="opretTabel">
             <tr>
                 <th>Recept ID:</th>
@@ -22,22 +23,22 @@
                 <th><input type="text" id="recept_name" placeholder="Navn" required></th>
             </tr>
         </table>
+
         <table id="opretRecept2">
             <tr>
                 <th>Råvare ID</th>
                 <th>Mængde</th>
                 <th>Tolerance</th>
-
             </tr>
             <tr>
                 <th><input type="text" id="comp_raavare" placeholder="Råvare ID" required></th>
                 <th><input type="text" id="comp_amount" placeholder="Mængde" required></th>
                 <th><input type="text" id="comp_tolerance" placeholder="Tolerance" required></th>
-                <th><input type="button" onclick="addrow();" value="Tilføj" required></th>
+                <th><input type="button" id = "tilføjknap" value="Tilføj" required></th>
             </tr>
             <tr>
                 <th></th>
-                <th><input type="submit" value="Opret bruger"></th>
+                <th><input type="submit" value="Opret recept"></th>
                 <th></th>
             </tr>
         </table>
@@ -46,11 +47,11 @@
 
 <!-- FIX ID NAMES-->
 <div id="recept_mydata">
-    <b><h2>Brugere i systemmet </h2></b>
+    <b><h2>Recepter i systemmet </h2></b>
     <table id="recept_table" border="1" cellpadding="2">
         <tr>
             <td><b>ID</b></td>
-            <td><b>Username</b></td>
+            <td><b>Navn</b></td>
             <td><b>Initials</b></td>
             <td><b>CPR</b></td>
             <td><b>Status</b></td>

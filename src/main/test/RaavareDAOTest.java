@@ -3,7 +3,6 @@ import DAL.DAO.RaavareDAO;
 import DAL.DTO.Raavare;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class RaavareDAOTest {
     private RaavareDAO raavareDAO = new RaavareDAO();

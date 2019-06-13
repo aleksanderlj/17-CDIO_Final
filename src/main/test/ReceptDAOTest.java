@@ -1,18 +1,16 @@
 import java.sql.SQLException;
-
 import DAL.DAO.IDAO;
 import DAL.DAO.ReceptDAO;
 import DAL.DTO.Recept;
 import DAL.DTO.ReceptKomp;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class ReceptDAOTest {
     private ReceptDAO receptDAO = new ReceptDAO();
     private ReceptKomp receptKomp1 = new ReceptKomp(1, 4.5, 5.3);
     private ReceptKomp receptKomp2 = new ReceptKomp(2, 5.3, 4.5);
-    ReceptKomp[] receptKompArray = new ReceptKomp[]{receptKomp1, receptKomp2};
+    private ReceptKomp[] receptKompArray = new ReceptKomp[]{receptKomp1, receptKomp2};
     private Recept recept = new Recept(7545, "Penicillin", receptKompArray);
     private Recept recivedRecept = new Recept();
 

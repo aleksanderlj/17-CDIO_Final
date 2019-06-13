@@ -1,12 +1,8 @@
 package DAL.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import DAL.ConnectionController;
 import DAL.DTO.ProduktBatch;
 
@@ -14,24 +10,26 @@ public class ProduktBatchDAO implements IDAO<ProduktBatch> {
 
     ConnectionController connectionController = new ConnectionController();
 
-    //todo
     @Override
     public int create(ProduktBatch produktBatch) throws SQLException {
         Connection connection = connectionController.createConnection();
+        int id = 0;
 
         try{
             connection.setAutoCommit(false);
 
             PreparedStatement statement = connection.prepareStatement
-                    ("INSERT INTO produktBatch (produktBatchID, receptID, batchStatus, opstartDato, slutDato) VALUES (?,?,?,?,?);");
+                    ("INSERT INTO produktBatch (receptID, batchStatus, opstartDato, slutDato) VALUES (?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 
-            statement.setInt(1, produktBatch.getId());
-            statement.setInt(2, produktBatch.getReceptId());
-            statement.setInt(3, produktBatch.getBatchStatus());
-            statement.setString(4, produktBatch.getOpstartDato());
-            statement.setString(5, produktBatch.getSlutDato());
-
+            statement.setInt(1, produktBatch.getReceptId());
+            statement.setInt(2, produktBatch.getBatchStatus());
+            statement.setString(3, produktBatch.getOpstartDato());
+            statement.setString(4, produktBatch.getSlutDato());
             statement.executeUpdate();
+
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs.next())
+                id = rs.getInt(1);
 
             connection.commit();
         }catch (SQLException e){
@@ -39,10 +37,9 @@ public class ProduktBatchDAO implements IDAO<ProduktBatch> {
             e.printStackTrace();
         }
         connection.close();
-        return 0;
+        return id;
     }
 
-    //todo
     @Override
     public ProduktBatch get(int id) throws SQLException {
         Connection connection = connectionController.createConnection();
@@ -74,22 +71,21 @@ public class ProduktBatchDAO implements IDAO<ProduktBatch> {
         return produktBatch;
     }
 
-    //todo
     @Override
-    public ProduktBatch[] getList() throws SQLException{
+    public ProduktBatch[] getList() throws SQLException {
 
         List<ProduktBatch> produktBatchList = new ArrayList<>();
         Connection connection = connectionController.createConnection();
         ProduktBatch[] produktBatchArray;
         int lastElement;
 
-        try{
+        try {
             connection.setAutoCommit(false);
 
             PreparedStatement statement = connection.prepareStatement
                     ("SELECT * FROM produktBatch;");
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 produktBatchList.add(new ProduktBatch());
                 lastElement = produktBatchList.size() - 1;
                 produktBatchList.get(lastElement).setId(resultSet.getInt(1));
@@ -100,7 +96,7 @@ public class ProduktBatchDAO implements IDAO<ProduktBatch> {
             }
 
             connection.commit();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             connection.rollback();
             e.printStackTrace();
         }
@@ -110,7 +106,6 @@ public class ProduktBatchDAO implements IDAO<ProduktBatch> {
         return produktBatchArray;
     }
 
-    //todo
     @Override
     public void update(ProduktBatch produktBatch)throws SQLException{
 
@@ -135,7 +130,6 @@ public class ProduktBatchDAO implements IDAO<ProduktBatch> {
         connection.close();
     }
 
-    //todo
     @Override
     public void delete(int id)throws SQLException{
 

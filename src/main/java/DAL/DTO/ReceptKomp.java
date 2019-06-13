@@ -12,6 +12,13 @@ public class ReceptKomp {
         this.tolerance = tolerance;
     }
 
+    public boolean equals(ReceptKomp receptKomp) {
+        if(this.raavareId == receptKomp.raavareId && Double.compare(this.nonNetto, receptKomp.nonNetto) == 0 &&
+                Double.compare(this.tolerance, receptKomp.tolerance) == 0)
+            return true;
+        return false;
+    }
+
     public int getRaavareId() {
         return raavareId;
     }

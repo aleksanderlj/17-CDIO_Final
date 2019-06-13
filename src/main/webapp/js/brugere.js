@@ -5,6 +5,7 @@
 //TODO Lav update felter til input i stedet for contenteditable, så du kan lave epic regex
 //-TODO Lav autmatisk bindestreg efter sjette tal når der skrives cpr
 //-TODO CPR pattern i form
+//TODO skriv "-1" i stedet for "-" i ajax create if-statement (lavet for at teste uden database...)
 
 $(function(){
 
@@ -35,7 +36,7 @@ $(function(){
             data : jsondata,
             contentType : 'application/json',
             success : function(data){
-                if (data === "-1") {
+                if (data === "-") {
                     //$('#user_id').closest("th").append(" ");
                     alert("ID er allerede i brug!");
                 } else {
@@ -173,9 +174,31 @@ $(function(){
         row.cells[1].onclick = null;
         row.cells[1].className = null;
 
+
         for(var n=1 ; n < 4 ; n++){
-            row.cells[n].contentEditable = "true";
+            //row.cells[n].contentEditable = "true";
+            row.cells[n].innerHTML = null;
+            row.cells[n].appendChild(makeInputField(row.cells[n].innerHTML));
+
+
+            $('#user_id').on("input", function(e) {
+                id_valid(this);
+            });
         }
+
+        /*
+        row.cells[1].children[0].on("input", function(e) {
+            name_valid(this);
+        });
+
+        row.cells[2].children[0].on("input", function(e) {
+            ini_valid(this);
+        });
+
+        row.cells[3].children[0].on("input", function(e) {
+            cpr_valid(this);
+        });
+*/
 
         row.cells[4].innerHTML = null;
         row.cells[4].appendChild(makeCheckbox(status));
@@ -184,6 +207,14 @@ $(function(){
         //row.cells[4].appendChild(makeRadioBtn("inaktiv", !status));
 
         row.insertCell(5).appendChild(makeUpdateButton(id));
+    }
+
+    function makeInputField(val){
+        var input = document.createElement('input');
+        input.type = "text";
+        input.required = true;
+        input.value = val;
+        return input;
     }
 
     function makeCheckbox(checked){
@@ -279,16 +310,24 @@ $(function(){
     //-----------------------
 
     $('#user_id').on("input", function(e) {
-        var str = this.value;
+        id_valid(this);
+    });
+
+    function id_valid(e){
+        var str = e.value;
         str = str.replace(/(?![0-9])./g, "");
         if (str.length > 9){
             str = str.substring(0,9);
         }
-        this.value = str;
-    });
+        e.value = str;
+    }
 
     $('#user_name').on("input", function(e) {
-        var str = this.value;
+        name_valid(this);
+    });
+
+    function name_valid(e){
+        var str = e.value;
         str = str.replace(/(?![a-zA-Z]|[æøåÆØÅ]|([- ])(?![- ]))./g, "");
         if (str.length > 255){
             str = str.substring(0,255);
@@ -298,27 +337,34 @@ $(function(){
             str = str.substring(1, str.length - 1);
         }
 
-        this.value = str;
-    });
+        e.value = str;
+    }
 
     $('#user_ini').on("input", function(e) {
-        var str = this.value;
+        ini_valid(this);
+    });
+
+    function ini_valid(e){
+        var str = e.value;
         str = str.replace(/(?![a-zA-Z]|[æøåÆØÅ])./g, "");
         if (str.length > 10){
             str = str.substring(0,10);
         }
         str = str.toUpperCase();
-        this.value = str;
-    });
+        e.value = str;
+    }
 
     $('#user_cpr').on("input", function(e) {
-        var str = this.value;
+        cpr_valid(this);
+    });
+
+    function cpr_valid(e){
+        var str = e.value;
         str = str.replace(/(?![0-9]|([0-9]{6}(?!-)))./g, "");
         str = str.replace(/([0-9]{6})([0-9])/, "$1-$2");
         if (str.length > 11){
             str = str.substring(0,11);
         }
-        this.value = str;
-    });
-
+        e.value = str;
+    }
 });

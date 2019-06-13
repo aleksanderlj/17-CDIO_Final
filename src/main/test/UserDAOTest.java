@@ -4,6 +4,7 @@ import DAL.DAO.UserDAO;
 import DAL.DTO.User;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class UserDAOTest {
     // Definere test objekter
@@ -17,11 +18,8 @@ public class UserDAOTest {
         // Laver brugeren, og henter den oprettede bruger fra databasen.
         userDAO.create(user);
         recivedUser = userDAO.get(7545);
-        assertEquals(user.getId(), recivedUser.getId());
-        assertEquals(user.getNavn(), recivedUser.getNavn());
-        assertEquals(user.getIni(), recivedUser.getIni());
-        assertEquals(user.getCpr(), recivedUser.getCpr());
-        assertEquals(user.isAktiv(), recivedUser.isAktiv());
+        if (!user.equals(recivedUser))
+            fail();
     }
 
     @Test
@@ -35,11 +33,9 @@ public class UserDAOTest {
         // Opdatere objektet i databasen, og sammenligner.
         userDAO.update(user);
         recivedUser = userDAO.get(7545);
-        assertEquals(user.getId(), recivedUser.getId());
-        assertEquals(user.getNavn(), recivedUser.getNavn());
-        assertEquals(user.getIni(), recivedUser.getIni());
-        assertEquals(user.getCpr(), recivedUser.getCpr());
-        assertEquals(user.isAktiv(), recivedUser.isAktiv());
+
+        if (!user.equals(recivedUser))
+            fail();
     }
 
     @Test

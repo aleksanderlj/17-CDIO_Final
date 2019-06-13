@@ -15,9 +15,11 @@ public class User {
         this.aktiv = aktiv;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(User user) {
+        if (this.id == user.id && this.navn.equals(user.navn) && this.ini.equals(user.ini) &&
+                this.cpr.equals(user.cpr) && this.aktiv == user.aktiv)
+            return true;
+        return false;
     }
 
     public int getId() {

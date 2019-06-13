@@ -179,14 +179,9 @@ $(function(){
             //row.cells[n].contentEditable = "true";
             row.cells[n].innerHTML = null;
             row.cells[n].appendChild(makeInputField(row.cells[n].innerHTML));
-
-
-            $('#user_id').on("input", function(e) {
-                id_valid(this);
-            });
         }
 
-        /*
+
         row.cells[1].children[0].on("input", function(e) {
             name_valid(this);
         });
@@ -198,7 +193,7 @@ $(function(){
         row.cells[3].children[0].on("input", function(e) {
             cpr_valid(this);
         });
-*/
+
 
         row.cells[4].innerHTML = null;
         row.cells[4].appendChild(makeCheckbox(status));

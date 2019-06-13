@@ -1,9 +1,9 @@
 //TODO Only one can be edited at a time? (Problem with radio buttons "name" making them all "one group")
 //TODO RegEx på al data / Send DB exceptions hele vejen tilbage til JS
-//TODO RegEx på data der skal sendes ind, fra Javascript siden.
+//-TODO RegEx på data der skal sendes ind, fra Javascript siden.
 //TODO Throw exception fra DB siden hvis ID overlapper
 //TODO Lav update felter til input i stedet for contenteditable, så du kan lave epic regex
-//TODO Lav autmatisk bindestreg efter sjette tal når der skrives cpr
+//-TODO Lav autmatisk bindestreg efter sjette tal når der skrives cpr
 
 $(function(){
 
@@ -268,5 +268,47 @@ $(function(){
             }
         }
     }
+
+    //-----------------------
+    //     INPUT CHECKS
+    //-----------------------
+
+    $('#user_id').on("input", function(e) {
+        var str = this.value;
+        str = str.replace(/(?![0-9])./g, "");
+        if (str.length > 9){
+            str = str.substring(0,9);
+        }
+        this.value = str;
+    });
+
+    $('#user_name').on("input", function(e) {
+        var str = this.value;
+        str = str.replace(/(?![a-zA-Z]|( )(?! ))./g, "");
+        if (str.length > 255){
+            str = str.substring(0,255);
+        }
+        this.value = str;
+    });
+
+    $('#user_ini').on("input", function(e) {
+        var str = this.value;
+        str = str.replace(/(?![a-zA-Z])./g, "");
+        if (str.length > 10){
+            str = str.substring(0,10);
+        }
+        str = str.toUpperCase();
+        this.value = str;
+    });
+
+    $('#user_cpr').on("input", function(e) {
+        var str = this.value;
+        str = str.replace(/(?![0-9]|([0-9]{6}(?!-)))./g, "");
+        str = str.replace(/([0-9]{6})([0-9])/, "$1-$2");
+        if (str.length > 11){
+            str = str.substring(0,11);
+        }
+        this.value = str;
+    });
 
 });

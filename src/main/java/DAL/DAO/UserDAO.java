@@ -30,6 +30,7 @@ public class UserDAO implements IDAO<User> {
         }catch (SQLException e){
             connection.rollback();
             e.printStackTrace();
+            throw new DALException("Error");
         }
         connection.close();
         return 0;

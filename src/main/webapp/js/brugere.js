@@ -1,9 +1,10 @@
 //TODO Only one can be edited at a time? (Problem with radio buttons "name" making them all "one group")
-//TODO RegEx på al data / Send DB exceptions hele vejen tilbage til JS
+//-TODO RegEx på al data / Send DB exceptions hele vejen tilbage til JS
 //-TODO RegEx på data der skal sendes ind, fra Javascript siden.
-//TODO Throw exception fra DB siden hvis ID overlapper
+//-TODO Throw exception fra DB siden hvis ID overlapper
 //TODO Lav update felter til input i stedet for contenteditable, så du kan lave epic regex
 //-TODO Lav autmatisk bindestreg efter sjette tal når der skrives cpr
+//-TODO CPR pattern i form
 
 $(function(){
 
@@ -34,10 +35,14 @@ $(function(){
             data : jsondata,
             contentType : 'application/json',
             success : function(data){
-                var jsonParsed = JSON.parse(jsondata);
-                addRow(jsonParsed);
-                sortTable();
-                alert(data);
+                if (data === "-1") {
+                    //$('#user_id').closest("th").append(" ");
+                    alert("ID er allerede i brug!");
+                } else {
+                    var jsonParsed = JSON.parse(jsondata);
+                    addRow(jsonParsed);
+                    sortTable();
+                }
                 //alert(jsonParsed.navn);
             },
             error : function(data){
@@ -284,16 +289,21 @@ $(function(){
 
     $('#user_name').on("input", function(e) {
         var str = this.value;
-        str = str.replace(/(?![a-zA-Z]|( )(?! ))./g, "");
+        str = str.replace(/(?![a-zA-Z]|[æøåÆØÅ]|([- ])(?![- ]))./g, "");
         if (str.length > 255){
             str = str.substring(0,255);
         }
+
+        if (str.charAt(0) === " " || str.charAt(0)=== "-") {
+            str = str.substring(1, str.length - 1);
+        }
+
         this.value = str;
     });
 
     $('#user_ini').on("input", function(e) {
         var str = this.value;
-        str = str.replace(/(?![a-zA-Z])./g, "");
+        str = str.replace(/(?![a-zA-Z]|[æøåÆØÅ])./g, "");
         if (str.length > 10){
             str = str.substring(0,10);
         }

@@ -18,8 +18,11 @@ public class UserDAOTest {
         // Laver brugeren, og henter den oprettede bruger fra databasen.
         userDAO.create(user);
         recivedUser = userDAO.get(7545);
-        if (!user.equals(recivedUser))
-            fail();
+        assertEquals(recivedUser.getId(), user.getId());
+        assertEquals(recivedUser.getNavn(), user.getNavn());
+        assertEquals(recivedUser.getIni(), user.getIni());
+        assertEquals(recivedUser.getCpr(), user.getCpr());
+        assertEquals(recivedUser.isAktiv(),user.isAktiv());
     }
 
     @Test
@@ -34,8 +37,11 @@ public class UserDAOTest {
         userDAO.update(user);
         recivedUser = userDAO.get(7545);
 
-        if (!user.equals(recivedUser))
-            fail();
+        assertEquals(recivedUser.getId(), user.getId());
+        assertEquals(recivedUser.getNavn(), user.getNavn());
+        assertEquals(recivedUser.getIni(), user.getIni());
+        assertEquals(recivedUser.getCpr(), user.getCpr());
+        assertEquals(recivedUser.isAktiv(),user.isAktiv());
     }
 
     @Test

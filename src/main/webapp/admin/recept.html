@@ -17,6 +17,7 @@
             <tr>
                 <th>Recept ID:</th>
                 <th><input type="text" id="recept_nr" placeholder="ID" required></th>
+
             </tr>
             <tr>
                 <th>Navn:</th>
@@ -24,21 +25,23 @@
             </tr>
         </table>
 
-        <table id="opretRecept2">
+        <table id="opretRecept2" class="opretTabel2">
             <tr>
                 <th>Råvare ID</th>
                 <th>Mængde</th>
                 <th>Tolerance</th>
+                <th></th>
             </tr>
             <tr>
-                <th><input type="text" id="comp_raavare" placeholder="Råvare ID" required></th>
-                <th><input type="text" id="comp_amount" placeholder="Mængde" required></th>
-                <th><input type="text" id="comp_tolerance" placeholder="Tolerance" required></th>
-                <th><input type="button" id = "tilføjknap" value="Tilføj" required></th>
+                <td><input type="text" id="comp_raavare" placeholder="Råvare ID" required></td>
+                <td><input type="text" id="comp_amount" placeholder="Mængde" required> kg</td>
+                <td><input type="text" id="comp_tolerance" placeholder="Tolerance" required> %</td>
+                <td><input type="button" id="addrowbtn" value="Tilføj" required></td>
             </tr>
             <tr>
                 <th></th>
                 <th><input type="submit" value="Opret recept"></th>
+                <th></th>
                 <th></th>
             </tr>
         </table>

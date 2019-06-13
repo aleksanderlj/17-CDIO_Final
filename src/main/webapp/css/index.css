@@ -54,6 +54,22 @@ input[type=text], input[type=password] {
     border-color: transparent;
     text-align: left;
 }
+input{
+    text-align: right;
+}
+/*
+.opretTabel2 table{
+    border-collapse: collapse;
+}
+.opretTabel2 td, .opretTabel2 th{
+    text-align: left;
+    border-color: transparent;
+    border-bottom: 1px solid black;
+}
+.opretTabel2 tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+*/
 
 .active{
     background-color: lawngreen;

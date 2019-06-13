@@ -14,17 +14,6 @@ public class Recept {
         this.indholdsListe = indholdsListe;
     }
 
-    public boolean equals(Recept recept) {
-        if (this.id == recept.id && this.navn.equals(recept.navn)){
-            for (int i = 0 ; i < this.indholdsListe.length ; i++){
-                if (!this.indholdsListe[i].equals(recept.indholdsListe[i]))
-                    return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
     public void setNavn(String navn) {
         this.navn = navn;
     }

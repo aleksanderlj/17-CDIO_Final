@@ -14,14 +14,6 @@ public class ProduktBatchKomp {
         this.netto = netto;
     }
 
-    public boolean equals(ProduktBatchKomp pBKomp) {
-        if(this.produktBatchID == pBKomp.produktBatchID && this.raavareBatchID == pBKomp.raavareBatchID &&
-                this.brugerID == pBKomp.brugerID && Double.compare(this.tara, pBKomp.tara) == 0 &&
-                Double.compare(this.netto, pBKomp.netto) == 0)
-            return true;
-        return false;
-    }
-
     public int getBrugerID() {
         return brugerID;
     }

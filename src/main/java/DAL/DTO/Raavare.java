@@ -11,12 +11,6 @@ public class Raavare {
         this.navn = raavareNavn;
     }
 
-    public boolean equals(Raavare raavare) {
-        if (this.id == raavare.id && this.navn.equals(raavare.navn))
-            return true;
-        return false;
-    }
-
     // getters & setters
     public int getId() {
         return id;

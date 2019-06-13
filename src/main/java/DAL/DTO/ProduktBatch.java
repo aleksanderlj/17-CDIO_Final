@@ -21,13 +21,6 @@ public class ProduktBatch{
         this.slutDato = slutDato;
     }
 
-    public boolean equals(ProduktBatch produktBatch) {
-        if (this.id == produktBatch.id && this.receptId == produktBatch.receptId && this.batchStatus == produktBatch.batchStatus &&
-                this.opstartDato.equals(produktBatch.opstartDato) && this.slutDato.equals(produktBatch.slutDato))
-            return true;
-        return false;
-    }
-
     public int getId() {
         return id;
     }

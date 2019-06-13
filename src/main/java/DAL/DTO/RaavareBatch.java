@@ -14,13 +14,6 @@ public class RaavareBatch {
         this.leverandoer = leverandoer;
     }
 
-    public boolean equals(RaavareBatch raavareBatch) {
-        if (this.id == raavareBatch.id && this.raavareId == raavareBatch.raavareId &&
-                Double.compare(this.maengde, raavareBatch.maengde) == 0 && this.leverandoer.equals(raavareBatch.leverandoer))
-            return true;
-        return false;
-    }
-
     public int getId() {
         return id;
     }

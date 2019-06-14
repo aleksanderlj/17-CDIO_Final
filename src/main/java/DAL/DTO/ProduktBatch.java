@@ -6,8 +6,15 @@ public class ProduktBatch{
 
     public ProduktBatch(){ }
 
-    public ProduktBatch(int produktBatchId, int receptId, int batchStatus, String opstartDato, String slutDato) {
-        this.id = produktBatchId;
+    public ProduktBatch(int id, int receptId, int batchStatus, String opstartDato, String slutDato) {
+        this.id = id;
+        this.receptId = receptId;
+        this.batchStatus = batchStatus;
+        this.opstartDato = opstartDato;
+        this.slutDato = slutDato;
+    }
+
+    public ProduktBatch(int receptId, int batchStatus, String opstartDato, String slutDato){
         this.receptId = receptId;
         this.batchStatus = batchStatus;
         this.opstartDato = opstartDato;

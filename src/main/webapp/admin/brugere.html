@@ -7,37 +7,46 @@
     <script src="js/brugere.js"></script>
 </head>
 <body>
-<div>
-    Brugere
-    <br><br>
+<div class="brugerFrom">
+    <h2>Brugere</h2>
+    <br>
 
-    <form id="brugerFrom" method="post">
-    BrugerID:
-    <input type="text" id="user_id">
-    <br>
-    Navn:
-    <input type="text" id="user_name">
-    <br>
-    Ini:
-    <input type="text" id="user_ini">
-    <br>
-    CPR:
-    <input type="text" id="user_cpr">
-        <br>
-        <input type="submit" value="Opret bruger">
+    <form id="user_form" method="post">
+        <table id="opretBruger" class="opretTabel">
+            <tr>
+                <th>ID:</th>
+                <th><input type="text" id="user_id" placeholder="ID" required></th>
+            </tr>
+            <tr>
+                <th>Navn:</th>
+                <th><input type="text" id="user_name" placeholder="Navn" required></th>
+            </tr>
+            <tr>
+                <th>Initialer:</th>
+                <th><input type="text" id="user_ini" placeholder="Initialer" required></th>
+            </tr>
+            <tr>
+                <th>CPR:</th>
+                <th><input type="text" id="user_cpr" placeholder="CPR-nummer" pattern="[0-9]{6}-[0-9]{4}" required></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th><input type="submit" value="Opret bruger"></th>
+            </tr>
+        </table>
     </form>
 </div>
 
-<div id="mydata">
+<!-- FIX ID NAMES-->
+<div id="user_mydata">
     <b><h2>Brugere i systemmet </h2></b>
-    <table id="myTableData"  border="1" cellpadding="2">
+    <table id="user_table" border="1" cellpadding="2">
         <tr>
-            <td> </td>
             <td><b>ID</b></td>
-            <td><b>Username</b></td>
-            <td><b>Initials</b></td>
-            <td><b>Roles</b></td>
-            <td> </td>
+            <td><b>Navn</b></td>
+            <td><b>Initialer</b></td>
+            <td><b>CPR</b></td>
+            <td><b>Status</b></td>
         </tr>
     </table>
 </div>

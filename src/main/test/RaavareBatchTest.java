@@ -4,7 +4,6 @@ import DAL.DAO.RaavareDAO;
 import DAL.DTO.Raavare;
 import DAL.DTO.RaavareBatch;
 import org.junit.Test;
-import org.testng.annotations.ITestAnnotation;
 
 import java.sql.SQLException;
 import java.util.List;

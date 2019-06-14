@@ -26,11 +26,13 @@ CREATE TABLE raavareBatch(
 CREATE TABLE produktBatch(
 		produktBatchID INT PRIMARY KEY AUTO_INCREMENT, 
 		receptID INT, 
-        batchStatus TEXT NOT NULL,
+        batchStatus INT NOT NULL,
         opstartDato TEXT NOT NULL,
         slutDato TEXT,
         FOREIGN KEY (receptID) REFERENCES recept(receptID));
         
+drop table produktBatchKomp, produktBatch, raavareBatch, receptKomp;
+
 CREATE TABLE produktBatchKomp(
 		produktBatchID INT,
         raavareBatchID INT,
@@ -38,7 +40,8 @@ CREATE TABLE produktBatchKomp(
         netto DOUBLE(7,4),
         brugerID INT,
         FOREIGN KEY (produktBatchID) REFERENCES produktBatch(produktBatchID),
-        FOREIGN KEY (raavareBatchID) REFERENCES raavareBatch(raavareBatchID));
+        FOREIGN KEY (raavareBatchID) REFERENCES raavareBatch(raavareBatchID),
+        FOREIGN KEY (brugerID) REFERENCES bruger(brugerID));
 
 CREATE TABLE bruger(
 		brugerID INT PRIMARY KEY,
@@ -46,3 +49,7 @@ CREATE TABLE bruger(
         ini TEXT,
         cpr TEXT,
         aktiv BOOLEAN);
+        
+insert into bruger set brugerID = 1, brugerNavn = "Simon", ini ="SH", cpr = "100496", aktiv = true;
+insert into bruger set brugerID = 2, brugerNavn = "Silas", ini ="SJ", cpr = "241097", aktiv = true;
+insert into bruger set brugerID = 3, brugerNavn = "Peter", ini ="PH", cpr = "150700", aktiv = true;

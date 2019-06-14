@@ -16,10 +16,13 @@ $(function () {
     function addIndholdRow() {
         var table = document.getElementById("opretRecept2");
         var row = table.insertRow(2);
+        var ravare = $('#comp_raavare').val();
+        var amount = $('#comp_amount').val() + " kg";
+        var tole = $('#comp_tolerance').val() + " %";
 
-        row.insertCell(0).innerHTML = $('#comp_raavare').val();
-        row.insertCell(1).innerHTML = $('#comp_amount').val();
-        row.insertCell(2).innerHTML = $('#comp_tolerance').val();
+        row.insertCell(0).innerHTML = ravare;
+        row.insertCell(1).innerHTML = amount;
+        row.insertCell(2).innerHTML = tole;
         row.insertCell(3).appendChild(makeRemoveRowBtn());
     }
 

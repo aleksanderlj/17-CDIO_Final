@@ -18,11 +18,12 @@ public class UserREST {
     @Path("create")
     @Consumes(MediaType.APPLICATION_JSON)
     public String createUser(User user) throws SQLException, IDAO.DALException {
-        String eString = "";
+        String eString = "1";
 
         try {
             db.create(user);
         } catch (Exception e){
+            eString = "-1";
             /*
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));

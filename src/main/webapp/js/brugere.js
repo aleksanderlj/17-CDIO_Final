@@ -1,9 +1,11 @@
 //TODO Only one can be edited at a time? (Problem with radio buttons "name" making them all "one group")
-//TODO RegEx på al data / Send DB exceptions hele vejen tilbage til JS
+//-TODO RegEx på al data / Send DB exceptions hele vejen tilbage til JS
 //-TODO RegEx på data der skal sendes ind, fra Javascript siden.
-//TODO Throw exception fra DB siden hvis ID overlapper
+//-TODO Throw exception fra DB siden hvis ID overlapper
 //TODO Lav update felter til input i stedet for contenteditable, så du kan lave epic regex
 //-TODO Lav autmatisk bindestreg efter sjette tal når der skrives cpr
+//-TODO CPR pattern i form
+//TODO skriv "-1" i stedet for "-" i ajax create if-statement (lavet for at teste uden database...)
 
 $(function(){
 
@@ -34,10 +36,14 @@ $(function(){
             data : jsondata,
             contentType : 'application/json',
             success : function(data){
-                var jsonParsed = JSON.parse(jsondata);
-                addRow(jsonParsed);
-                sortTable();
-                alert(data);
+                if (data === "-1") {
+                    //$('#user_id').closest("th").append(" ");
+                    alert("ID er allerede i brug!");
+                } else {
+                    var jsonParsed = JSON.parse(jsondata);
+                    addRow(jsonParsed);
+                    sortTable();
+                }
                 //alert(jsonParsed.navn);
             },
             error : function(data){
@@ -168,9 +174,29 @@ $(function(){
         row.cells[1].onclick = null;
         row.cells[1].className = null;
 
+        var currenttext;
         for(var n=1 ; n < 4 ; n++){
-            row.cells[n].contentEditable = "true";
+            //row.cells[n].contentEditable = "true";
+            currenttext = row.cells[n].innerHTML;
+            row.cells[n].innerHTML = null;
+            row.cells[n].appendChild(makeInputField(currenttext));
         }
+
+        $(row.cells[1].children[0]).on("input", function(e) {
+            this.value = name_valid(this.value);
+            //name_valid(this);
+        });
+
+        $(row.cells[2].children[0]).on("input", function(e) {
+            this.value = ini_valid(this.value);
+            //ini_valid(this);
+        });
+
+        $(row.cells[3].children[0]).on("input", function(e) {
+            this.value = cpr_valid(this.value);
+            //cpr_valid(this);
+        });
+
 
         row.cells[4].innerHTML = null;
         row.cells[4].appendChild(makeCheckbox(status));
@@ -179,6 +205,14 @@ $(function(){
         //row.cells[4].appendChild(makeRadioBtn("inaktiv", !status));
 
         row.insertCell(5).appendChild(makeUpdateButton(id));
+    }
+
+    function makeInputField(val){
+        var input = document.createElement('input');
+        input.type = "text";
+        input.required = true;
+        input.value = val;
+        return input;
     }
 
     function makeCheckbox(checked){
@@ -213,16 +247,22 @@ $(function(){
 
         var json = makeJSON(
             id,
-            row.cells[1].innerHTML,
+            /*row.cells[1].innerHTML,
             row.cells[2].innerHTML,
-            row.cells[3].innerHTML,
+            row.cells[3].innerHTML,*/
+            name_valid(row.cells[1].children[0].value),
+            ini_valid(row.cells[2].children[0].value),
+            cpr_valid(row.cells[3].children[0].value),
             row.cells[4].children[0].checked);
 
         row.cells[1].onclick = (function() {editMode(this, id)});
         row.cells[1].className = "namebtn";
 
+        var currenttext;
         for(var n=1 ; n < 4 ; n++){
-            row.cells[n].contentEditable = "false";
+            //row.cells[n].contentEditable = "false";
+            currenttext = row.cells[n].children[0].value;
+            row.cells[n].innerHTML = currenttext;
         }
 
         if(row.cells[4].children[0].checked){
@@ -274,41 +314,59 @@ $(function(){
     //-----------------------
 
     $('#user_id').on("input", function(e) {
-        var str = this.value;
+        this.value = id_valid(this.value);
+        //id_valid(this);
+    });
+
+    function id_valid(str){
+        //var str = e.value;
         str = str.replace(/(?![0-9])./g, "");
         if (str.length > 9){
             str = str.substring(0,9);
         }
-        this.value = str;
-    });
+        //e.value = str;
+        return str;
+    }
 
     $('#user_name').on("input", function(e) {
-        var str = this.value;
-        str = str.replace(/(?![a-zA-Z]|( )(?! ))./g, "");
+        this.value = name_valid(this.value);
+    });
+
+    function name_valid(str){
+        str = str.replace(/(?![a-zA-Z]|[æøåÆØÅ]|([- ])(?![- ]))./g, "");
         if (str.length > 255){
             str = str.substring(0,255);
         }
-        this.value = str;
-    });
+
+        if (str.charAt(0) === " " || str.charAt(0)=== "-") {
+            str = str.substring(1, str.length - 1);
+        }
+        return str;
+    }
 
     $('#user_ini').on("input", function(e) {
-        var str = this.value;
-        str = str.replace(/(?![a-zA-Z])./g, "");
+        this.value = ini_valid(this.value);
+    });
+
+    function ini_valid(str){
+        str = str.replace(/(?![a-zA-Z]|[æøåÆØÅ])./g, "");
         if (str.length > 10){
             str = str.substring(0,10);
         }
         str = str.toUpperCase();
-        this.value = str;
-    });
+        return str;
+    }
 
     $('#user_cpr').on("input", function(e) {
-        var str = this.value;
+        this.value = cpr_valid(this.value);
+    });
+
+    function cpr_valid(str){
         str = str.replace(/(?![0-9]|([0-9]{6}(?!-)))./g, "");
         str = str.replace(/([0-9]{6})([0-9])/, "$1-$2");
         if (str.length > 11){
             str = str.substring(0,11);
         }
-        this.value = str;
-    });
-
+        return str;
+    }
 });

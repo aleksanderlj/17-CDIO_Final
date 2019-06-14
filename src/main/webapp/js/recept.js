@@ -1,5 +1,6 @@
 $(function () {
 
+
     $('#recept_form').submit(function (e) {
         e.preventDefault();
     });
@@ -10,7 +11,7 @@ $(function () {
         document.getElementById('comp_raavare').value = '';
         document.getElementById('comp_amount').value = '';
         document.getElementById('comp_tolerance').value = '';
-    })
+    });
 
     /*Tilføj række af indholdsstoffer*/
     function addIndholdRow() {
@@ -37,8 +38,8 @@ $(function () {
 
         var row = table.insertRow(0);
         row.insertCell(0).innerHTML = "";
-        row.insertCell(1).innerHTML = data.id;
-        row.insertCell(2).innerHTML = data.navn;
+        row.insertCell(1).innerHTML = "hrj";
+        row.insertCell(2).innerHTML = "hej";
         row.insertCell(3).innerHTML = "";
 
         var row2 = table.insertRow(1);
@@ -60,16 +61,25 @@ $(function () {
         row.insertCell(2).innerHTML = data.meangde;
         row.insertCell(3).innerHTML = data.tolerance;
     }
-    function fjernRevept() {
-        
+    function fjernRecept() {
+        var div = document.getElementById("seReceptdiv");
+        div.style.display = "none";
     }
+
+    $('#lukRecept').click(function (e) {
+        fjernRecept();
+    });
+
+    $('#test').click(function (e) {
+        seRecept();
+    });
 
     function makeCloseSeReceptBTN() {
         var removeBtn = document.createElement('input');
         removeBtn.type = "button";
         removeBtn.name = "closeSeRecept";
         removeBtn.value = "Luk";
-        removeBtn.onclick = (function() {fjernRevept(this)});
+        removeBtn.onclick = (function() {fjernRecept(this)});
         return removeBtn;
     }
 });

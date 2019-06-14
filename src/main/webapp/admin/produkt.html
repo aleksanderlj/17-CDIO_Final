@@ -7,21 +7,36 @@
     <script src="js/produkt.js"></script>
 </head>
 <body>
-<div>
-    Produktbatches
+<div class="produktFrom">
+    <h2>Produktbatch</h2>
+    <br>
 
-    <input type="text" id="prod_nr">
-    <input type="text" id="prod_recept">
-    <input type="text" id="prod_date">
+    <form id="produkt_form" method="post">
+        <table id="opretProdukt" class="opretTabel">
+            <tr>
+                <th>Recept ID:</th>
+                <th><input type="text" id="pRecept_id" placeholder="Recept ID" required></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th><input type="submit" value="Opret produktbatch"></th>
+            </tr>
+        </table>
+    </form>
+</div>
 
-    Status:
-
-
-    <!--
-    <input type="radio" name="status" value="oprettet">Oprettet<br>
-    <input type="radio" name="status" value="under_prod">Under Produktion<br>
-    <input type="radio" name="status" value="afsluttet">Afsluttet<br>
-    -->
+<!-- FIX ID NAMES-->
+<div id="prod_mydata">
+    <b><h2>Produktbatchs i systemmet </h2></b>
+    <table id="prod_table" border="1" cellpadding="2">
+        <tr>
+            <td><b>ID</b></td>
+            <td><b>Recept navn</b></td>
+            <td><b>Status</b></td>
+            <td><b>Oprettelses dato</b></td>
+            <td><b>Slut dato</b></td>
+        </tr>
+    </table>
 </div>
 
 </body>

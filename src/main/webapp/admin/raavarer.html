@@ -7,12 +7,37 @@
     <script src="js/raavarer.js"></script>
 </head>
 <body>
-<div>
-    Råvarer
+<div class="raavareFrom">
+    <h2>Råvarer</h2>
+    <br>
 
-    <input type="text" id="raavare_nr">
-    <input type="text" id="raavare_name">
+    <form id="raavare_form" method="post">
+        <table id="opretRaavare" class="opretTabel">
+            <tr>
+                <th>Råvare ID:</th>
+                <th><input type="text" id="raavare_nr" placeholder="ID" required></th>
+            </tr>
+            <tr>
+                <th>Navn:</th>
+                <th><input type="text" id="raavare_name" placeholder="Navn" required></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th><input type="submit" value="Opret råvare"></th>
+            </tr>
+        </table>
+    </form>
 </div>
 
+<!-- FIX ID NAMES-->
+<div id="raavare_mydata">
+    <b><h2>Råvare i systemmet </h2></b>
+    <table id="raavare_table" border="1" cellpadding="2">
+        <tr>
+            <td><b>ID</b></td>
+            <td><b>Navn</b></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

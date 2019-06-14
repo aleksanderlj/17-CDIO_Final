@@ -7,13 +7,50 @@
     <script src="js/raavarebatch.js"></script>
 </head>
 <body>
-<div>
-    Råvarebatch
 
-    <input type="text" id="rbatch_nr">
-    <input type="text" id="rbatch_amount">
-    <input type="text" id="rbatch_supplier">
+<div class="raavareFrom">
+    <h2>Råvarebatch</h2>
+    <br>
+
+    <form id="raavareBatch_form" method="post">
+        <table id="opretRBatch" class="opretTabel">
+            <tr>
+                <th>Råvarebatch ID</th>
+                <th><input type="text" id="rbatch_nr" placeholder="Batch ID" required></th>
+            </tr>
+            <tr>
+                <th>Råvare ID:</th>
+                <th><input type="text" id="rbatch_raavare_nr" placeholder="Råvare ID" required></th>
+            </tr>
+            <tr>
+                <th>Mængde:</th>
+                <th><input type="text" id="rbatch_amount" placeholder="Mængde" required></th>
+            </tr>
+            <tr>
+                <th>Leverandør:</th>
+                <th><input type="text" id="rbatch_supplier" placeholder="Leverandør" required></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th><input type="submit" value="Opret råvarebatch"></th>
+            </tr>
+        </table>
+    </form>
 </div>
+
+<!-- FIX ID NAMES-->
+<div id="rbatch_mydata">
+    <b><h2>Råvarebatchs i systemmet </h2></b>
+    <table id="rbatch_table" border="1" cellpadding="2">
+        <tr>
+            <td><b>ID</b></td>
+            <td><b>Råvare navn</b></td>
+            <td><b>Mængde</b></td>
+            <td><b>Leverandør</b></td>
+        </tr>
+    </table>
+</div>
+
 
 </body>
 </html>

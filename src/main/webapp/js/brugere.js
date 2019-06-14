@@ -36,7 +36,7 @@ $(function(){
             data : jsondata,
             contentType : 'application/json',
             success : function(data){
-                if (data === "-") {
+                if (data === "-1") {
                     //$('#user_id').closest("th").append(" ");
                     alert("ID er allerede i brug!");
                 } else {
@@ -174,24 +174,27 @@ $(function(){
         row.cells[1].onclick = null;
         row.cells[1].className = null;
 
-
+        var currenttext;
         for(var n=1 ; n < 4 ; n++){
             //row.cells[n].contentEditable = "true";
+            currenttext = row.cells[n].innerHTML;
             row.cells[n].innerHTML = null;
-            row.cells[n].appendChild(makeInputField(row.cells[n].innerHTML));
+            row.cells[n].appendChild(makeInputField(currenttext));
         }
 
-
-        row.cells[1].children[0].on("input", function(e) {
-            name_valid(this);
+        $(row.cells[1].children[0]).on("input", function(e) {
+            this.value = name_valid(this.value);
+            //name_valid(this);
         });
 
-        row.cells[2].children[0].on("input", function(e) {
-            ini_valid(this);
+        $(row.cells[2].children[0]).on("input", function(e) {
+            this.value = ini_valid(this.value);
+            //ini_valid(this);
         });
 
-        row.cells[3].children[0].on("input", function(e) {
-            cpr_valid(this);
+        $(row.cells[3].children[0]).on("input", function(e) {
+            this.value = cpr_valid(this.value);
+            //cpr_valid(this);
         });
 
 
@@ -244,16 +247,22 @@ $(function(){
 
         var json = makeJSON(
             id,
-            row.cells[1].innerHTML,
+            /*row.cells[1].innerHTML,
             row.cells[2].innerHTML,
-            row.cells[3].innerHTML,
+            row.cells[3].innerHTML,*/
+            name_valid(row.cells[1].children[0].value),
+            ini_valid(row.cells[2].children[0].value),
+            cpr_valid(row.cells[3].children[0].value),
             row.cells[4].children[0].checked);
 
         row.cells[1].onclick = (function() {editMode(this, id)});
         row.cells[1].className = "namebtn";
 
+        var currenttext;
         for(var n=1 ; n < 4 ; n++){
-            row.cells[n].contentEditable = "false";
+            //row.cells[n].contentEditable = "false";
+            currenttext = row.cells[n].children[0].value;
+            row.cells[n].innerHTML = currenttext;
         }
 
         if(row.cells[4].children[0].checked){
@@ -305,24 +314,25 @@ $(function(){
     //-----------------------
 
     $('#user_id').on("input", function(e) {
-        id_valid(this);
+        this.value = id_valid(this.value);
+        //id_valid(this);
     });
 
-    function id_valid(e){
-        var str = e.value;
+    function id_valid(str){
+        //var str = e.value;
         str = str.replace(/(?![0-9])./g, "");
         if (str.length > 9){
             str = str.substring(0,9);
         }
-        e.value = str;
+        //e.value = str;
+        return str;
     }
 
     $('#user_name').on("input", function(e) {
-        name_valid(this);
+        this.value = name_valid(this.value);
     });
 
-    function name_valid(e){
-        var str = e.value;
+    function name_valid(str){
         str = str.replace(/(?![a-zA-Z]|[æøåÆØÅ]|([- ])(?![- ]))./g, "");
         if (str.length > 255){
             str = str.substring(0,255);
@@ -331,35 +341,32 @@ $(function(){
         if (str.charAt(0) === " " || str.charAt(0)=== "-") {
             str = str.substring(1, str.length - 1);
         }
-
-        e.value = str;
+        return str;
     }
 
     $('#user_ini').on("input", function(e) {
-        ini_valid(this);
+        this.value = ini_valid(this.value);
     });
 
-    function ini_valid(e){
-        var str = e.value;
+    function ini_valid(str){
         str = str.replace(/(?![a-zA-Z]|[æøåÆØÅ])./g, "");
         if (str.length > 10){
             str = str.substring(0,10);
         }
         str = str.toUpperCase();
-        e.value = str;
+        return str;
     }
 
     $('#user_cpr').on("input", function(e) {
-        cpr_valid(this);
+        this.value = cpr_valid(this.value);
     });
 
-    function cpr_valid(e){
-        var str = e.value;
+    function cpr_valid(str){
         str = str.replace(/(?![0-9]|([0-9]{6}(?!-)))./g, "");
         str = str.replace(/([0-9]{6})([0-9])/, "$1-$2");
         if (str.length > 11){
             str = str.substring(0,11);
         }
-        e.value = str;
+        return str;
     }
 });

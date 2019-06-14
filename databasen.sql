@@ -20,7 +20,10 @@ CREATE TABLE raavareBatch(
 		raavareID INT, 
 		maengde DOUBLE(7,4) NOT NULL,
 		leverandoer TEXT NOT NULL,
-		FOREIGN KEY (raavareID) REFERENCES raavare(raavareID));
+		FOREIGN KEY (raavareID) REFERENCES raavare(raavareID),
+        CHECK (maengde >= 0));
+        
+INSERT INTO raavareBatch SET raavareBatchID = 41, raavareID = 1, maengde =123, leverandoer= "hejsa";
 
 CREATE TABLE produktBatch(
 		produktBatchID INT PRIMARY KEY AUTO_INCREMENT, 
@@ -33,7 +36,7 @@ CREATE TABLE produktBatch(
 CREATE TABLE produktBatchKomp(
 		produktBatchID INT,
         raavareBatchID INT,
-        tara DOUBLE(7,4) NOT NULL, 
+        tara DOUBLE(7,4) NOT NULL,
         netto DOUBLE(7,4) NOT NULL,
         brugerID INT,
         FOREIGN KEY (produktBatchID) REFERENCES produktBatch(produktBatchID),

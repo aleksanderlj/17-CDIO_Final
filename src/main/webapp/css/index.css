@@ -57,6 +57,15 @@ input[type=text], input[type=password] {
 .rightshift{
     text-align: right;
 }
+
+div.seRecept {
+    position: fixed;
+    top: 80px;
+    right: 0;
+    width: 300px;
+    border: 3px solid #73AD21;
+    background-color: beige;
+}
 /*
 .opretTabel2 table{
     border-collapse: collapse;

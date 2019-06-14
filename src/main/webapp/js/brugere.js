@@ -2,10 +2,10 @@
 //-TODO RegEx på al data / Send DB exceptions hele vejen tilbage til JS
 //-TODO RegEx på data der skal sendes ind, fra Javascript siden.
 //-TODO Throw exception fra DB siden hvis ID overlapper
-//TODO Lav update felter til input i stedet for contenteditable, så du kan lave epic regex
+//-TODO Lav update felter til input i stedet for contenteditable, så du kan lave epic regex
 //-TODO Lav autmatisk bindestreg efter sjette tal når der skrives cpr
 //-TODO CPR pattern i form
-//TODO skriv "-1" i stedet for "-" i ajax create if-statement (lavet for at teste uden database...)
+//-TODO skriv "-1" i stedet for "-" i ajax create if-statement (lavet for at teste uden database...)
 
 $(function(){
 

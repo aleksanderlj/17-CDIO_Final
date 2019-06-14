@@ -46,7 +46,7 @@ $(function(){
                 }
                 //alert(jsonParsed.navn);
             },
-            error : function(data){
+            error : function(){
                 alert("Upload cancelled:\nPlease make sure that all necessary information was entered");
             }
         });
@@ -61,7 +61,7 @@ $(function(){
             success : function(data){
                 alert(data.navn);
             },
-            error : function(data){
+            error : function(){
                 alert("An unexpected error has occured: GET_ERROR");
             }
         });
@@ -77,7 +77,7 @@ $(function(){
             success : function(data){
 
             },
-            error : function(data){
+            error : function(){
                 alert("Update cancelled:\nPlease make sure that all necessary information was entered");
             }
         });
@@ -95,7 +95,7 @@ $(function(){
                 }
                 sortTable();
             },
-            error : function(data){
+            error : function(){
                 alert("An unexpected error has occured: USERLIST_ERROR");
             }
         });
@@ -106,10 +106,10 @@ $(function(){
         $.ajax({
             url : 'rest/user/delete/' + id,
             type : 'POST',
-            success : function(data){
+            success : function(){
                 deleteRow(row, id);
             },
-            error : function(data){
+            error : function(){
                 alert("An unexpected error has occured: DELETE_ERROR");
             }
         });
@@ -125,9 +125,7 @@ $(function(){
             "aktiv" : aktiv
         };
 
-        var jsonstring = JSON.stringify(json);
-
-        return jsonstring;
+        return JSON.stringify(json);
     }
 
     //---------------------
@@ -182,17 +180,17 @@ $(function(){
             row.cells[n].appendChild(makeInputField(currenttext));
         }
 
-        $(row.cells[1].children[0]).on("input", function(e) {
+        $(row.cells[1].children[0]).on("input", function() {
             this.value = name_valid(this.value);
             //name_valid(this);
         });
 
-        $(row.cells[2].children[0]).on("input", function(e) {
+        $(row.cells[2].children[0]).on("input", function() {
             this.value = ini_valid(this.value);
             //ini_valid(this);
         });
 
-        $(row.cells[3].children[0]).on("input", function(e) {
+        $(row.cells[3].children[0]).on("input", function() {
             this.value = cpr_valid(this.value);
             //cpr_valid(this);
         });
@@ -280,7 +278,7 @@ $(function(){
     }
 
     // Deletes a row from the webpage
-    function deleteRow(obj, id) {
+    function deleteRow(obj) {
         var index = obj.parentNode.parentNode.rowIndex;
         var table = document.getElementById("user_table");
         table.deleteRow(index);
@@ -313,7 +311,7 @@ $(function(){
     //     INPUT CHECKS
     //-----------------------
 
-    $('#user_id').on("input", function(e) {
+    $('#user_id').on("input", function() {
         this.value = id_valid(this.value);
         //id_valid(this);
     });
@@ -328,7 +326,7 @@ $(function(){
         return str;
     }
 
-    $('#user_name').on("input", function(e) {
+    $('#user_name').on("input", function() {
         this.value = name_valid(this.value);
     });
 
@@ -344,7 +342,7 @@ $(function(){
         return str;
     }
 
-    $('#user_ini').on("input", function(e) {
+    $('#user_ini').on("input", function() {
         this.value = ini_valid(this.value);
     });
 
@@ -357,7 +355,7 @@ $(function(){
         return str;
     }
 
-    $('#user_cpr').on("input", function(e) {
+    $('#user_cpr').on("input", function() {
         this.value = cpr_valid(this.value);
     });
 

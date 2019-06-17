@@ -1,5 +1,6 @@
 $(function () {
 
+    var raavarelist;
 
     $('#recept_form').submit(function (e) {
         e.preventDefault();
@@ -26,6 +27,14 @@ $(function () {
         row.insertCell(2).innerHTML = tole;
         row.insertCell(3).appendChild(makeRemoveRowBtn());
     }
+    function makeRemoveRowBtn() {
+        var btn = document.createElement('input');
+        btn.type = "button";
+        btn.name = "fjernKomp";
+        btn.value = "Fjern";
+        btn.onclick = (function() {removeRow(this)});
+        return btn;
+    }
 
     function removeRow(obj) {
         var index = obj.parentNode.parentNode.rowIndex;
@@ -35,11 +44,18 @@ $(function () {
 
     function seRecept(data) {
         var table = document.getElementById("seReceptTableID");
-
+        var x = document.getElementById("seReceptTableID").rows.length;
+        for (var i = 0; i < x; i++){
+            table.deleteRow(0);
+        }
+        var div = document.getElementById("seReceptdiv");
+        if (div.style.display === "none") {
+            div.style.display = "block";
+        }
         var row = table.insertRow(0);
         row.insertCell(0).innerHTML = "";
-        row.insertCell(1).innerHTML = "hrj";
-        row.insertCell(2).innerHTML = "hej";
+        row.insertCell(1).innerHTML = "Rigtig ID";
+        row.insertCell(2).innerHTML = "Rigtig navn";
         row.insertCell(3).innerHTML = "";
 
         var row2 = table.insertRow(1);
@@ -48,19 +64,22 @@ $(function () {
         row2.insertCell(2).innerHTML = "Mængde";
         row2.insertCell(3).innerHTML = "Tolerance";
 
-        var lul = data.raavare;
-        addSeReceptRow(lul);
+        var data2 = data.indholdsListe;
+        addSeReceptRow(data2);
     }
+
     function addSeReceptRow(data) {
         var table = document.getElementById("seReceptTableID");
         var rowCount = table.rows.length;
         var row = table.insertRow(rowCount);
+        var raavare = $.grep(raavarelist, function(e){ return e.id === data.raavareId; })[0];
 
-        row.insertCell(0).innerHTML = data.id;
-        row.insertCell(1).innerHTML = data.navn;
-        row.insertCell(2).innerHTML = data.meangde;
+        row.insertCell(0).innerHTML = data.raavareId;
+        row.insertCell(1).innerHTML = raavare.navn;
+        row.insertCell(2).innerHTML = data.nonNetto;
         row.insertCell(3).innerHTML = data.tolerance;
     }
+
     function fjernRecept() {
         var div = document.getElementById("seReceptdiv");
         div.style.display = "none";
@@ -70,16 +89,22 @@ $(function () {
         fjernRecept();
     });
 
-    $('#test').click(function (e) {
+    $('#seReceptBTN').click(function (e) {
         seRecept();
     });
+
+    // trash nedenfor
 
     function makeCloseSeReceptBTN() {
         var removeBtn = document.createElement('input');
         removeBtn.type = "button";
         removeBtn.name = "closeSeRecept";
         removeBtn.value = "Luk";
-        removeBtn.onclick = (function() {fjernRecept(this)});
+        removeBtn.onclick = (function () {
+            fjernRecept(this)
+        });
         return removeBtn;
     }
+
+
 });

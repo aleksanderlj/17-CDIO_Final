@@ -55,10 +55,8 @@ $(function () {
         }
         var tableheader = document.getElementById("seReceptTableHeaderID");
         row = tableheader.rows[0];
-        row.cells[0].innerHTML = "";
         row.cells[1].innerHTML = "Rigtig ID";
         row.cells[2].innerHTML = "Rigtig navn";
-        row.cells[3].innerHTML = "";
 
         var data2 = data.indholdsListe;
         addSeReceptRow(data2);

@@ -62,7 +62,7 @@ div.seRecept {
     position: fixed;
     top: 80px;
     right: 5px;
-    width: 300px;
+    width: 320px;
     background-color: beige;
     overflow: auto;
     height: 70%;
@@ -71,9 +71,12 @@ div.seRecept {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    padding: 5px;
-    background-color: #cae8ca;
-    border: 2px solid #4CAF50;
+}
+#lukRecept{
+    float: right;
+}
+.seReceptTable{
+    width: 300px;
 }
 /*
 .opretTabel2 table{

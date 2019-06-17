@@ -53,17 +53,12 @@ $(function () {
         if (div.style.display === "none") {
             div.style.display = "block";
         }
-        var row = table.insertRow(0);
-        row.insertCell(0).innerHTML = "";
-        row.insertCell(1).innerHTML = "Rigtig ID";
-        row.insertCell(2).innerHTML = "Rigtig navn";
-        row.insertCell(3).innerHTML = "";
-
-        var row2 = table.insertRow(1);
-        row2.insertCell(0).innerHTML = "Råvare ID";
-        row2.insertCell(1).innerHTML = "Råvare navn";
-        row2.insertCell(2).innerHTML = "Mængde";
-        row2.insertCell(3).innerHTML = "Tolerance";
+        var tableheader = document.getElementById("seReceptTableHeaderID");
+        row = tableheader.rows[0];
+        row.cells[0].innerHTML = "";
+        row.cells[1].innerHTML = "Rigtig ID";
+        row.cells[2].innerHTML = "Rigtig navn";
+        row.cells[3].innerHTML = "";
 
         var data2 = data.indholdsListe;
         addSeReceptRow(data2);

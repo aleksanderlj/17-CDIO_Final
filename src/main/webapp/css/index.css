@@ -62,32 +62,18 @@ div.seRecept {
     position: fixed;
     top: 80px;
     right: 5px;
-    width: 300px;
+    width: 320px;
     background-color: beige;
     overflow: auto;
     height: 70%;
 }
-.Sticky{
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    padding: 5px;
-    background-color: #cae8ca;
-    border: 2px solid #4CAF50;
+
+#lukRecept{
+    float: right;
 }
-/*
-.opretTabel2 table{
-    border-collapse: collapse;
+.seReceptTable{
+    width: 300px;
 }
-.opretTabel2 td, .opretTabel2 th{
-    text-align: left;
-    border-color: transparent;
-    border-bottom: 1px solid black;
-}
-.opretTabel2 tr:nth-child(even){
-    background-color: #f2f2f2;
-}
-*/
 
 .active{
     background-color: lawngreen;

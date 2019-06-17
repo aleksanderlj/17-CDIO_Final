@@ -108,9 +108,9 @@ public class ReceptDAO implements IDAO<Recept> {
                 indholdsListe = new ArrayList<>();
                 while(resultSet1.next()){
                     indholdsListe.add(new ReceptKomp());
-                    indholdsListe.get(indholdsListe.size()-1).setRaavareId(resultSet.getInt(2));
-                    indholdsListe.get(indholdsListe.size()-1).setNonNetto(resultSet.getDouble(3));
-                    indholdsListe.get(indholdsListe.size()-1).setTolerance(resultSet.getDouble(4));
+                    indholdsListe.get(indholdsListe.size()-1).setRaavareId(resultSet1.getInt(2));
+                    indholdsListe.get(indholdsListe.size()-1).setNonNetto(resultSet1.getDouble(3));
+                    indholdsListe.get(indholdsListe.size()-1).setTolerance(resultSet1.getDouble(4));
                 }
                 indholdsArray = indholdsListe.toArray(new ReceptKomp[indholdsListe.size()]);
                 receptList.get(receptList.size() - 1).setIndholdsListe(indholdsArray);

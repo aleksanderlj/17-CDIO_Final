@@ -1,6 +1,9 @@
 package DAL.DAO;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import DAL.ConnectionController;
@@ -13,18 +16,18 @@ public class ProduktBatchDAO implements IDAO<ProduktBatch> {
     @Override
     public int create(ProduktBatch produktBatch) throws SQLException {
         Connection connection = connectionController.createConnection();
-        int id = 0;
+        int id = -1;
 
         try{
             connection.setAutoCommit(false);
 
             PreparedStatement statement = connection.prepareStatement
-                    ("INSERT INTO produktBatch (receptID, batchStatus, opstartDato, slutDato) VALUES (?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+                    ("INSERT INTO produktBatch (receptID, batchStatus, opstartDato) VALUES (?,?,?);", Statement.RETURN_GENERATED_KEYS);
 
             statement.setInt(1, produktBatch.getReceptId());
             statement.setInt(2, produktBatch.getBatchStatus());
             statement.setString(3, produktBatch.getOpstartDato());
-            statement.setString(4, produktBatch.getSlutDato());
+            //statement.setString(4, produktBatch.getSlutDato());
             statement.executeUpdate();
 
             ResultSet rs = statement.getGeneratedKeys();

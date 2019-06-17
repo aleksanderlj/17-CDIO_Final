@@ -180,16 +180,13 @@ $(function(){
 
     $('#raavare_nr').on("input", function() {
         this.value = id_valid(this.value);
-        //id_valid(this);
     });
 
     function id_valid(str){
-        //var str = e.value;
         str = str.replace(/(?![0-9])./g, "");
         if (str.length > 9){
             str = str.substring(0,9);
         }
-        //e.value = str;
         return str;
     }
 

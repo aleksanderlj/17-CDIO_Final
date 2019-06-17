@@ -1,27 +1,27 @@
 package rest;
 
 import DAL.DAO.IDAO;
+import DAL.DAO.RaavareBatchDAO;
 import DAL.DAO.RaavareDAO;
-import DAL.DAO.UserDAO;
 import DAL.DTO.Raavare;
-import DAL.DTO.User;
+import DAL.DTO.RaavareBatch;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 
-@Path("raavare")
-public class RaavareREST {
-    private IDAO<Raavare> db = new RaavareDAO();
+@Path("raavarebatch")
+public class RaavarebatchREST {
+    private IDAO<RaavareBatch> db = new RaavareBatchDAO();
 
     @POST
     @Path("create")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String createRaavare(Raavare raavare) throws SQLException, IDAO.DALException {
+    public String createRaavare(RaavareBatch raavarebatch) throws SQLException, IDAO.DALException {
         String eString = "1";
 
         try {
-            db.create(raavare);
+            db.create(raavarebatch);
         } catch (Exception e){
             eString = "-1";
         }
@@ -31,7 +31,7 @@ public class RaavareREST {
     @GET
     @Path("get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Raavare getRaavare(@PathParam("id") String id) throws SQLException, IDAO.DALException {
+    public RaavareBatch getRaavare(@PathParam("id") String id) throws SQLException, IDAO.DALException {
         return db.get(Integer.parseInt(id));
     }
 
@@ -44,13 +44,14 @@ public class RaavareREST {
     @POST
     @Path("update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void updateRaavare(Raavare raavare) throws SQLException, IDAO.DALException {
-        db.update(raavare);
+    public void updateRaavare(RaavareBatch raavarebatch) throws SQLException, IDAO.DALException {
+        db.update(raavarebatch);
     }
 
     @GET
     @Path("list")
-    public Raavare[] getRaavarelist() throws SQLException, IDAO.DALException {
+    public RaavareBatch[] getRaavarelist() throws SQLException, IDAO.DALException {
         return db.getList();
     }
+
 }

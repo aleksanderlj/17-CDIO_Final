@@ -24,7 +24,9 @@
                 <th><input type="text" id="recept_name" placeholder="Navn" required></th>
             </tr>
         </table>
-
+        <input type="submit" value="Opret recept">
+    </form>
+    <form id="recept_form2" method="post">
         <table id="opretRecept2" class="opretTabel2">
             <tr>
                 <th>Råvare ID</th>
@@ -36,19 +38,13 @@
                 <td><input type="text" id="comp_raavare" class="rightshift" placeholder="Råvare ID" required></td>
                 <td><input type="text" id="comp_amount" class="rightshift" placeholder="Mængde" required> kg</td>
                 <td><input type="text" id="comp_tolerance" class="rightshift" placeholder="Tolerance" required> %</td>
-                <td><input type="button" id="addrowbtn" value="Tilføj" required></td>
-            </tr>
-            <tr>
-                <th></th>
-                <th><input type="submit" value="Opret recept"></th>
-                <th></th>
-                <th></th>
+                <td><input type="submit" id="addrowbtn" value="Tilføj" required></td>
             </tr>
         </table>
     </form>
 </div>
 <br>
-<!-- FIX ID NAMES-->
+
 <div id="recept_mydata">
     <b><h2>Recepter i systemmet </h2></b>
     <table id="recept_table" border="1" cellpadding="2">
@@ -80,27 +76,6 @@
             <td>Tolerance</td>
         </tr>
     </table>
-
-
-
-
-
-    <!--
-    <table id="seReceptTableID">
-        <tr>
-            <th></th>
-            <th>"receptID"</th>
-            <th>"receptNavn"</th>
-            <th></th>
-        </tr>
-        <tr>
-            <th>Råvare ID</th>
-            <th>Navn</th>
-            <th>Mængde</th>
-            <th>Tolerance</th>
-        </tr>
-    </table>
-    -->
 </div>
 
 </body>

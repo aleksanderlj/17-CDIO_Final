@@ -4,6 +4,7 @@ $(function () {
 
     $('#recept_form').submit(function (e) {
         e.preventDefault();
+        //TODO Tag alle indholdsstoffer, receptID og navn og send til database;
     });
 
 

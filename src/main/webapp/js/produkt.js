@@ -1,5 +1,9 @@
 $(function(){
-    var receptlist;
+    var receptlist, raavarelist, raavarebatchlist, brugerlist;
+    ajaxGetRaavareList();
+    ajaxGetRaavarebatchList();
+    ajaxGetBrugerList();
+
     ajaxGetReceptList();
 
     $('#produkt_form').submit(function(e) {
@@ -79,6 +83,51 @@ $(function(){
         return false;
     }
 
+    function ajaxGetRaavareList(){
+        $.ajax({
+            url : 'rest/raavare/list',
+            type : 'GET',
+            dataType : 'json',
+            success : function(data){
+                raavarelist = data;
+            },
+            error : function(){
+                alert("An unexpected error has occured: USERLIST_ERROR");
+            }
+        });
+        return false;
+    }
+
+    function ajaxGetBrugerList(){
+        $.ajax({
+            url : 'rest/user/list',
+            type : 'GET',
+            dataType : 'json',
+            success : function(data){
+                brugerlist = data;
+            },
+            error : function(){
+                alert("An unexpected error has occured: USERLIST_ERROR");
+            }
+        });
+        return false;
+    }
+
+    function ajaxGetRaavarebatchList(){
+        $.ajax({
+            url : 'rest/raavarebatch/list',
+            type : 'GET',
+            dataType : 'json',
+            success : function(data){
+                raavarebatchlist = data;
+            },
+            error : function(){
+                alert("An unexpected error has occured: USERLIST_ERROR");
+            }
+        });
+        return false;
+    }
+
     function ajaxGetReceptList(){
         $.ajax({
             url : 'rest/recept/list',
@@ -87,6 +136,23 @@ $(function(){
             success : function(data){
                 receptlist = data;
                 ajaxGetList();
+            },
+            error : function(){
+                alert("An unexpected error has occured: USERLIST_ERROR");
+            }
+        });
+        return false;
+    }
+
+    function ajaxGetKompList(id){
+        $.ajax({
+            url : 'rest/recept/list/' + id,
+            type : 'GET',
+            dataType : 'json',
+            success : function(data){
+                for (var n=0 ; n<data.length ; n++){
+                    addInfoRow(data[n]);
+                }
             },
             error : function(){
                 alert("An unexpected error has occured: USERLIST_ERROR");
@@ -122,12 +188,48 @@ $(function(){
 
         row.insertCell(0).innerHTML = data.id;
         row.insertCell(1).innerHTML = recept.navn;
-        row.insertCell(2).innerHTML = data.batchStatus;
+
+        if (data.batchStatus == 0){
+            row.insertCell(2).innerHTML = "Oprettet";
+            row.cells[2].className = "inactive";
+        } else if(data.batchStatus == 1){
+            row.insertCell(2).innerHTML = "Under Produktion";
+            row.cells[2].className = "under_prod";
+        } else {
+            row.insertCell(2).innerHTML = "Afsluttet";
+            row.cells[2].className = "active";
+        }
+
         row.insertCell(3).innerHTML = data.opstartDato;
         row.insertCell(4).innerHTML = data.slutDato;
 
         row.cells[1].onclick = (function() {seeInfo(this, data.id, recept)});
         row.cells[1].className = "namebtn";
+    }
+
+    function seeInfo(e, produktbatchID, recept){
+        var info_table = document.getElementById("KompTableID");
+        for (var n=2 ; n<info_table.rows.length ; n++){
+            info_table.deleteRow(n);
+        }
+        ajaxGetKompList(id);
+    }
+
+    //TODO ALEK START HER NÆSTE GANG
+    function addInfoRow(data) {
+        var table = document.getElementById("KompTableID");
+
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+        row.id = "row" + data.id;
+
+        var recept = $.grep(receptlist, function(e){ return e.id == data.receptId; })[0];
+
+        row.insertCell(0).innerHTML = data.id;
+        row.insertCell(1).innerHTML = recept.navn;
+
+        row.insertCell(3).innerHTML = data.opstartDato;
+        row.insertCell(4).innerHTML = data.slutDato;
     }
 
 

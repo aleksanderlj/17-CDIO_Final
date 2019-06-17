@@ -96,3 +96,7 @@ div.seRecept {
 .inactive{
     background-color: tomato;
 }
+
+.under_prod{
+    background-color: goldenrod;
+}

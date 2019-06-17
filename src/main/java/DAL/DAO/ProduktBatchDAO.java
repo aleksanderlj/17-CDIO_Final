@@ -26,11 +26,7 @@ public class ProduktBatchDAO implements IDAO<ProduktBatch> {
 
             statement.setInt(1, produktBatch.getReceptId());
             statement.setInt(2, produktBatch.getBatchStatus());
-
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date date = new Date();
-
-            statement.setString(3, dateFormat.format(date));
+            statement.setString(3, produktBatch.getOpstartDato());
             //statement.setString(4, produktBatch.getSlutDato());
             statement.executeUpdate();
 

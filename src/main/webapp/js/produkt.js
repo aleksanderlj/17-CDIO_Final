@@ -8,11 +8,16 @@ $(function(){
     });
 
     function ajaxCreate() {
+        var d = new Date();
+        var date_string = (d.getDate() < 10 ? "0" + d.getDate() : "" + d.getDate()) + "/" +
+                          ((d.getMonth()+1) < 10 ? "0" + (d.getMonth()+1) : "" + (d.getMonth()+1)) + "/" +
+                           d.getFullYear();
+
         var jsondata = makeJSON(
             null,
             $('#pRecept_id').val(),
             0,
-            null,
+            date_string,
             null
         );
 
@@ -113,13 +118,13 @@ $(function(){
         var row = table.insertRow(rowCount);
         row.id = "row" + data.id;
 
-        var recept = $.grep(receptlist, function(e){ return e.id === data.receptId; })[0];
+        var recept = $.grep(receptlist, function(e){ return e.id == data.receptId; })[0];
 
         row.insertCell(0).innerHTML = data.id;
         row.insertCell(1).innerHTML = recept.navn;
         row.insertCell(2).innerHTML = data.batchStatus;
         row.insertCell(3).innerHTML = data.opstartDato;
-        row.insertCell(3).innerHTML = data.slutDato;
+        row.insertCell(4).innerHTML = data.slutDato;
 
         row.cells[1].onclick = (function() {seeInfo(this, data.id, recept)});
         row.cells[1].className = "namebtn";

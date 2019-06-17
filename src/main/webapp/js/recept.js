@@ -46,15 +46,15 @@ $(function () {
     function seRecept(data) {
         var table = document.getElementById("seReceptTableID");
         var x = document.getElementById("seReceptTableID").rows.length;
-        for (var i = 0; i < x; i++){
-            table.deleteRow(0);
+        for (var i = 0; i < x-2; i++){
+            table.deleteRow(2);
         }
         var div = document.getElementById("seReceptdiv");
         if (div.style.display === "none") {
             div.style.display = "block";
         }
-        var tableheader = document.getElementById("seReceptTableHeaderID");
-        row = tableheader.rows[0];
+
+        row = table.rows[0];
         row.cells[1].innerHTML = "Rigtig ID";
         row.cells[2].innerHTML = "Rigtig navn";
 

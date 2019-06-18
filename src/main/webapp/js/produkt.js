@@ -19,7 +19,7 @@ $(function(){
 
         var jsondata = makeJSON(
             null,
-            $('#pRecept_id').val(),
+            $('#recept_dropdown').val(),
             0,
             date_string,
             null
@@ -135,6 +135,8 @@ $(function(){
             dataType : 'json',
             success : function(data){
                 receptlist = data;
+                var dropdown = document.getElementById("recept_dropdown");
+                makeDropdown(dropdown, receptlist);
                 ajaxGetList();
             },
             error : function(){
@@ -144,14 +146,23 @@ $(function(){
         return false;
     }
 
-    function ajaxGetKompList(id){
+    function makeDropdown(dropdown, list){
+        for (var n=0 ; n<list.length ; n++){
+            var option = document.createElement("option");
+            option.value = list[n].id;
+            option.innerHTML = "" + list[n].id + " - " + list[n].navn;
+            dropdown.appendChild(option);
+        }
+    }
+
+    function ajaxGetKompList(id, recept){
         $.ajax({
-            url : 'rest/recept/list/' + id,
+            url : 'rest/produktbatchkomp/list/' + id,
             type : 'GET',
             dataType : 'json',
             success : function(data){
                 for (var n=0 ; n<data.length ; n++){
-                    addInfoRow(data[n]);
+                    addInfoRow(data[n], recept);
                 }
             },
             error : function(){
@@ -203,33 +214,42 @@ $(function(){
         row.insertCell(3).innerHTML = data.opstartDato;
         row.insertCell(4).innerHTML = data.slutDato;
 
-        row.cells[1].onclick = (function() {seeInfo(this, data.id, recept)});
+        row.cells[1].onclick = (function() {seeInfo(this, data.id, recept.indholdsListe)});
         row.cells[1].className = "namebtn";
     }
 
     function seeInfo(e, produktbatchID, recept){
-        var info_table = document.getElementById("KompTableID");
-        for (var n=2 ; n<info_table.rows.length ; n++){
-            info_table.deleteRow(n);
+        var info_table = document.getElementById("KompHeaderID");
+        for (var n=info_table.rows.length ; info_table.rows.length>2 ; n--){
+            info_table.deleteRow(n-1);
         }
-        ajaxGetKompList(id);
+
+        ajaxGetKompList(produktbatchID, recept);
     }
 
     //TODO ALEK START HER NÆSTE GANG
-    function addInfoRow(data) {
-        var table = document.getElementById("KompTableID");
+    // Data = ProdKomp
+    function addInfoRow(data, recept) {
+        var table = document.getElementById("KompHeaderID");
 
         var rowCount = table.rows.length;
         var row = table.insertRow(rowCount);
         row.id = "row" + data.id;
 
-        var recept = $.grep(receptlist, function(e){ return e.id == data.receptId; })[0];
+        var rBatch = $.grep(raavarebatchlist, function(e){ return e.id == data.raavareBatchID; })[0];
+        var raavare = $.grep(raavarelist, function(e){ return e.id == rBatch.raavareId; })[0];
+        var receptKomp = $.grep(recept, function(e){ return e.raavareId == raavare.id; })[0];
+        var bruger = $.grep(brugerlist, function(e){ return e.id == data.brugerID; })[0];
 
-        row.insertCell(0).innerHTML = data.id;
-        row.insertCell(1).innerHTML = recept.navn;
 
-        row.insertCell(3).innerHTML = data.opstartDato;
-        row.insertCell(4).innerHTML = data.slutDato;
+        row.insertCell(0).innerHTML = raavare.navn;
+        row.insertCell(1).innerHTML = receptKomp.tolerance;
+        row.insertCell(2).innerHTML = receptKomp.nonNetto;
+        row.insertCell(3).innerHTML = data.tara;
+        row.insertCell(4).innerHTML = data.netto;
+        row.insertCell(5).innerHTML = rBatch.id;
+        row.insertCell(6).innerHTML = bruger.navn;
+
     }
 
 

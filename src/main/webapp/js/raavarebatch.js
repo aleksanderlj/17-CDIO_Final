@@ -11,7 +11,8 @@ $(function(){
     function ajaxCreate() {
         var jsondata = makeJSON(
             $('#rbatch_nr').val(),
-            $('#rbatch_raavare_nr').val(),
+            //$('#rbatch_raavare_nr').val(),
+            $('#raavare_dropdown').val(),
             $('#rbatch_amount').val(),
             $('#rbatch_supplier').val()
         );
@@ -97,6 +98,8 @@ $(function(){
             dataType : 'json',
             success : function(data){
                 raavarelist = data;
+                var dropdown = document.getElementById("raavare_dropdown");
+                makeDropdown(dropdown, raavarelist);
                 ajaxGetList();
             },
             error : function(){
@@ -104,6 +107,15 @@ $(function(){
             }
         });
         return false;
+    }
+
+    function makeDropdown(dropdown, list){
+        for (var n=0 ; n<list.length ; n++){
+            var option = document.createElement("option");
+            option.value = list[n].id;
+            option.innerHTML = "" + list[n].id + " - " + list[n].navn;
+            dropdown.appendChild(option);
+        }
     }
 
     function makeJSON(id, raavareid, maengde, leverandoer){
@@ -128,7 +140,7 @@ $(function(){
         var row = table.insertRow(rowCount);
         row.id = "row" + data.id;
 
-        var raavare = $.grep(raavarelist, function(e){ return e.id === data.raavareId; })[0];
+        var raavare = $.grep(raavarelist, function(e){ return e.id == data.raavareId; })[0];
 
         row.insertCell(0).innerHTML = data.id;
         row.insertCell(1).innerHTML = raavare.navn;

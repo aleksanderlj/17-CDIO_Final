@@ -8,7 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 
-@Path("produktbatch")
+@Path("produktbatchkomp")
 public class ProduktbatchKompREST {
 
     private IKompDAO<ProduktBatchKomp> db = new ProduktBatchKompDAO();

@@ -14,7 +14,7 @@ public class ProduktBatchKompTest {
     IKompDAO<ProduktBatchKomp> produktBatchKompDAO = new ProduktBatchKompDAO();
     @Test
     public void produktBatchKompTest() throws SQLException, IKompDAO.DALException {
-        ProduktBatchKomp produktBatchKomp = new ProduktBatchKomp(1,1,1,800.0,80.0);
+        ProduktBatchKomp produktBatchKomp = new ProduktBatchKomp(1,1,800.0,80.0, 1);
         produktBatchKompDAO.create(produktBatchKomp);
         ProduktBatchKomp received = produktBatchKompDAO.get(1,1);
         //Tester om dataen stemmer overens

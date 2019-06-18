@@ -6,7 +6,7 @@ public class ProduktBatchKomp {
 
     public ProduktBatchKomp(){}
 
-    public ProduktBatchKomp(int produktBatchID, int raavareBatchID, int brugerID, double tara, double netto){
+    public ProduktBatchKomp(int produktBatchID, int raavareBatchID, double tara, double netto, int brugerID){
         this.produktBatchID = produktBatchID;
         this.raavareBatchID = raavareBatchID;
         this.brugerID = brugerID;

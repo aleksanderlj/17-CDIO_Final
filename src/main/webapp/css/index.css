@@ -54,6 +54,7 @@ th {
     border-collapse: collapse;
     padding: 5px;
     margin: 0px auto;
+    cursor: default;
 }
 
 .submit_btn{

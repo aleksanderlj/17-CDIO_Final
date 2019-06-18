@@ -227,8 +227,6 @@ $(function(){
         ajaxGetKompList(produktbatchID, recept);
     }
 
-    //TODO ALEK START HER NÆSTE GANG
-    // Data = ProdKomp
     function addInfoRow(data, recept) {
         var table = document.getElementById("KompHeaderID");
 

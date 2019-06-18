@@ -15,7 +15,7 @@
     <form id="recept_form" method="post">
         <table id="opretRecept1" class="opretTabel">
             <tr>
-                <th>Recept ID:</th>
+                <th>ID:</th>
                 <th><input type="text" id="recept_nr" placeholder="ID" required></th>
 
             </tr>
@@ -24,7 +24,7 @@
                 <th><input type="text" id="recept_name" placeholder="Navn" required></th>
             </tr>
         </table>
-        <input type="submit" value="Opret recept">
+        <input type="submit" value="Opret" class="submit_btn">
     </form>
     <br>
     <form id="recept_form2" method="post">
@@ -50,8 +50,8 @@
     <b><h2>Recepter i systemet </h2></b>
     <table id="recept_table" border="1" cellpadding="2">
         <tr>
-            <td><b>ID</b></td>
-            <td><b>Navn</b></td>
+            <th><b>ID</b></th>
+            <th><b>Navn</b></th>
         </tr>
         <tr>
             <td><input type="button" id="seReceptBTN" value="Åben"></td>
@@ -70,10 +70,10 @@
             <th></th>
         </tr>
         <tr>
-            <td>Råvare ID</td>
-            <td>Råvare navn</td>
-            <td>Mængde</td>
-            <td>Tolerance</td>
+            <th>Råvare ID</th>
+            <th>Råvare navn</th>
+            <th>Mængde</th>
+            <th>Tolerance</th>
         </tr>
     </table>
 </div>

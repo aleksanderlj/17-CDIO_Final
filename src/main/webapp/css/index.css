@@ -86,3 +86,13 @@ div.seRecept {
 .under_prod{
     background-color: goldenrod;
 }
+
+.menu_btn{
+    width: 130px;
+    height: 30px;
+    margin: 0px auto;
+    background-color: goldenrod;
+    border-style: solid;
+    border-color: darkgoldenrod;
+    cursor: pointer;
+}

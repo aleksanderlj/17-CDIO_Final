@@ -129,6 +129,7 @@ $(function(){
         var btn = document.createElement('input');
         btn.type = "button";
         btn.name = "updatebutton";
+        btn.className = "save_btn";
         btn.value = "Save";
         btn.onclick = (function() {saveRow(this, id)});
         return btn;

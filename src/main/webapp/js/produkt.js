@@ -1,4 +1,4 @@
-$(function(){
+$(function () {
     var receptlist, raavarelist, raavarebatchlist, brugerlist;
     ajaxGetRaavareList();
     ajaxGetRaavarebatchList();
@@ -6,7 +6,7 @@ $(function(){
 
     ajaxGetReceptList();
 
-    $('#produkt_form').submit(function(e) {
+    $('#produkt_form').submit(function (e) {
         e.preventDefault();
         ajaxCreate();
     });
@@ -14,8 +14,8 @@ $(function(){
     function ajaxCreate() {
         var d = new Date();
         var date_string = (d.getDate() < 10 ? "0" + d.getDate() : "" + d.getDate()) + "/" +
-                          ((d.getMonth()+1) < 10 ? "0" + (d.getMonth()+1) : "" + (d.getMonth()+1)) + "/" +
-                           d.getFullYear();
+            ((d.getMonth() + 1) < 10 ? "0" + (d.getMonth() + 1) : "" + (d.getMonth() + 1)) + "/" +
+            d.getFullYear();
 
         var jsondata = makeJSON(
             null,
@@ -26,11 +26,11 @@ $(function(){
         );
 
         $.ajax({
-            url : 'rest/produktbatch/create',
-            type : 'POST',
-            data : jsondata,
-            contentType : 'application/json',
-            success : function(data){
+            url: 'rest/produktbatch/create',
+            type: 'POST',
+            data: jsondata,
+            contentType: 'application/json',
+            success: function (data) {
                 if (data === -1) {
                     //$('#user_id').closest("th").append(" ");
                     alert("ID er ikke korrekt!");
@@ -42,7 +42,7 @@ $(function(){
                 }
 
             },
-            error : function(){
+            error: function () {
                 alert("Upload cancelled:\nPlease make sure that all necessary information was entered");
             }
         });
@@ -51,103 +51,103 @@ $(function(){
 
     function ajaxUpdate(jsondata) {
         $.ajax({
-            url : 'rest/produktbatch/update',
-            type : 'POST',
-            data : jsondata,
-            contentType : 'application/json',
-            success : function(data){
+            url: 'rest/produktbatch/update',
+            type: 'POST',
+            data: jsondata,
+            contentType: 'application/json',
+            success: function (data) {
 
             },
-            error : function(){
+            error: function () {
                 alert("Update cancelled:\nPlease make sure that all necessary information was entered");
             }
         });
         return false;
     }
 
-    function ajaxGetList(){
+    function ajaxGetList() {
         $.ajax({
-            url : 'rest/produktbatch/list',
-            type : 'GET',
-            dataType : 'json',
-            success : function(data){
-                for(var n=0 ; n<data.length ; n++){
+            url: 'rest/produktbatch/list',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                for (var n = 0; n < data.length; n++) {
                     addRow(data[n]);
                 }
                 sortTable();
             },
-            error : function(){
+            error: function () {
                 alert("An unexpected error has occured: USERLIST_ERROR");
             }
         });
         return false;
     }
 
-    function ajaxGetRaavareList(){
+    function ajaxGetRaavareList() {
         $.ajax({
-            url : 'rest/raavare/list',
-            type : 'GET',
-            dataType : 'json',
-            success : function(data){
+            url: 'rest/raavare/list',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
                 raavarelist = data;
             },
-            error : function(){
+            error: function () {
                 alert("An unexpected error has occured: USERLIST_ERROR");
             }
         });
         return false;
     }
 
-    function ajaxGetBrugerList(){
+    function ajaxGetBrugerList() {
         $.ajax({
-            url : 'rest/user/list',
-            type : 'GET',
-            dataType : 'json',
-            success : function(data){
+            url: 'rest/user/list',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
                 brugerlist = data;
             },
-            error : function(){
+            error: function () {
                 alert("An unexpected error has occured: USERLIST_ERROR");
             }
         });
         return false;
     }
 
-    function ajaxGetRaavarebatchList(){
+    function ajaxGetRaavarebatchList() {
         $.ajax({
-            url : 'rest/raavarebatch/list',
-            type : 'GET',
-            dataType : 'json',
-            success : function(data){
+            url: 'rest/raavarebatch/list',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
                 raavarebatchlist = data;
             },
-            error : function(){
+            error: function () {
                 alert("An unexpected error has occured: USERLIST_ERROR");
             }
         });
         return false;
     }
 
-    function ajaxGetReceptList(){
+    function ajaxGetReceptList() {
         $.ajax({
-            url : 'rest/recept/list',
-            type : 'GET',
-            dataType : 'json',
-            success : function(data){
+            url: 'rest/recept/list',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
                 receptlist = data;
                 var dropdown = document.getElementById("recept_dropdown");
                 makeDropdown(dropdown, receptlist);
                 ajaxGetList();
             },
-            error : function(){
+            error: function () {
                 alert("An unexpected error has occured: USERLIST_ERROR");
             }
         });
         return false;
     }
 
-    function makeDropdown(dropdown, list){
-        for (var n=0 ; n<list.length ; n++){
+    function makeDropdown(dropdown, list) {
+        for (var n = 0; n < list.length; n++) {
             var option = document.createElement("option");
             option.value = list[n].id;
             option.innerHTML = "" + list[n].id + " - " + list[n].navn;
@@ -155,30 +155,30 @@ $(function(){
         }
     }
 
-    function ajaxGetKompList(id, recept){
+    function ajaxGetKompList(id, recept) {
         $.ajax({
-            url : 'rest/produktbatchkomp/list/' + id,
-            type : 'GET',
-            dataType : 'json',
-            success : function(data){
-                for (var n=0 ; n<data.length ; n++){
+            url: 'rest/produktbatchkomp/list/' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                for (var n = 0; n < data.length; n++) {
                     addInfoRow(data[n], recept);
                 }
             },
-            error : function(){
+            error: function () {
                 alert("An unexpected error has occured: USERLIST_ERROR");
             }
         });
         return false;
     }
 
-    function makeJSON(id, receptId, batchStatus, opstartDato, slutDato){
+    function makeJSON(id, receptId, batchStatus, opstartDato, slutDato) {
         var json = {
-            "id" : id,
-            "receptId" : receptId,
-            "batchStatus" : batchStatus,
-            "opstartDato" : opstartDato,
-            "slutDato" : slutDato
+            "id": id,
+            "receptId": receptId,
+            "batchStatus": batchStatus,
+            "opstartDato": opstartDato,
+            "slutDato": slutDato
         };
 
         return JSON.stringify(json);
@@ -195,15 +195,17 @@ $(function(){
         var row = table.insertRow(rowCount);
         row.id = "row" + data.id;
 
-        var recept = $.grep(receptlist, function(e){ return e.id == data.receptId; })[0];
+        var recept = $.grep(receptlist, function (e) {
+            return e.id == data.receptId;
+        })[0];
 
         row.insertCell(0).innerHTML = data.id;
         row.insertCell(1).innerHTML = recept.navn;
 
-        if (data.batchStatus == 0){
+        if (data.batchStatus == 0) {
             row.insertCell(2).innerHTML = "Oprettet";
             row.cells[2].className = "inactive";
-        } else if(data.batchStatus == 1){
+        } else if (data.batchStatus == 1) {
             row.insertCell(2).innerHTML = "Under Produktion";
             row.cells[2].className = "under_prod";
         } else {
@@ -214,28 +216,32 @@ $(function(){
         row.insertCell(3).innerHTML = data.opstartDato;
         row.insertCell(4).innerHTML = data.slutDato;
 
-        row.onclick = (function() {seeInfo(this, data.id, recept.indholdsListe)});
+        row.onclick = (function () {
+            seeInfo(this, data.id, recept.indholdsListe)
+        });
         //row.cells[1].className = "namebtn";
     }
 
-    function seeInfo(e, produktbatchID, recept){
+    function seeInfo(e, produktbatchID, recept) {
         sessionStorage.setItem("produktID", produktbatchID);
-        sessionStorage.setItem("receptNavn");
         $(".selected_row").toggleClass("selected_row");
         $(e).toggleClass("selected_row");
 
         var info_table = document.getElementById("KompHeaderID");
-        for (var n=info_table.rows.length ; info_table.rows.length>1 ; n--){
-            info_table.deleteRow(n-1);
+        for (var n = info_table.rows.length; info_table.rows.length > 1; n--) {
+            info_table.deleteRow(n - 1);
         }
 
         ajaxGetKompList(produktbatchID, recept);
     }
 
-    $('#udprint').click(function(e) {
-        sessionStorage.setItem("antalRaavareBatch", document.getElementById("prod_table").rows.length-1);
-        sessionStorage.setItem("")
+
+    $('#udprint').click(function () {
+        sessionStorage.setItem("raavareBatchLenght", document.getElementById("KompHeaderID").rows.length);
+        $('#ProduktBatchID').load("admin/udprint.html");
+
     });
+
 
     function addInfoRow(data, recept) {
         var table = document.getElementById("KompHeaderID");
@@ -244,10 +250,18 @@ $(function(){
         var row = table.insertRow(rowCount);
         row.id = "row" + data.id;
 
-        var rBatch = $.grep(raavarebatchlist, function(e){ return e.id == data.raavareBatchID; })[0];
-        var raavare = $.grep(raavarelist, function(e){ return e.id == rBatch.raavareId; })[0];
-        var receptKomp = $.grep(recept, function(e){ return e.raavareId == raavare.id; })[0];
-        var bruger = $.grep(brugerlist, function(e){ return e.id == data.brugerID; })[0];
+        var rBatch = $.grep(raavarebatchlist, function (e) {
+            return e.id == data.raavareBatchID;
+        })[0];
+        var raavare = $.grep(raavarelist, function (e) {
+            return e.id == rBatch.raavareId;
+        })[0];
+        var receptKomp = $.grep(recept, function (e) {
+            return e.raavareId == raavare.id;
+        })[0];
+        var bruger = $.grep(brugerlist, function (e) {
+            return e.id == data.brugerID;
+        })[0];
 
         row.insertCell(0).innerHTML = raavare.navn;
         row.insertCell(1).innerHTML = receptKomp.tolerance;
@@ -282,14 +296,14 @@ $(function(){
         }
     }
 
-    $('#pRecept_id').on("input", function() {
+    $('#pRecept_id').on("input", function () {
         this.value = id_valid(this.value);
     });
 
-    function id_valid(str){
+    function id_valid(str) {
         str = str.replace(/(?![0-9])./g, "");
-        if (str.length > 9){
-            str = str.substring(0,9);
+        if (str.length > 9) {
+            str = str.substring(0, 9);
         }
         return str;
     }

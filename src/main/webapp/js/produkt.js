@@ -214,13 +214,16 @@ $(function(){
         row.insertCell(3).innerHTML = data.opstartDato;
         row.insertCell(4).innerHTML = data.slutDato;
 
-        row.cells[1].onclick = (function() {seeInfo(this, data.id, recept.indholdsListe)});
-        row.cells[1].className = "namebtn";
+        row.onclick = (function() {seeInfo(this, data.id, recept.indholdsListe)});
+        //row.cells[1].className = "namebtn";
     }
 
     function seeInfo(e, produktbatchID, recept){
+        $(".selected_row").toggleClass("selected_row");
+        $(e).toggleClass("selected_row");
+
         var info_table = document.getElementById("KompHeaderID");
-        for (var n=info_table.rows.length ; info_table.rows.length>2 ; n--){
+        for (var n=info_table.rows.length ; info_table.rows.length>1 ; n--){
             info_table.deleteRow(n-1);
         }
 
@@ -238,7 +241,6 @@ $(function(){
         var raavare = $.grep(raavarelist, function(e){ return e.id == rBatch.raavareId; })[0];
         var receptKomp = $.grep(recept, function(e){ return e.raavareId == raavare.id; })[0];
         var bruger = $.grep(brugerlist, function(e){ return e.id == data.brugerID; })[0];
-
 
         row.insertCell(0).innerHTML = raavare.navn;
         row.insertCell(1).innerHTML = receptKomp.tolerance;

@@ -149,15 +149,16 @@ $(function(){
 
         //ajaxGetRaavare(data, row);
 
-        row.cells[1].onclick = (function() {editMode(this, data.id, raavare)});
-        row.cells[1].className = "namebtn";
+        row.onclick = (function() {editMode(this, data.id, raavare)});
+        //row.cells[1].className = "namebtn";
     }
 
     function editMode(e, id, raavare){
-        var row = e.closest('tr');
+        //var row = e.closest('tr');
+        var row = e;
 
-        row.cells[1].onclick = null;
-        row.cells[1].className = null;
+        row.onclick = null;
+        //row.cells[1].className = null;
 
         var currenttext;
         for(var n=2 ; n < 4 ; n++){
@@ -195,6 +196,7 @@ $(function(){
     }
 
     function saveRow(e, id, raavare){
+        event.stopPropagation();
         var row = e.closest('tr');
 
         var json = makeJSON(
@@ -204,8 +206,8 @@ $(function(){
             name_valid(row.cells[3].children[0].value)
         );
 
-        row.cells[1].onclick = (function() {editMode(this, id, raavare)});
-        row.cells[1].className = "namebtn";
+        row.onclick = (function() {editMode(this, id, raavare)});
+        //row.cells[1].className = "namebtn";
 
         var currenttext;
         for(var n=2 ; n < 4 ; n++){

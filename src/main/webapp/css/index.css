@@ -9,7 +9,7 @@ TODO Edit input felter må ikke være tomme/skal følge rigtige pattern (kan fix
      og man kun kan edite ét felt af gangen?)
 TODO Test på alle sider hvad der sker hvis duplicate id skrives
 TODO Tilbage knap lidt mere mat + mindre i længden?
-TODO Start tabeller med bestemt længde? (pas på bruger input, så skal den i hvert fald newline selv)
+TODO Start tabel header med bestemt længde? (pas på bruger input, så skal den i hvert fald newline selv)
 TODO Lav arraylist i stedet for mySQL
 */
 
@@ -48,6 +48,40 @@ tr{
 
 tr:hover{
     background-color: lightgrey;
+}
+
+.selected_row{
+    background-color: darkgrey;
+    cursor: default;
+}
+
+.selected_row:hover{
+    background-color: darkgrey;
+    cursor: default;
+}
+
+.selected_row .active{
+    background-color: darkgrey;
+}
+
+.selected_row:hover .active{
+    background-color: darkgrey;
+}
+
+.selected_row .inactive{
+    background-color: darkgrey;
+}
+
+.selected_row:hover .inactive{
+    background-color: darkgrey;
+}
+
+.selected_row .under_prod{
+    background-color: darkgrey;
+}
+
+.selected_row:hover .under_prod{
+    background-color: darkgrey;
 }
 
 th {
@@ -193,14 +227,30 @@ div.seRecept {
 
 .active{
     background-color: lawngreen;
+    transition: 0.3s;
+}
+
+tr:hover .active{
+    background-color: #ABE673;
 }
 
 .inactive{
     background-color: tomato;
+    transition: 0.3s;
 }
+
+tr:hover .inactive{
+    background-color: #E7A093;
+}
+
 
 .under_prod{
     background-color: goldenrod;
+    transition: 0.3s;
+}
+
+tr:hover .under_prod{
+    background-color: #D6BE82;
 }
 
 .menu_btn{

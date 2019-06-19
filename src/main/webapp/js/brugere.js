@@ -149,19 +149,20 @@ $(function(){
             row.cells[4].className = "inactive";
         }
 
-        row.cells[1].onclick = (function() {editMode(this, data.id)});
-        row.cells[1].className = "namebtn";
+        row.onclick = (function() {editMode(this, data.id)});
+        //row.className = "namebtn";
     }
 
     function editMode(e, id){
-        var row = e.closest('tr');
+        //var row = e.closest('tr');
+        var row = e;
         var status = false;
         if (row.cells[4].innerHTML.localeCompare("Aktiv") === 0){
             status = true
         }
 
-        row.cells[1].onclick = null;
-        row.cells[1].className = null;
+        row.onclick = null;
+        //row.className = null;
 
         var currenttext;
         for(var n=1 ; n < 4 ; n++){
@@ -232,6 +233,7 @@ $(function(){
     }
 
     function saveRow(e, id){
+        event.stopPropagation();
         var row = e.closest('tr');
 
         var json = makeJSON(
@@ -242,10 +244,11 @@ $(function(){
             name_valid(row.cells[1].children[0].value),
             ini_valid(row.cells[2].children[0].value),
             cpr_valid(row.cells[3].children[0].value),
-            row.cells[4].children[0].checked);
+            row.cells[4].children[0].checked
+        );
 
-        row.cells[1].onclick = (function() {editMode(this, id)});
-        row.cells[1].className = "namebtn";
+        row.onclick = (function() {editMode(this, id)});
+        //row.className = "namebtn";
 
         var currenttext;
         for(var n=1 ; n < 4 ; n++){

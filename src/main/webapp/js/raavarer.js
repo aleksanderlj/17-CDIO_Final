@@ -92,15 +92,16 @@ $(function(){
         row.insertCell(0).innerHTML = data.id;
         row.insertCell(1).innerHTML = data.navn;
 
-        row.cells[1].onclick = (function() {editMode(this, data.id)});
-        row.cells[1].className = "namebtn";
+        row.onclick = (function() {editMode(this, data.id)});
+        //row.cells[1].className = "namebtn";
     }
 
     function editMode(e, id){
-        var row = e.closest('tr');
+        //var row = e.closest('tr');
+        var row = e;
 
-        row.cells[1].onclick = null;
-        row.cells[1].className = null;
+        row.onclick = null;
+        //row.cells[1].className = null;
 
         var currenttext;
         for(var n=1 ; n < 2 ; n++){
@@ -134,6 +135,7 @@ $(function(){
     }
 
     function saveRow(e, id){
+        event.stopPropagation();
         var row = e.closest('tr');
 
         var json = makeJSON(
@@ -141,8 +143,8 @@ $(function(){
             name_valid(row.cells[1].children[0].value)
         );
 
-        row.cells[1].onclick = (function() {editMode(this, id)});
-        row.cells[1].className = "namebtn";
+        row.onclick = (function() {editMode(this, id)});
+        //row.cells[1].className = "namebtn";
 
         var currenttext;
         for(var n=1 ; n < 2 ; n++){

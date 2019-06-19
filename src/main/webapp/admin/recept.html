@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <script src="js/recept.js"></script>
+    <script src="js/recept2.js"></script>
 </head>
 <body>
 <div class="receptFrom">
-
     <h2>Recept</h2>
     <br>
 
@@ -32,13 +31,13 @@
     <form id="recept_form2" method="post">
         <table id="opretRecept2" class="opretTabel2">
             <tr>
-                <th>Råvare ID</th>
-                <th>Mængde</th>
-                <th>Tolerance</th>
+                <th>Råvare</th>
+                <th>Mængde (kg)</th>
+                <th>Tolerance (%)</th>
                 <th></th>
             </tr>
             <tr>
-                <td><input type="text" id="comp_raavare" class="rightshift" placeholder="Råvare ID" required></td>
+                <td><select id="raavareID_dropdown"></select></td>
                 <td><input type="text" id="comp_amount" class="rightshift" placeholder="Mængde" required> kg</td>
                 <td><input type="text" id="comp_tolerance" class="rightshift" placeholder="Tolerance" required> %</td>
                 <td><input type="submit" id="addrowbtn" value="Tilføj" required></td>
@@ -55,10 +54,12 @@
             <th><b>ID</b></th>
             <th><b>Navn</b></th>
         </tr>
+        <!--
         <tr>
             <td><input type="button" id="seReceptBTN" value="Åben"></td>
             <td>Pencilin</td>
         </tr>
+        -->
     </table>
 </div>
 
@@ -68,8 +69,8 @@
         <tr>
             <th>Råvare ID</th>
             <th>Råvare navn</th>
-            <th>Mængde</th>
-            <th>Tolerance</th>
+            <th>Mængde (kg)</th>
+            <th>Tolerance (%)</th>
         </tr>
     </table>
 </div>

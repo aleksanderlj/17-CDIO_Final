@@ -219,6 +219,8 @@ $(function(){
     }
 
     function seeInfo(e, produktbatchID, recept){
+        sessionStorage.setItem("produktID", produktbatchID);
+        sessionStorage.setItem("receptNavn");
         $(".selected_row").toggleClass("selected_row");
         $(e).toggleClass("selected_row");
 
@@ -229,6 +231,11 @@ $(function(){
 
         ajaxGetKompList(produktbatchID, recept);
     }
+
+    $('#udprint').click(function(e) {
+        sessionStorage.setItem("antalRaavareBatch", document.getElementById("prod_table").rows.length-1);
+        sessionStorage.setItem("")
+    });
 
     function addInfoRow(data, recept) {
         var table = document.getElementById("KompHeaderID");

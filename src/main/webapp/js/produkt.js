@@ -155,15 +155,13 @@ $(function(){
         }
     }
 
-    function ajaxGetKompList(id, recept){
+    function ajaxGetKompList(id, recept_indhold){
         $.ajax({
             url : 'rest/produktbatchkomp/list/' + id,
             type : 'GET',
             dataType : 'json',
             success : function(data){
-                for (var n=0 ; n<data.length ; n++){
-                    addInfoRow(data[n], recept);
-                }
+                addInfoRow(data, recept_indhold);
             },
             error : function(){
                 alert("An unexpected error has occured: USERLIST_ERROR");
@@ -222,7 +220,7 @@ $(function(){
         //row.cells[1].className = "namebtn";
     }
 
-    function seeInfo(e, produktbatchID, recept){
+    function seeInfo(e, produktbatchID, recept_indhold){
         $(".selected_row").toggleClass("selected_row");
         $(e).toggleClass("selected_row");
 
@@ -231,28 +229,63 @@ $(function(){
             info_table.deleteRow(n-1);
         }
 
-        ajaxGetKompList(produktbatchID, recept);
+        /*
+        for(var i=0 ; i<recept_indhold.length ; i++){
+            addInfoRow(recept_indhold[i])
+        }
+        */
+
+        ajaxGetKompList(produktbatchID, recept_indhold);
     }
 
-    function addInfoRow(data, recept) {
+    function addInfoRow(prodKompList, receptKomp) {
         var table = document.getElementById("KompHeaderID");
 
-        var rowCount = table.rows.length;
-        var row = table.insertRow(rowCount);
-        row.id = "row" + data.id;
+        for(var i=0 ; i<receptKomp.length ; i++) {
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
 
-        var rBatch = $.grep(raavarebatchlist, function(e){ return e.id == data.raavareBatchID; })[0];
-        var raavare = $.grep(raavarelist, function(e){ return e.id == rBatch.raavareId; })[0];
-        var receptKomp = $.grep(recept, function(e){ return e.raavareId == raavare.id; })[0]; //TODO Recept har allerede alle komps i sig
-        var bruger = $.grep(brugerlist, function(e){ return e.id == data.brugerID; })[0];
+            var raavare = $.grep(raavarelist, function (e) {return e.id == receptKomp[i].raavareId;})[0];
+            var rBatch = $.grep(raavarebatchlist, function (e) {return e.id == receptKomp[i].raavareId;})[0];
+            var pKomp = $.grep(prodKompList, function (e) {return e.raavareBatchID == rBatch.id;})[0];
 
-        row.insertCell(0).innerHTML = raavare.navn;
-        row.insertCell(1).innerHTML = receptKomp.tolerance;
-        row.insertCell(2).innerHTML = receptKomp.nonNetto;
-        row.insertCell(3).innerHTML = data.tara;
-        row.insertCell(4).innerHTML = data.netto;
-        row.insertCell(5).innerHTML = rBatch.id;
-        row.insertCell(6).innerHTML = bruger.navn;
+            row.insertCell(0).innerHTML = raavare.navn;
+            row.insertCell(1).innerHTML = receptKomp[i].nonNetto;
+            row.insertCell(2).innerHTML = receptKomp[i].tolerance;
+            if (pKomp == null) {
+                row.insertCell(3).innerHTML = "";
+                row.insertCell(4).innerHTML = "";
+                row.insertCell(5).innerHTML = "";
+                row.insertCell(6).innerHTML = "";
+            } else {
+                var bruger = $.grep(brugerlist, function(e){ return e.id == pKomp.brugerID; })[0];
+                row.insertCell(3).innerHTML = pKomp.tara;
+                row.insertCell(4).innerHTML = pKomp.netto;
+                row.insertCell(5).innerHTML = pKomp.raavareBatchID;
+                row.insertCell(6).innerHTML = bruger.navn;
+            }
+        }
+    }
+
+    function addExtraInfoRow(pkomp, recept_indhold) {
+        var table = document.getElementById("KompHeaderID");
+
+        var bruger = $.grep(brugerlist, function(e){ return e.id == pkomp.brugerID; })[0];
+        var rBatch
+        var raavare = $.grep(raavarelist, function(e){ return e.id == receptKomp.raavareId; })[0];
+
+        var row;
+        for (var n=0 ; n<table.rows.length ; n++){
+            if (pkomp.raavareBatchID == table.rows[n].cells[0].innerHTML){
+                row = table.rows[n];
+                break;
+            }
+        }
+
+        row.cells[3].innerHTML = pkomp.tara;
+        row.cells[4].innerHTML = pkomp.netto;
+        row.cells[5].innerHTML = pkomp.raavareBatchID;
+        row.cells[6].innerHTML = bruger.navn;
 
     }
 

@@ -23,31 +23,42 @@ $(function () {
     function addKompRow() {
         var table = document.getElementById("opretRecept2");
         var row = table.insertRow(2);
-        var ravare = $('#raavareID_dropdown').val();
+        var raavare = $('#raavareID_dropdown').val();
+        $('#raavareID_dropdown').find('option[value='+raavare+']').remove();
         var amount = $('#comp_amount').val();
         var tole = $('#comp_tolerance').val();
 
-        row.insertCell(0).innerHTML = ravare;
+        row.insertCell(0).innerHTML = raavare;
         row.insertCell(1).innerHTML = amount;
         row.insertCell(2).innerHTML = tole;
-        row.insertCell(3).appendChild(makeRemoveRowBtn()); //TODO Videre her!
+        row.insertCell(3).appendChild(makeRemoveRowBtn(raavare));
     }
 
-    function makeRemoveRowBtn() {
+    function makeRemoveRowBtn(raavareID) {
         var btn = document.createElement('input');
         btn.type = "button";
         btn.name = "fjernKomp";
         btn.value = "Fjern";
-        btn.onclick = (function () {
-            removeRow(this)
-        });
+        btn.onclick = (function() {removeRow(this, raavareID)});
         return btn;
     }
 
-    function removeRow(obj) {
+    function removeRow(obj, raavareID) {
         var index = obj.closest("tr").rowIndex;
         var table = document.getElementById("opretRecept2");
         table.deleteRow(index);
+        for (var n = 0; n < raavarelist.length; n++) {
+            if (raavareID == raavarelist[n].id) {
+                var option = document.createElement("option");
+                option.value = raavarelist[n].id;
+                option.innerHTML = "" + raavarelist[n].id + " - " + raavarelist[n].navn;
+                var dropdown = document.getElementById("raavareID_dropdown");
+                dropdown.appendChild(option);
+                $("#raavareID_dropdown").html($("#raavareID_dropdown option").sort(function (a, b) {
+                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+                }))
+            }
+        }
     }
 
 
@@ -85,6 +96,12 @@ $(function () {
                     var jsonParsed = JSON.parse(jsondata);
                     addReceptRow(jsonParsed);
                     sortTable("recept_table");
+                    var dropdown = document.getElementById("raavareID_dropdown");
+                    makeDropdown(dropdown, raavarelist);
+                    var indhold = document.getElementById("opretRecept2");
+                    for (var i=indhold.rows.length; indhold.rows.length >2 ; i--){
+                        indhold.deleteRow(i-1);
+                    }
                 }
             },
             error: function () {
@@ -129,13 +146,22 @@ $(function () {
         return false;
     }
 
-    function makeDropdown(dropdown, list) {
-        for (var n = 0; n < list.length; n++) {
+    function makeDropdown(dropdown, list){
+        var reMade = false;
+        for (var i=dropdown.length; i>0; i--){
+            dropdown.remove(i);
+            reMade = true
+        }
+        for (var n=0 ; n<list.length ; n++){
             var option = document.createElement("option");
             option.value = list[n].id;
             option.innerHTML = "" + list[n].id + " - " + list[n].navn;
             dropdown.appendChild(option);
         }
+        if (reMade){
+            dropdown.remove(0);
+        }
+
     }
 
     function makeReceptJSON(id, navn, komp) {
@@ -155,7 +181,7 @@ $(function () {
             "tolerance": tolerance
         };
 
-        return json; // TODO Big wow
+        return json;
     }
 
     function addReceptRow(data) {

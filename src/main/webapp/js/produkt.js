@@ -278,17 +278,27 @@ $(function () {
             var row = table.insertRow(rowCount);
 
             var raavare = $.grep(raavarelist, function (e) {return e.id == receptKomp[i].raavareId;})[0];
-            var rBatch = $.grep(raavarebatchlist, function (e) {return e.id == receptKomp[i].raavareId;})[0];
-            var pKomp = $.grep(prodKompList, function (e) {return e.raavareBatchID == rBatch.id;})[0];
+            var rBatch = $.grep(raavarebatchlist, function (e) {return e.raavareId == receptKomp[i].raavareId;});
+            //var pKomp = $.grep(prodKompList, function (e) {return e.raavareBatchID == rBatch.id;})[0];
+
+            var pKomp = null;
+            for(var n=0 ; n<rBatch.length ; n++){
+                for(var m=0 ; m<prodKompList.length ; m++){
+                    if (rBatch[n].id == prodKompList[m].raavareBatchID){
+                        pKomp = prodKompList[m];
+                    }
+                }
+            }
+
 
             row.insertCell(0).innerHTML = raavare.navn;
             row.insertCell(1).innerHTML = receptKomp[i].nonNetto;
             row.insertCell(2).innerHTML = receptKomp[i].tolerance;
             if (pKomp == null) {
-                row.insertCell(3).innerHTML = "";
-                row.insertCell(4).innerHTML = "";
-                row.insertCell(5).innerHTML = "";
-                row.insertCell(6).innerHTML = "";
+                row.insertCell(3).innerHTML = "-";
+                row.insertCell(4).innerHTML = "-";
+                row.insertCell(5).innerHTML = "-";
+                row.insertCell(6).innerHTML = "-";
             } else {
                 var bruger = $.grep(brugerlist, function(e){ return e.id == pKomp.brugerID; })[0];
                 row.insertCell(3).innerHTML = pKomp.tara;

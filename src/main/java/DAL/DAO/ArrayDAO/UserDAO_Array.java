@@ -12,8 +12,8 @@ public class UserDAO_Array implements IDAO<User> {
 
     public UserDAO_Array(){
         userList.add(new User(1, "Søren", "SHP", "100496-1897", true));
-        userList.add(new User(1, "Martin", "SM", "280888-6271", true));
-        userList.add(new User(1, "Nina", "NOM", "050795-2641", true));
+        userList.add(new User(2, "Martin", "SM", "280888-6271", true));
+        userList.add(new User(3, "Nina", "NOM", "050795-2641", true));
     }
 
     @Override
@@ -55,6 +55,7 @@ public class UserDAO_Array implements IDAO<User> {
         for (int n=0 ; n<userList.size() ; n++){
             if (userList.get(n).getId() == user.getId()){
                 userList.set(n, user);
+                break;
             }
         }
     }

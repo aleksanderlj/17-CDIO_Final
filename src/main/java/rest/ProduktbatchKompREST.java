@@ -1,5 +1,6 @@
 package rest;
 
+import DAL.DAO.DAOController;
 import DAL.DAO.IKompDAO;
 import DAL.DAO.ProduktBatchKompDAO;
 import DAL.DTO.ProduktBatchKomp;
@@ -10,8 +11,9 @@ import java.sql.SQLException;
 
 @Path("produktbatchkomp")
 public class ProduktbatchKompREST {
+    private IKompDAO<ProduktBatchKomp> db = DAOController.getProduktBatchKompDAO();
 
-    private IKompDAO<ProduktBatchKomp> db = new ProduktBatchKompDAO();
+    //private IKompDAO<ProduktBatchKomp> db = new ProduktBatchKompDAO();
 
     @POST
     @Path("create")

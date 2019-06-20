@@ -92,7 +92,7 @@ $(function(){
         row.insertCell(0).innerHTML = data.id;
         row.insertCell(1).innerHTML = data.navn;
 
-        row.onclick = (function() {editMode(this, data.id)});
+        //row.onclick = (function() {editMode(this, data.id)});
         //row.cells[1].className = "namebtn";
     }
 

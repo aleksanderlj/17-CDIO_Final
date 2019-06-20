@@ -274,6 +274,34 @@ tr:hover .under_prod{
     background-color: #d68b36;
 }
 
+/* PRINT SIDE */
+#udprintside table{
+    text-align: left;
+}
+
+.raavareInfo{
+    width: auto;
+    border-collapse: collapse;
+    border: transparent;
+    text-align-all: left;
+}
+.produktBatchInfo{
+    width: 100%;
+    border-collapse: collapse;
+    border: transparent;
+}
+#råvarerBatchInfo{
+    text-align-all: left;
+}
+#udprintHeader, #udprintFod{
+    border: transparent;
+    text-align-all: left;
+}
+#udprintHeader td, #udprintFod td, .raavareInfo td{
+    padding-right: 10px;
+}
+
+
 /*
 .save_btn{
     width: 50px;

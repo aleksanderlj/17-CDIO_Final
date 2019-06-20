@@ -1,26 +1,19 @@
 $(function () {
 
-    var taraSum, nettoSum;
-
-    insertData();
-
+    var taraSum = 0, nettoSum = 0;
     var produktTableLength = sessionStorage.getItem("produktTableLength");
 
     for (var i = 1; i < produktTableLength; i++){
         addRavareBatch(i);
     }
+    insertData();
 
     function addRavareBatch(nr) {
         var table = document.createElement("TABLE");
         table.setAttribute("class", "raavareInfo");
         document.getElementById("råvarerBatchInfo").appendChild(table);
 
-
-        var row1a = table.insertRow(0);
-        row1a.insertCell(0).innerHTML = "Råvare nr. ";
-        row1a.insertCell(1).innerHTML = sessionStorage.getItem("produktTableLength");
-
-        var row1b = table.insertRow(1);
+        var row1b = table.insertRow(0);
         row1b.insertCell(0).innerHTML = "Råvare navn: ";
         row1b.insertCell(1).innerHTML = sessionStorage.getItem("raavareNavn" + nr);
 
@@ -40,9 +33,9 @@ $(function () {
         row2b.insertCell(0).innerHTML = sessionStorage.getItem("meangde" + nr);
         row2b.insertCell(1).innerHTML = sessionStorage.getItem("tolerance" + nr);
         row2b.insertCell(2).innerHTML = sessionStorage.getItem("tara" + nr);
-        taraSum = taraSum + sessionStorage.getItem("tara" + nr);
+        taraSum = taraSum + Number(sessionStorage.getItem("tara" + nr));
         row2b.insertCell(3).innerHTML = sessionStorage.getItem("netto" + nr);
-        nettoSum = taraSum + sessionStorage.getItem("netto" + nr);
+        nettoSum = nettoSum + Number(sessionStorage.getItem("netto" + nr));
         row2b.insertCell(4).innerHTML = sessionStorage.getItem("batch" + nr);
         row2b.insertCell(5).innerHTML = sessionStorage.getItem("bruger" + nr);
 

@@ -219,4 +219,66 @@ $(function(){
         }
     }
 
+    $('#recept_nr').on("input", function() {
+        this.value = id_valid(this.value);
+        //id_valid(this);
+    });
+
+    function id_valid(str){
+        //var str = e.value;
+        str = str.replace(/(?![0-9])./g, "");
+        if (str.length > 9){
+            str = str.substring(0,9);
+        }
+        //e.value = str;
+        return str;
+    }
+
+    $('#recept_name').on("input", function() {
+        this.value = name_valid(this.value);
+    });
+
+    function name_valid(str){
+        str = str.replace(/(?![a-zA-Z0-9]|[æøåÆØÅ]|([- ])(?![- ]))./g, "");
+        if (str.length > 255){
+            str = str.substring(0,255);
+        }
+
+        if (str.charAt(0) === " " || str.charAt(0)=== "-") {
+            str = str.substring(1, str.length - 1);
+        }
+        return str;
+    }
+
+    $('#comp_amount').on("input", function() {
+        this.value = double_valid(this.value);
+    });
+
+    function double_valid(str){
+        str = str.replace(/(?![0-9]|[.,])./g, "");
+        str = str.replace(/,/g, ".");
+        str = str.replace(/(\.)(.+)(\1)/g, "$1$2");
+        str = str.replace(/(\.)(\1)/g, "$1");
+        str = str.replace(/(.*)([0-9]{3})\./g, "$2\.");
+        if (str.length > 8){
+            str = str.substring(0,9);
+        }
+        return str;
+    }
+
+    $('#comp_tolerance').on("input", function() {
+        this.value = percent_valid(this.value);
+        //id_valid(this);
+    });
+
+    function percent_valid(str){
+        //var str = e.value;
+        str = str.replace(/(?![0-9])./g, "");
+        if (str.length > 3){
+            str = str.substring(0,3);
+        }
+        //e.value = str;
+        return str;
+    }
+
 });

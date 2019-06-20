@@ -237,39 +237,54 @@ $(function(){
         event.stopPropagation();
         var row = e.closest('tr');
 
-        var json = makeJSON(
-            id,
-            /*row.cells[1].innerHTML,
-            row.cells[2].innerHTML,
-            row.cells[3].innerHTML,*/
-            name_valid(row.cells[1].children[0].value),
-            ini_valid(row.cells[2].children[0].value),
-            cpr_valid(row.cells[3].children[0].value),
-            row.cells[4].children[0].checked
-        );
-
-        row.onclick = (function() {editMode(this, id)});
-        //row.className = "namebtn";
-
-        var currenttext;
-        for(var n=1 ; n < 4 ; n++){
-            //row.cells[n].contentEditable = "false";
-            currenttext = row.cells[n].children[0].value;
-            row.cells[n].innerHTML = currenttext;
+        var empty = 0;
+        for (var i=1 ; i<row.cells.length-1 ; i++){
+            if(row.cells[i].children[0].value.length == 0){
+                empty++;
+            }
         }
 
-        if(row.cells[4].children[0].checked){
-            row.cells[4].innerHTML = "Aktiv";
-            row.cells[4].className = "active";
-        }else{
-            row.cells[4].innerHTML = "Inaktiv";
-            row.cells[4].className = "inactive";
+        if(empty != 0){
+            alert("Alle felter skal være udfyldt!");
+        } else if (row.cells[3].children[0].value.length < 11){
+            alert("CPR skal bestå af 10 tal!");
+        } else {
+
+            var json = makeJSON(
+                id,
+                /*row.cells[1].innerHTML,
+                row.cells[2].innerHTML,
+                row.cells[3].innerHTML,*/
+                name_valid(row.cells[1].children[0].value),
+                ini_valid(row.cells[2].children[0].value),
+                cpr_valid(row.cells[3].children[0].value),
+                row.cells[4].children[0].checked
+            );
+
+            row.onclick = (function () {
+                editMode(this, id)
+            });
+            //row.className = "namebtn";
+
+            var currenttext;
+            for (var n = 1; n < 4; n++) {
+                //row.cells[n].contentEditable = "false";
+                currenttext = row.cells[n].children[0].value;
+                row.cells[n].innerHTML = currenttext;
+            }
+
+            if (row.cells[4].children[0].checked) {
+                row.cells[4].innerHTML = "Aktiv";
+                row.cells[4].className = "active";
+            } else {
+                row.cells[4].innerHTML = "Inaktiv";
+                row.cells[4].className = "inactive";
+            }
+
+            row.deleteCell(5);
+
+            ajaxUpdate(json);
         }
-
-        row.deleteCell(5);
-
-        ajaxUpdate(json);
-
     }
 
     // Deletes a row from the webpage

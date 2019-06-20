@@ -55,7 +55,7 @@ $(function(){
                 var dropdown = document.getElementById("raavareID_dropdown");
                 dropdown.appendChild(option);
                 $("#raavareID_dropdown").html($("#raavareID_dropdown option").sort(function (a, b) {
-                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+                    return parseInt(a.text) == parseInt(b.text) ? 0 : parseInt(a.text) < parseInt(b.text) ? -1 : 1
                 }))
             }
         }

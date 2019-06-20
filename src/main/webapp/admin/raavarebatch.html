@@ -20,7 +20,8 @@
             </tr>
             <tr>
                 <th>Råvare ID:</th>
-                <th><input type="text" id="rbatch_raavare_nr" placeholder="Råvare ID" required></th>
+                <th><select id="raavare_dropdown"></select></th>
+                <!-- <th><input type="text" id="rbatch_raavare_nr" placeholder="Råvare ID" required></th> -->
             </tr>
             <tr>
                 <th>Mængde:</th>
@@ -31,8 +32,7 @@
                 <th><input type="text" id="rbatch_supplier" placeholder="Leverandør" required></th>
             </tr>
             <tr>
-                <th></th>
-                <th><input type="submit" value="Opret råvarebatch"></th>
+                <th colspan="2"><input type="submit" value="Opret" class="submit_btn"></th>
             </tr>
         </table>
     </form>
@@ -40,13 +40,13 @@
 
 <!-- FIX ID NAMES-->
 <div id="rbatch_mydata">
-    <b><h2>Råvarebatchs i systemmet </h2></b>
+    <b><h2>Råvarebatches i systemet </h2></b>
     <table id="rbatch_table" border="1" cellpadding="2">
         <tr>
-            <td><b>ID</b></td>
-            <td><b>Råvare navn</b></td>
-            <td><b>Mængde</b></td>
-            <td><b>Leverandør</b></td>
+            <th><b>ID</b></th>
+            <th><b>Råvare</b></th>
+            <th><b>Mængde (kg)</b></th>
+            <th><b>Leverandør</b></th>
         </tr>
     </table>
 </div>

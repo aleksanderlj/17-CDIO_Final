@@ -16,7 +16,7 @@ public class RaavareBatchDAO implements IDAO<RaavareBatch>{
     ConnectionController connectionController = new ConnectionController();
 
     @Override
-    public int create(RaavareBatch raavareBatch) throws SQLException {
+    public int create(RaavareBatch raavareBatch) throws SQLException, DALException {
         Connection connection = connectionController.createConnection();
 
         try{
@@ -34,6 +34,7 @@ public class RaavareBatchDAO implements IDAO<RaavareBatch>{
         }catch (SQLException e){
             connection.rollback();
             e.printStackTrace();
+            throw new DALException("Error");
         }
         connection.close();
         return 0;

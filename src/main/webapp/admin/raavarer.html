@@ -14,7 +14,7 @@
     <form id="raavare_form" method="post">
         <table id="opretRaavare" class="opretTabel">
             <tr>
-                <th>Råvare ID:</th>
+                <th>ID:</th>
                 <th><input type="text" id="raavare_nr" placeholder="ID" required></th>
             </tr>
             <tr>
@@ -22,8 +22,7 @@
                 <th><input type="text" id="raavare_name" placeholder="Navn" required></th>
             </tr>
             <tr>
-                <th></th>
-                <th><input type="submit" value="Opret råvare"></th>
+                <th colspan="2"><input type="submit" value="Opret" class="submit_btn"></th>
             </tr>
         </table>
     </form>
@@ -31,11 +30,11 @@
 
 <!-- FIX ID NAMES-->
 <div id="raavare_mydata">
-    <b><h2>Råvare i systemmet </h2></b>
+    <b><h2>Råvare i systemet </h2></b>
     <table id="raavare_table" border="1" cellpadding="2">
         <tr>
-            <td><b>ID</b></td>
-            <td><b>Navn</b></td>
+            <th><b>ID</b></th>
+            <th><b>Navn</b></th>
         </tr>
     </table>
 </div>

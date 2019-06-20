@@ -39,6 +39,7 @@ public class ReceptDAO implements IDAO<Recept> {
         }catch (SQLException e){
             connection.rollback();
             e.printStackTrace();
+            throw new DALException("Error");
         }
         connection.close();
         return 0;
@@ -97,23 +98,28 @@ public class ReceptDAO implements IDAO<Recept> {
 
             PreparedStatement statement = connection.prepareStatement
                     ("SELECT * FROM recept;");
-            ResultSet resultSet = statement.executeQuery();
-            PreparedStatement statement1 = connection.prepareStatement
-                    ("SELECT * FROM receptKomp;");
-            ResultSet resultSet1 = statement1.executeQuery();
-            while(resultSet.next()){
-                receptList.add(new Recept());
-                receptList.get(receptList.size() - 1).setId(resultSet.getInt(1));
-                receptList.get(receptList.size() - 1).setNavn(resultSet.getString(2));
+            ResultSet resultSet_recept = statement.executeQuery();
+
+            while(resultSet_recept.next()){
+                Recept recept = new Recept();
+                recept.setId(resultSet_recept.getInt(1));
+                recept.setNavn(resultSet_recept.getString(2));
                 indholdsListe = new ArrayList<>();
-                while(resultSet1.next()){
-                    indholdsListe.add(new ReceptKomp());
-                    indholdsListe.get(indholdsListe.size()-1).setRaavareId(resultSet.getInt(2));
-                    indholdsListe.get(indholdsListe.size()-1).setNonNetto(resultSet.getDouble(3));
-                    indholdsListe.get(indholdsListe.size()-1).setTolerance(resultSet.getDouble(4));
+
+                PreparedStatement statement1 = connection.prepareStatement
+                        ("SELECT * FROM receptKomp WHERE receptID = ?;");
+                statement1.setInt(1, resultSet_recept.getInt(1));
+                ResultSet resultSet_komp = statement1.executeQuery();
+                while(resultSet_komp.next()){
+                    ReceptKomp komp = new ReceptKomp();
+                    komp.setRaavareId(resultSet_komp.getInt(2));
+                    komp.setNonNetto(resultSet_komp.getDouble(3));
+                    komp.setTolerance(resultSet_komp.getDouble(4));
+                    indholdsListe.add(komp);
                 }
                 indholdsArray = indholdsListe.toArray(new ReceptKomp[indholdsListe.size()]);
-                receptList.get(receptList.size() - 1).setIndholdsListe(indholdsArray);
+                recept.setIndholdsListe(indholdsArray);
+                receptList.add(recept);
             }
             connection.commit();
         }catch (SQLException e){

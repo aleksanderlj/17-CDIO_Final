@@ -2,30 +2,30 @@ package rest;
 
 import DAL.DAO.DAOController;
 import DAL.DAO.IDAO;
+import DAL.DAO.RaavareDAO;
 import DAL.DAO.UserDAO;
+import DAL.DTO.Raavare;
 import DAL.DTO.RaavareBatch;
 import DAL.DTO.User;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.SQLException;
 
-@Path("user")
-public class UserREST {
-    private IDAO<User> db = DAOController.getUserDAO();
+@Path("raavare")
+public class RaavareREST {
+    private IDAO<Raavare> db = DAOController.getRaavareDAO();
 
-    //private IDAO<User> db = new UserDAO();
+    //private IDAO<Raavare> db = new RaavareDAO();
 
     @POST
     @Path("create")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String createUser(User user) throws SQLException, IDAO.DALException {
+    public String createRaavare(Raavare raavare) throws SQLException, IDAO.DALException {
         String eString = "1";
 
         try {
-            db.create(user);
+            db.create(raavare);
         } catch (Exception e){
             eString = "-1";
         }
@@ -35,26 +35,26 @@ public class UserREST {
     @GET
     @Path("get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public User getUser(@PathParam("id") String id) throws SQLException, IDAO.DALException {
+    public Raavare getRaavare(@PathParam("id") String id) throws SQLException, IDAO.DALException {
         return db.get(Integer.parseInt(id));
     }
 
     @POST
     @Path("delete/{id}")
-    public void deleteUser(@PathParam("id") String id) throws SQLException, IDAO.DALException {
+    public void deleteRaavare(@PathParam("id") String id) throws SQLException, IDAO.DALException {
         db.delete(Integer.parseInt(id));
     }
 
     @POST
     @Path("update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void updateUser(User user) throws SQLException, IDAO.DALException {
-        db.update(user);
+    public void updateRaavare(Raavare raavare) throws SQLException, IDAO.DALException {
+        db.update(raavare);
     }
 
     @GET
     @Path("list")
-    public User[] getUserlist() throws SQLException, IDAO.DALException {
+    public Raavare[] getRaavarelist() throws SQLException, IDAO.DALException {
         return db.getList();
     }
 }

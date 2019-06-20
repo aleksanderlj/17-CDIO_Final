@@ -1,12 +1,3 @@
-//TODO Only one can be edited at a time? (Problem with radio buttons "name" making them all "one group")
-//-TODO RegEx på al data / Send DB exceptions hele vejen tilbage til JS
-//-TODO RegEx på data der skal sendes ind, fra Javascript siden.
-//-TODO Throw exception fra DB siden hvis ID overlapper
-//TODO Lav update felter til input i stedet for contenteditable, så du kan lave epic regex
-//-TODO Lav autmatisk bindestreg efter sjette tal når der skrives cpr
-//-TODO CPR pattern i form
-//TODO skriv "-1" i stedet for "-" i ajax create if-statement (lavet for at teste uden database...)
-
 $(function(){
 
     ajaxGetList();
@@ -36,7 +27,7 @@ $(function(){
             data : jsondata,
             contentType : 'application/json',
             success : function(data){
-                if (data === "-1") {
+                if (data == "-1") {
                     //$('#user_id').closest("th").append(" ");
                     alert("ID er allerede i brug!");
                 } else {
@@ -46,7 +37,7 @@ $(function(){
                 }
                 //alert(jsonParsed.navn);
             },
-            error : function(data){
+            error : function(){
                 alert("Upload cancelled:\nPlease make sure that all necessary information was entered");
             }
         });
@@ -61,7 +52,7 @@ $(function(){
             success : function(data){
                 alert(data.navn);
             },
-            error : function(data){
+            error : function(){
                 alert("An unexpected error has occured: GET_ERROR");
             }
         });
@@ -77,7 +68,7 @@ $(function(){
             success : function(data){
 
             },
-            error : function(data){
+            error : function(){
                 alert("Update cancelled:\nPlease make sure that all necessary information was entered");
             }
         });
@@ -95,7 +86,7 @@ $(function(){
                 }
                 sortTable();
             },
-            error : function(data){
+            error : function(){
                 alert("An unexpected error has occured: USERLIST_ERROR");
             }
         });
@@ -106,10 +97,10 @@ $(function(){
         $.ajax({
             url : 'rest/user/delete/' + id,
             type : 'POST',
-            success : function(data){
+            success : function(){
                 deleteRow(row, id);
             },
-            error : function(data){
+            error : function(){
                 alert("An unexpected error has occured: DELETE_ERROR");
             }
         });
@@ -125,9 +116,7 @@ $(function(){
             "aktiv" : aktiv
         };
 
-        var jsonstring = JSON.stringify(json);
-
-        return jsonstring;
+        return JSON.stringify(json);
     }
 
     //---------------------
@@ -160,19 +149,20 @@ $(function(){
             row.cells[4].className = "inactive";
         }
 
-        row.cells[1].onclick = (function() {editMode(this, data.id)});
-        row.cells[1].className = "namebtn";
+        row.onclick = (function() {editMode(this, data.id)});
+        //row.className = "namebtn";
     }
 
     function editMode(e, id){
-        var row = e.closest('tr');
+        //var row = e.closest('tr');
+        var row = e;
         var status = false;
         if (row.cells[4].innerHTML.localeCompare("Aktiv") === 0){
             status = true
         }
 
-        row.cells[1].onclick = null;
-        row.cells[1].className = null;
+        row.onclick = null;
+        //row.className = null;
 
         var currenttext;
         for(var n=1 ; n < 4 ; n++){
@@ -182,17 +172,17 @@ $(function(){
             row.cells[n].appendChild(makeInputField(currenttext));
         }
 
-        $(row.cells[1].children[0]).on("input", function(e) {
+        $(row.cells[1].children[0]).on("input", function() {
             this.value = name_valid(this.value);
             //name_valid(this);
         });
 
-        $(row.cells[2].children[0]).on("input", function(e) {
+        $(row.cells[2].children[0]).on("input", function() {
             this.value = ini_valid(this.value);
             //ini_valid(this);
         });
 
-        $(row.cells[3].children[0]).on("input", function(e) {
+        $(row.cells[3].children[0]).on("input", function() {
             this.value = cpr_valid(this.value);
             //cpr_valid(this);
         });
@@ -237,50 +227,68 @@ $(function(){
         var btn = document.createElement('input');
         btn.type = "button";
         btn.name = "updatebutton";
+        btn.className = "save_btn";
         btn.value = "Save";
         btn.onclick = (function() {saveRow(this, id)});
         return btn;
     }
 
     function saveRow(e, id){
+        event.stopPropagation();
         var row = e.closest('tr');
 
-        var json = makeJSON(
-            id,
-            /*row.cells[1].innerHTML,
-            row.cells[2].innerHTML,
-            row.cells[3].innerHTML,*/
-            name_valid(row.cells[1].children[0].value),
-            ini_valid(row.cells[2].children[0].value),
-            cpr_valid(row.cells[3].children[0].value),
-            row.cells[4].children[0].checked);
-
-        row.cells[1].onclick = (function() {editMode(this, id)});
-        row.cells[1].className = "namebtn";
-
-        var currenttext;
-        for(var n=1 ; n < 4 ; n++){
-            //row.cells[n].contentEditable = "false";
-            currenttext = row.cells[n].children[0].value;
-            row.cells[n].innerHTML = currenttext;
+        var empty = 0;
+        for (var i=1 ; i<row.cells.length-1 ; i++){
+            if(row.cells[i].children[0].value.length == 0){
+                empty++;
+            }
         }
 
-        if(row.cells[4].children[0].checked){
-            row.cells[4].innerHTML = "Aktiv";
-            row.cells[4].className = "active";
-        }else{
-            row.cells[4].innerHTML = "Inaktiv";
-            row.cells[4].className = "inactive";
+        if(empty != 0){
+            alert("Alle felter skal være udfyldt!");
+        } else if (row.cells[3].children[0].value.length < 11){
+            alert("CPR skal bestå af 10 tal!");
+        } else {
+
+            var json = makeJSON(
+                id,
+                /*row.cells[1].innerHTML,
+                row.cells[2].innerHTML,
+                row.cells[3].innerHTML,*/
+                name_valid(row.cells[1].children[0].value),
+                ini_valid(row.cells[2].children[0].value),
+                cpr_valid(row.cells[3].children[0].value),
+                row.cells[4].children[0].checked
+            );
+
+            row.onclick = (function () {
+                editMode(this, id)
+            });
+            //row.className = "namebtn";
+
+            var currenttext;
+            for (var n = 1; n < 4; n++) {
+                //row.cells[n].contentEditable = "false";
+                currenttext = row.cells[n].children[0].value;
+                row.cells[n].innerHTML = currenttext;
+            }
+
+            if (row.cells[4].children[0].checked) {
+                row.cells[4].innerHTML = "Aktiv";
+                row.cells[4].className = "active";
+            } else {
+                row.cells[4].innerHTML = "Inaktiv";
+                row.cells[4].className = "inactive";
+            }
+
+            row.deleteCell(5);
+
+            ajaxUpdate(json);
         }
-
-        row.deleteCell(5);
-
-        ajaxUpdate(json);
-
     }
 
     // Deletes a row from the webpage
-    function deleteRow(obj, id) {
+    function deleteRow(obj) {
         var index = obj.parentNode.parentNode.rowIndex;
         var table = document.getElementById("user_table");
         table.deleteRow(index);
@@ -313,7 +321,7 @@ $(function(){
     //     INPUT CHECKS
     //-----------------------
 
-    $('#user_id').on("input", function(e) {
+    $('#user_id').on("input", function() {
         this.value = id_valid(this.value);
         //id_valid(this);
     });
@@ -328,7 +336,7 @@ $(function(){
         return str;
     }
 
-    $('#user_name').on("input", function(e) {
+    $('#user_name').on("input", function() {
         this.value = name_valid(this.value);
     });
 
@@ -344,7 +352,7 @@ $(function(){
         return str;
     }
 
-    $('#user_ini').on("input", function(e) {
+    $('#user_ini').on("input", function() {
         this.value = ini_valid(this.value);
     });
 
@@ -357,7 +365,7 @@ $(function(){
         return str;
     }
 
-    $('#user_cpr').on("input", function(e) {
+    $('#user_cpr').on("input", function() {
         this.value = cpr_valid(this.value);
     });
 

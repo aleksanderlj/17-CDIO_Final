@@ -86,7 +86,7 @@ public class ProduktBatchKompDAO implements IKompDAO<ProduktBatchKomp> {
                 produktBatchKompArrayList.add(new ProduktBatchKomp(
                         resultSet.getInt(1),
                         resultSet.getInt(2),
-                        resultSet.getInt(3),
+                        resultSet.getDouble(3),
                         resultSet.getDouble(4),
                         resultSet.getInt(5)));
             }
@@ -115,7 +115,7 @@ public class ProduktBatchKompDAO implements IKompDAO<ProduktBatchKomp> {
                 produktBatchKompArrayList.add(new ProduktBatchKomp(
                         resultSet.getInt(1),
                         resultSet.getInt(2),
-                        resultSet.getInt(3),
+                        resultSet.getDouble(3),
                         resultSet.getDouble(4),
                         resultSet.getInt(5)));
             }

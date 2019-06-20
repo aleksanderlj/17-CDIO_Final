@@ -26,11 +26,11 @@ $(function () {
         );
 
         $.ajax({
-            url : 'rest/produktbatch/create',
-            type : 'POST',
-            data : jsondata,
-            contentType : 'application/json',
-            success : function(data){
+            url: 'rest/produktbatch/create',
+            type: 'POST',
+            data: jsondata,
+            contentType: 'application/json',
+            success: function (data) {
                 if (data == "-1") {
                     //$('#user_id').closest("th").append(" ");
                     alert("ID er ikke korrekt!");
@@ -241,9 +241,39 @@ $(function () {
 
 
     $('#udprint').click(function () {
-        sessionStorage.setItem("raavareBatchLenght", document.getElementById("KompHeaderID").rows.length);
-        $('#ProduktBatchID').load("admin/udprint.html");
+        var produktTable = document.getElementById("KompHeaderID");
+        var produktTableLength = produktTable.rows.length;
+        sessionStorage.setItem("raavareBatchLenght", produktTableLength);
 
+        var table = document.getElementById("prod_table");
+
+        //Test
+        sessionStorage.setItem("receptNavn", "YOLO");
+        sessionStorage.setItem("receptNavn", "Carpe Diem");
+        sessionStorage.setItem("status", "pls");
+        sessionStorage.setItem("startdato", "virk");
+        sessionStorage.setItem("slutdato", "uCunt");
+        //Test
+
+        var id = sessionStorage.getItem("produktID");
+        for (var i = 0; i < table.rows.length; i++) {
+            if (table.rows[i].cells[0].innerHTML == id) {
+                sessionStorage.setItem("receptNavn", table.rows[i].cells[1].innerHTML);
+                sessionStorage.setItem("status", table.rows[i].cells[2].innerHTML);
+                sessionStorage.setItem("startdato", table.rows[i].cells[3].innerHTML);
+                sessionStorage.setItem("slutdato", table.rows[i].cells[4].innerHTML);
+            }
+        }
+        for (var i = 1; i < produktTableLength; i++) {
+            sessionStorage.setItem("ravvareNavn" + i, produktTable.rows[i].cells[0].innerHTML);
+            sessionStorage.setItem("meangde" + i, produktTable.rows[i].cells[1].innerHTML);
+            sessionStorage.setItem("tolerance" + i, produktTable.rows[i].cells[2].innerHTML);
+            sessionStorage.setItem("tara" + i, produktTable.rows[i].cells[3].innerHTML);
+            sessionStorage.setItem("netto" + i, produktTable.rows[i].cells[4].innerHTML);
+            sessionStorage.setItem("batch" + i, produktTable.rows[i].cells[5].innerHTML);
+            sessionStorage.setItem("bruger" + i, produktTable.rows[i].cells[6].innerHTML);
+        }
+        $('#ProduktBatchID').load("admin/udprint.html");
     });
 
 
@@ -254,10 +284,18 @@ $(function () {
         var row = table.insertRow(rowCount);
         row.id = "row" + data.id;
 
-        var rBatch = $.grep(raavarebatchlist, function(e){ return e.id == data.raavareBatchID; })[0];
-        var raavare = $.grep(raavarelist, function(e){ return e.id == rBatch.raavareId; })[0];
-        var receptKomp = $.grep(recept, function(e){ return e.raavareId == raavare.id; })[0]; //TODO Recept har allerede alle komps i sig
-        var bruger = $.grep(brugerlist, function(e){ return e.id == data.brugerID; })[0];
+        var rBatch = $.grep(raavarebatchlist, function (e) {
+            return e.id == data.raavareBatchID;
+        })[0];
+        var raavare = $.grep(raavarelist, function (e) {
+            return e.id == rBatch.raavareId;
+        })[0];
+        var receptKomp = $.grep(recept, function (e) {
+            return e.raavareId == raavare.id;
+        })[0]; //TODO Recept har allerede alle komps i sig
+        var bruger = $.grep(brugerlist, function (e) {
+            return e.id == data.brugerID;
+        })[0];
 
         row.insertCell(0).innerHTML = raavare.navn;
         row.insertCell(1).innerHTML = receptKomp.tolerance;

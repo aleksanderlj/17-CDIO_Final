@@ -17,10 +17,11 @@ public class RaavareBatchTest {
     @Test
     public void raavareBatchTest() throws SQLException, IDAO.DALException {
         //opretter råvarebatch
-        RaavareBatch raavareBatch = new RaavareBatch(2,2,10.0,"Salt A/S");
+        RaavareBatch raavareBatch = new RaavareBatch(-1,2,10.0,"Salt A/S");
         //indsætter råvarebatchet i databasen
+        raavareBatchDAO.delete(-1);
         raavareBatchDAO.create(raavareBatch);
-        RaavareBatch received = raavareBatchDAO.get(2);
+        RaavareBatch received = raavareBatchDAO.get(-1);
         //Tester om dataen stemmer overens
         assertEquals(raavareBatch.getId(),received.getId());
         assertEquals(raavareBatch.getRaavareId(),received.getRaavareId());
@@ -31,12 +32,12 @@ public class RaavareBatchTest {
         raavareBatch.setLeverandoer("Salt ApS");
         raavareBatchDAO.update(raavareBatch);
         //Henter ned igen
-        RaavareBatch received2 = raavareBatchDAO.get(2);
-        assertEquals(received2.getId(),2);
+        RaavareBatch received2 = raavareBatchDAO.get(-1);
+        assertEquals(received2.getId(),-1);
         assertEquals(received2.getMaengde(),20.0,1e-15);
         assertEquals(received2.getLeverandoer(),"Salt ApS");
         //sletter oprettet data
-        raavareBatchDAO.delete(2);
+        raavareBatchDAO.delete(-1);
         //tester om det er blevet slettet
         RaavareBatch [] alleRaavareBatches = raavareBatchDAO.getList();
         for (RaavareBatch raavareBatch1 : alleRaavareBatches) {

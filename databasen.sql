@@ -1,19 +1,20 @@
 USE s185103;
 CREATE TABLE raavare(
-		raavareID INT PRIMARY KEY, 
+		raavareID INT PRIMARY KEY,
 		raavareNavn TEXT NOT NULL);
 
 CREATE TABLE recept(
 		receptID INT PRIMARY KEY, 
         receptNavn TEXT NOT NULL);
-        
+
 CREATE TABLE receptKomp(
 		receptID INT,
         raavareID INT,
         nonNetto DOUBLE(7,4) NOT NULL,
         tolerance DOUBLE(3,1) NOT NULL,
         FOREIGN KEY (receptID) REFERENCES recept(receptID),
-        FOREIGN KEY (raavareID) REFERENCES raavare(raavareID));
+        FOREIGN KEY (raavareID) REFERENCES raavare(raavareID),
+        CONSTRAINT PK_receptKomp PRIMARY KEY (receptID, raavareID));
 
 CREATE TABLE raavareBatch(
 		raavareBatchID INT PRIMARY KEY, 
@@ -41,7 +42,8 @@ CREATE TABLE produktBatchKomp(
         brugerID INT,
         FOREIGN KEY (produktBatchID) REFERENCES produktBatch(produktBatchID),
         FOREIGN KEY (raavareBatchID) REFERENCES raavareBatch(raavareBatchID),
-        FOREIGN KEY (brugerID) REFERENCES bruger(brugerID));
+        FOREIGN KEY (brugerID) REFERENCES bruger(brugerID),
+        CONSTRAINT PK_BatchKomp PRIMARY KEY (produktBatchID, raavareBatchID));
 
 CREATE TABLE bruger(
 		brugerID INT PRIMARY KEY,

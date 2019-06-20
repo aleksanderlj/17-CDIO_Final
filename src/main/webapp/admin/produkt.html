@@ -7,6 +7,7 @@
     <script src="js/produkt.js"></script>
 </head>
 <body>
+<div id="ProduktBatchID">
 <div class="produktFrom">
     <h2>Produktbatch</h2>
     <br>
@@ -40,22 +41,21 @@
 </div>
 
 <div class="seRecept" id="seKompdiv">
-    <div class="Sticky">
-        <table id="KompHeaderID">
-            <tr>
-                <th>Råvare</th>
-                <th>Mængde (kg)</th>
-                <th>Tolerance (%)</th>
-                <th>Tara (kg)</th>
-                <th>Netto (kg)</th>
-                <th>Batch</th>
-                <th>Bruger</th>
-            </tr>
-        </table>
-    </div>
+    <input type="button" id="udprint" value="Udskriv">
+    <table id="KompHeaderID">
+        <tr>
+            <th>Råvare</th>
+            <th>Mængde (kg)</th>
+            <th>Tolerance (%)</th>
+            <th>Tara (kg)</th>
+            <th>Netto (kg)</th>
+            <th>Batch</th>
+            <th>Bruger</th>
+        </tr>
+    </table>
     <table id="seKompTableID">
     </table>
 </div>
-
+</div>
 </body>
 </html>

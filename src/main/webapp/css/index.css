@@ -1,16 +1,18 @@
 /*
-TODO "Vælg en rolle" skal være pænt
+TODO -"Vælg en rolle" skal være pænt
 TODO Recept og produktbatch tabel i højre side
-TODO Gør så man kan trykke på en row for at ændre, ikke kun navnet (kun på de tabeller hvor man faktisk må ændre)
-TODO Edit knapper
+TODO -Gør så man kan trykke på en row for at ændre, ikke kun navnet (kun på de tabeller hvor man faktisk må ændre)
+TODO -Edit knapper
 TODO Dropdown felter skal have en "Vælg ID" i toppen
-TODO Make Recept Great Again
-TODO Edit input felter må ikke være tomme/skal følge rigtige pattern (kan fixes hvis hele tabel gøres til form
+TODO -Make Recept Great Again
+TODO -Edit input felter må ikke være tomme/skal følge rigtige pattern (kan fixes hvis hele tabel gøres til form
      og man kun kan edite ét felt af gangen?)
-TODO Test på alle sider hvad der sker hvis duplicate id skrives
-TODO Tilbage knap lidt mere mat + mindre i længden?
+TODO -Test på alle sider hvad der sker hvis duplicate id skrives
+TODO -Tilbage knap lidt mere mat + mindre i længden?
 TODO Start tabel header med bestemt længde? (pas på bruger input, så skal den i hvert fald newline selv)
 TODO Lav arraylist i stedet for mySQL
+TODO Fjern alt det hyggelige edit halløj (the grinches have spoken)
+TODO -Giv alle tabeller et "header felt" som spanner alle colonner og har tabellens navn (inklusiv højre tabeller)
 */
 
 body {
@@ -142,10 +144,10 @@ select{
     float: left;
     display: block;
 
-    width: 100px;
+    width: 80px;
     height: 30px;
     margin: 0px auto;
-    background-color: #ed2828;
+    background-color: #c65353;
     border-style: solid;
     border-color: darkred;
     cursor: pointer;

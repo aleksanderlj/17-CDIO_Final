@@ -23,7 +23,7 @@ $(function(){
             data : jsondata,
             contentType : 'application/json',
             success : function(data){
-                if (data === "-1") {
+                if (data == "-1") {
                     //$('#user_id').closest("th").append(" ");
                     alert("ID er allerede i brug!");
                 } else {
@@ -161,7 +161,7 @@ $(function(){
         //row.cells[1].className = null;
 
         var currenttext;
-        for(var n=2 ; n < 4 ; n++){
+        for(var n=2 ; n < 3 ; n++){
             currenttext = row.cells[n].innerHTML;
             row.cells[n].innerHTML = null;
             row.cells[n].appendChild(makeInputField(currenttext));
@@ -171,9 +171,12 @@ $(function(){
             this.value = double_valid(this.value);
         });
 
+        /*
         $(row.cells[3].children[0]).on("input", function() {
             this.value = name_valid(this.value);
         });
+
+         */
 
         row.insertCell(4).appendChild(makeUpdateButton(id, raavare));
     }
@@ -200,18 +203,24 @@ $(function(){
         event.stopPropagation();
         var row = e.closest('tr');
 
+        if ((row.cells[2].children[0].value.length == 0) || (row.cells[2].children[0].value) == "."){
+            row.cells[2].children[0].value = "0";
+        }
+
+
         var json = makeJSON(
             id,
             raavare.id,
             double_valid(row.cells[2].children[0].value),
-            name_valid(row.cells[3].children[0].value)
+            //name_valid(row.cells[3].children[0].value)
+            row.cells[3].innerHTML
         );
 
         row.onclick = (function() {editMode(this, id, raavare)});
         //row.cells[1].className = "namebtn";
 
         var currenttext;
-        for(var n=2 ; n < 4 ; n++){
+        for(var n=2 ; n < 3 ; n++){
             //row.cells[n].contentEditable = "false";
             currenttext = row.cells[n].children[0].value;
             row.cells[n].innerHTML = currenttext;

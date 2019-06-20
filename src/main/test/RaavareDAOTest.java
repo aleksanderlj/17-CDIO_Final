@@ -1,4 +1,6 @@
 import java.sql.SQLException;
+
+import DAL.DAO.IDAO;
 import DAL.DAO.RaavareDAO;
 import DAL.DTO.Raavare;
 import org.junit.Test;
@@ -10,7 +12,7 @@ public class RaavareDAOTest {
     private Raavare recievedRaavare = new Raavare();
 
     @Test
-    public void createTest() throws SQLException {
+    public void createTest() throws SQLException, IDAO.DALException {
         // Sletter bruger 7545, og opretter den igen.
         raavareDAO.delete(7545);
         raavareDAO.create(raavare);
@@ -21,7 +23,7 @@ public class RaavareDAOTest {
     }
 
     @Test
-    public void updateTest() throws SQLException {
+    public void updateTest() throws SQLException, IDAO.DALException {
         // Sletter, genopretter og opdatere brugeren, og sammenligner til sidst.
         raavareDAO.delete(7545);
         raavareDAO.create(raavare);

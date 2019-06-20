@@ -18,7 +18,7 @@ $(function(){
             data : jsondata,
             contentType : 'application/json',
             success : function(data){
-                if (data === "-1") {
+                if (data == "-1") {
                     //$('#user_id').closest("th").append(" ");
                     alert("ID er allerede i brug!");
                 } else {

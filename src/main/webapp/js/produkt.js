@@ -26,12 +26,12 @@ $(function () {
         );
 
         $.ajax({
-            url: 'rest/produktbatch/create',
-            type: 'POST',
-            data: jsondata,
-            contentType: 'application/json',
-            success: function (data) {
-                if (data === -1) {
+            url : 'rest/produktbatch/create',
+            type : 'POST',
+            data : jsondata,
+            contentType : 'application/json',
+            success : function(data){
+                if (data == "-1") {
                     //$('#user_id').closest("th").append(" ");
                     alert("ID er ikke korrekt!");
                 } else {
@@ -214,7 +214,11 @@ $(function () {
         }
 
         row.insertCell(3).innerHTML = data.opstartDato;
-        row.insertCell(4).innerHTML = data.slutDato;
+        if (data.slutDato != null) {
+            row.insertCell(4).innerHTML = data.slutDato;
+        } else {
+            row.insertCell(4).innerHTML = "-";
+        }
 
         row.onclick = (function () {
             seeInfo(this, data.id, recept.indholdsListe)
@@ -250,18 +254,10 @@ $(function () {
         var row = table.insertRow(rowCount);
         row.id = "row" + data.id;
 
-        var rBatch = $.grep(raavarebatchlist, function (e) {
-            return e.id == data.raavareBatchID;
-        })[0];
-        var raavare = $.grep(raavarelist, function (e) {
-            return e.id == rBatch.raavareId;
-        })[0];
-        var receptKomp = $.grep(recept, function (e) {
-            return e.raavareId == raavare.id;
-        })[0];
-        var bruger = $.grep(brugerlist, function (e) {
-            return e.id == data.brugerID;
-        })[0];
+        var rBatch = $.grep(raavarebatchlist, function(e){ return e.id == data.raavareBatchID; })[0];
+        var raavare = $.grep(raavarelist, function(e){ return e.id == rBatch.raavareId; })[0];
+        var receptKomp = $.grep(recept, function(e){ return e.raavareId == raavare.id; })[0]; //TODO Recept har allerede alle komps i sig
+        var bruger = $.grep(brugerlist, function(e){ return e.id == data.brugerID; })[0];
 
         row.insertCell(0).innerHTML = raavare.navn;
         row.insertCell(1).innerHTML = receptKomp.tolerance;

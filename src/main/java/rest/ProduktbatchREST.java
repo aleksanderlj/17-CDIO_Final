@@ -1,8 +1,11 @@
 package rest;
 
+import DAL.DAO.DAOController;
 import DAL.DAO.IDAO;
+import DAL.DAO.IKompDAO;
 import DAL.DAO.ProduktBatchDAO;
 import DAL.DTO.ProduktBatch;
+import DAL.DTO.ProduktBatchKomp;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -10,8 +13,9 @@ import java.sql.SQLException;
 
 @Path("produktbatch")
 public class ProduktbatchREST {
+    private IDAO<ProduktBatch> db = DAOController.getProduktBatchDAO();
 
-    private IDAO<ProduktBatch> db = new ProduktBatchDAO();
+    //private IDAO<ProduktBatch> db = new ProduktBatchDAO();
 
     @POST
     @Path("create")

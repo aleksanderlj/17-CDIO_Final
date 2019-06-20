@@ -1,9 +1,11 @@
 package rest;
 
+import DAL.DAO.DAOController;
 import DAL.DAO.IDAO;
 import DAL.DAO.RaavareDAO;
 import DAL.DAO.UserDAO;
 import DAL.DTO.Raavare;
+import DAL.DTO.RaavareBatch;
 import DAL.DTO.User;
 
 import javax.ws.rs.*;
@@ -12,7 +14,9 @@ import java.sql.SQLException;
 
 @Path("raavare")
 public class RaavareREST {
-    private IDAO<Raavare> db = new RaavareDAO();
+    private IDAO<Raavare> db = DAOController.getRaavareDAO();
+
+    //private IDAO<Raavare> db = new RaavareDAO();
 
     @POST
     @Path("create")

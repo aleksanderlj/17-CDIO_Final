@@ -38,21 +38,36 @@ public class RaavareDAO_Array implements IDAO<Raavare> {
 
     @Override
     public Raavare get(int id) throws DALException, SQLException {
-        return null;
+        Raavare raavare = null;
+        for(int n=0 ; n<raavareList.size() ; n++){
+            if (raavareList.get(n).getId() == id){
+                raavare = raavareList.get(n);
+            }
+        }
+        return raavare;
     }
 
     @Override
     public Raavare[] getList() throws DALException, SQLException {
-        return new Raavare[0];
+        return raavareList.toArray(new Raavare[raavareList.size()]);
     }
 
     @Override
     public void update(Raavare raavare) throws DALException, SQLException {
-
+        for (int n=0 ; n<raavareList.size() ; n++){
+            if (raavareList.get(n).getId() == raavare.getId()){
+                raavareList.set(n, raavare);
+            }
+        }
     }
 
     @Override
     public void delete(int id) throws DALException, SQLException {
-
+        for (int n=0 ; n<raavareList.size() ; n++){
+            if (raavareList.get(n).getId() == id){
+                raavareList.remove(n);
+                n--;
+            }
+        }
     }
 }

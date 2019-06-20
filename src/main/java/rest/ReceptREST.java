@@ -1,8 +1,10 @@
 package rest;
 
 
+import DAL.DAO.DAOController;
 import DAL.DAO.IDAO;
 import DAL.DAO.ReceptDAO;
+import DAL.DTO.RaavareBatch;
 import DAL.DTO.Recept;
 
 import javax.ws.rs.*;
@@ -11,7 +13,9 @@ import java.sql.SQLException;
 
 @Path("recept")
 public class ReceptREST {
-    private IDAO<Recept> db = new ReceptDAO();
+    private IDAO<Recept> db = DAOController.getReceptDAO();
+
+    //private IDAO<Recept> db = new ReceptDAO();
 
     @POST
     @Path("create")

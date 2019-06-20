@@ -24,11 +24,6 @@ public class UserREST {
             db.create(user);
         } catch (Exception e){
             eString = "-1";
-            /*
-            StringWriter sw = new StringWriter();
-            e.printStackTrace(new PrintWriter(sw));
-            eString = sw.toString();
-            */
         }
         return eString;
     }

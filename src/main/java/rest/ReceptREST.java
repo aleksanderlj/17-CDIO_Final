@@ -16,8 +16,15 @@ public class ReceptREST {
     @POST
     @Path("create")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createProdukt(Recept recept) throws SQLException, IDAO.DALException {
-        db.create(recept);
+    public String createProdukt(Recept recept) throws SQLException, IDAO.DALException {
+        String eString = "1";
+
+        try {
+            db.create(recept);
+        } catch (Exception e){
+            eString = "-1";
+        }
+        return eString;
     }
 
     @GET

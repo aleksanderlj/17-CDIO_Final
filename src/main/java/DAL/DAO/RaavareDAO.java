@@ -11,7 +11,7 @@ public class RaavareDAO implements IDAO<Raavare>{
     private ConnectionController connectionController = new ConnectionController();
 
     @Override
-    public int create(Raavare raavare) throws SQLException {
+    public int create(Raavare raavare) throws SQLException, DALException {
         Connection connection = connectionController.createConnection();
 
         try{
@@ -27,6 +27,7 @@ public class RaavareDAO implements IDAO<Raavare>{
         }catch (SQLException e){
             connection.rollback();
             e.printStackTrace();
+            throw new DALException("Error");
         }
         connection.close();
 

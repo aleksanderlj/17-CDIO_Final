@@ -145,10 +145,10 @@ select{
     float: left;
     display: block;
 
-    width: 100px;
+    width: 80px;
     height: 30px;
     margin: 0px auto;
-    background-color: #ed2828;
+    background-color: #c65353;
     border-style: solid;
     border-color: darkred;
     cursor: pointer;

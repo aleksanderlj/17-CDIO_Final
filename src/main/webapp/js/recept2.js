@@ -6,13 +6,16 @@ $(function(){
 
     $('#recept_form').submit(function(e) {
         e.preventDefault();
-        ajaxCreate();
+        if (document.getElementById("opretRecept2").rows.length < 3){
+            alert("Tilføj mindst én råvare først!")
+        } else {
+            ajaxCreate();
+        }
     });
 
-    $('#addrowbtn').submit(function(e) {
+    $('#recept_form2').submit(function(e) {
         e.preventDefault();
-        addKompRow()
-        document.getElementById('comp_raavare').value = '';
+        addKompRow();
         document.getElementById('comp_amount').value = '';
         document.getElementById('comp_tolerance').value = '';
     });
@@ -20,7 +23,7 @@ $(function(){
     function addKompRow() {
         var table = document.getElementById("opretRecept2");
         var row = table.insertRow(2);
-        var ravare = $('#comp_raavare').val();
+        var ravare = $('#raavareID_dropdown').val();
         var amount = $('#comp_amount').val();
         var tole = $('#comp_tolerance').val();
 
@@ -29,6 +32,22 @@ $(function(){
         row.insertCell(2).innerHTML = tole;
         row.insertCell(3).appendChild(makeRemoveRowBtn()); //TODO Videre her!
     }
+
+    function makeRemoveRowBtn() {
+        var btn = document.createElement('input');
+        btn.type = "button";
+        btn.name = "fjernKomp";
+        btn.value = "Fjern";
+        btn.onclick = (function() {removeRow(this)});
+        return btn;
+    }
+
+    function removeRow(obj) {
+        var index = obj.closest("tr").rowIndex;
+        var table = document.getElementById("opretRecept2");
+        table.deleteRow(index);
+    }
+
 
     function ajaxCreate() {
         var kompList = [];
@@ -58,7 +77,7 @@ $(function(){
             data : jsondata,
             contentType : 'application/json',
             success : function(data){
-                if (data === -1) {
+                if (data === "-1") {
                     alert("ID allerede i brug!");
                 } else {
                     var jsonParsed = JSON.parse(jsondata);

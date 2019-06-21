@@ -225,6 +225,9 @@ $(function () {
     }
 
     function seeInfo(e, produktbatchID, recept_indhold){
+        var x = document.getElementById("seKompdiv");
+        x.style.width = "500px";
+
         sessionStorage.setItem("produktID", produktbatchID);
         $(".selected_row").toggleClass("selected_row");
         $(e).toggleClass("selected_row");
@@ -365,4 +368,10 @@ $(function () {
         }
         return str;
     }
+
+    $('#lukKomp').click(function (e) {
+        var div = document.getElementById("seKompdiv");
+        div.style.width = "0";
+        //div.style.display = "none";
+    });
 });

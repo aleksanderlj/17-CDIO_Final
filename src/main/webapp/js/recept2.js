@@ -201,9 +201,13 @@ $(function () {
 
     function seeInfo(e, recept) {
         var x = document.getElementById("seReceptdiv");
+        x.style.width = "350px";
+        /*
         if (x.style.display === "none") {
             x.style.display = "block";
         }
+        */
+
         $(".selected_row").toggleClass("selected_row");
         $(e).toggleClass("selected_row");
 
@@ -257,7 +261,8 @@ $(function () {
 
     $('#lukRecept').click(function (e) {
         var div = document.getElementById("seReceptdiv");
-        div.style.display = "none";
+        div.style.width = "0";
+        //div.style.display = "none";
     });
 
 
